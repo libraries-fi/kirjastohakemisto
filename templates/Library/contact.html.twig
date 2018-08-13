@@ -1,0 +1,135 @@
+{% extends "Library/library.html.twig" %}
+
+{% if page_identifier is not defined %}
+  {% set page_identifier = "contact-info" %}
+{% endif %}
+
+{% block content %}
+  <div class="row">
+    <div class="col-md-8">
+      {{ block("page_header") }}
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <section class="contact-details">
+        <div class="row">
+          <div class="col-md-8">
+            <h2><i class="fa fa-map-o" aria-hidden="true"></i> {{ "Contact details"|trans }}</h2>
+            <div class="responsive-table">
+              <table class="table table-sm table-inverse contact">
+                <thead>
+                  <tr>
+                    <th>{% trans %}Address{% endtrans %}</th>
+                    <th>{% trans %}Mail address{% endtrans %}</th>
+                    <th>{% trans %}Email{% endtrans %}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>
+                      {{ library.name }} <br />
+                      {{ library.address.street }} <br/>
+                      {{ library.address.zipcode }}
+
+                      {% if library.address.area %}
+                        {{ library.address.area }} <br/> {{ library.address.city }}
+                      {% else %}
+                        {{ library.address.city }}
+                      {% endif %}
+                    </td>
+                    <td>
+                      {% if library.mailAddress %}
+                        {{ library.name }}<br />
+                        {% if library.mailAddress.box_number %}
+                          {% trans %}PO box{% endtrans %} {{ library.mailAddress.box_number }}<br/>
+                        {% endif %}
+                        {{ library.mailAddress.zipcode }}
+                        {{ library.mailAddress.area|upper }}
+                      {% endif %}
+                    </td>
+                    <td>{{ library.email }}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="col-md-4">
+            {% if library.coordinates %}
+              <div class="map-container">
+                <div class="map-scroll-block" id="block-{{ library.id }}"></div>
+                <div class="map-view" data-map="{{ library.coordinates }}" data-scroll-block="block-{{ library.id }}"></div>
+              </div>
+            {% else %}
+              <figure class="library-medium">
+                {% if library.pictures|length %}
+                  <img src="{{ library.pictures[0].files.medium }}" alt="{{ library.name }}"/>
+                {% endif %}
+              </figure>
+            {% endif %}
+          </div>
+        </div>
+      </section>
+      <section class="phone-numbers">
+        <h2><i class="fa fa-phone" aria-hidden="true"></i> {{ "Phone numbers"|trans }}</h2>
+
+        <div class="responsive-table">
+          <table class="table table-striped table-sm phones">
+            <thead class="thead-default">
+              <tr>
+                <th>{{ "Department"|trans }}</th>
+                <th>{{ "Number"|trans }}</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for number in library.phoneNumbers %}
+                <tr>
+                  <td>{{ number.name }}</td>
+                  <td>{{ number.number }}</td>
+                </tr>
+                {% if number.description %}
+                  <tr>
+                    <td colspan="2">{{ number.description }}</td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {% if library.persons is not empty %}
+        <section class="staff">
+          <h2><i class="fa fa-address-card-o" aria-hidden="true"></i> {{ "Staff"|trans }}</h2>
+
+          <div class="responsive-table">
+            <table class="table table-striped table-sm persons">
+              <thead class="thead-default">
+                <tr>
+                  <th>{% trans %}Name{% endtrans %}</th>
+                  <th>{% trans %}Job title{% endtrans %}</th>
+                  <th>{% trans %}Contact details {% endtrans %}</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for person in library.persons %}
+                  <tr>
+                    <td>{{ person.first_name }} {{ person.last_name }}</td>
+                    <td>
+                      {{ person.job_title }}
+                      {{ person.responsibility }}
+                    </td>
+                    <td>
+                      {{ person.email }}
+                      {{ person.phone }}
+                    </td>
+                  </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+        </section>
+      {% endif %}
+    </div>
+  </div>
+{% endblock %}

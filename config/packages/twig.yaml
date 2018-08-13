@@ -1,0 +1,6 @@
+twig:
+    paths:
+        '%kernel.project_dir%/templates': 'app'
+        '%kernel.project_dir%/bundles/BootstrapFourBundle/Resources/views': 'BootstrapFourBundle'
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'

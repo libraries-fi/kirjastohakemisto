@@ -1,0 +1,32 @@
+.map-hide-container {
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+.map-container {
+  // overflow: hidden;
+  position: relative;
+
+  .map-scroll-block {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    z-index: $zindex-modal;
+  }
+}
+
+.map-view {
+  width: 100%;
+  height: 100%;
+}
+
+.map-popup {
+  // NOTE: Using fullsreen API; no need to style this element to fake fullscreen.
+
+  padding-right: 0 !important;
+  z-index: $zindex-modal;
+
+  // Use nearly opaque bg to make it less confusing when tiles load slow.
+  background-color: rgba(0, 0, 0, .8);
+}

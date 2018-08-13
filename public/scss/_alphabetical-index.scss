@@ -1,0 +1,23 @@
+
+.index-content {
+  section {
+    margin-top: 1rem;
+    padding-right: 2rem !important;
+  }
+
+  section:nth-child(2n+1) {
+    background-color: $table-bg-accent;
+    padding-top: $headings-margin-bottom;
+  }
+
+  a {
+    margin-bottom: $headings-margin-bottom;
+    display: inline-block;
+  }
+
+  .row {
+    margin-left: 0;
+    margin-right: 0;
+  }
+
+}

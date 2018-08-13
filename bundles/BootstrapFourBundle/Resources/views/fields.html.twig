@@ -1,0 +1,30 @@
+{% use "bootstrap_3_layout.html.twig" %}
+
+{% block choice_widget_collapsed -%}
+  {% if not multiple %}
+    {% set attr = attr|merge({class: (attr.class|default('') ~ ' form-control custom-select')|trim}) %}
+  {% endif %}
+  {{- parent() -}}
+{%- endblock %}
+
+{% block file_widget %}
+  {% set attr = attr|merge({class: (attr.class|default('') ~ ' custom-file-input')|trim}) %}
+  <label class="custom-file">
+    <input type="file" class="custom-file-input"/>
+    <span class="custom-file-control"></span>
+  </label>
+{% endblock %}
+
+{% block checkbox_widget %}
+  <div class="custom-control custom-checkbox">
+    <input {{ block("widget_attributes") }} type="checkbox" class="custom-control-input" {% if value is defined %}value="{{ value }}"{% endif %} {% if checked %}checked{% endif %}/>
+    <label class="custom-control-label" for="{{ id }}">{{ label|trans }}</label>
+  </div>
+{% endblock %}
+
+{% block radio_widget %}
+  <div class="custom-control custom-radio">
+    <input {{ block("widget_attributes") }} type="radio" class="custom-control-input" {% if value is defined %}value="{{ value }}"{% endif %} {% if checked %}checked{% endif %}/>
+    <label class="custom-control-label" for="{{ id }}">{{ label|trans }}</label>
+  </div>
+{% endblock %}

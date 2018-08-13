@@ -1,0 +1,32 @@
+#page--library-services {
+  .content-peek {
+    font-size: small;
+  }
+
+  #library-services {
+    h2 > .badge {
+      line-height: inherit;
+      font-weight: unset;
+      vertical-align: middle;
+    }
+
+    .group {
+      ul {
+        list-style-type: none;
+        padding: 0;
+      }
+    }
+
+    .content-popup {
+      display: none;
+    }
+  }
+
+  .popover-body {
+    ul {
+      padding: 0;
+      margin: map-get($spacers, 2) 0;
+      list-style-position: inside;
+    }
+  }
+}

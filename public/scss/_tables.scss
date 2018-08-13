@@ -1,0 +1,18 @@
+.responsive-table {
+  overflow-x: auto;
+}
+
+.table-striped {
+  thead tr {
+    background-color: $gray-200;
+  }
+  tbody tr:nth-child(2n) {
+    background-color: $gray-100;
+  }
+  tbody tr:nth-child(2n+1) {
+    background-color: $white;
+  }
+  th, td {
+    padding-left: $spacer;
+  }
+}

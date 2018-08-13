@@ -1,0 +1,50 @@
+{
+  "name": "kirjastohakemisto",
+  "version": "1.0.0",
+  "description": "Finnish Library Database (frontend)",
+  "main": "\"\"",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "webpack --watch",
+    "build": "webpack --config webpack.prod.js"
+  },
+  "keywords": [
+    "kirjastot.fi",
+    "libraries.fi",
+    "biblioteken.fi",
+    "kirjastotietokanta",
+    "kirkanta"
+  ],
+  "author": "Kirjastot.fi",
+  "license": "MIT",
+  "dependencies": {
+    "babel-polyfill": "^6.26.0",
+    "bootstrap": "^4.1.1",
+    "chosen-js": "^1.8.5",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1",
+    "ol": "^4.6.5"
+  },
+  "devDependencies": {
+    "autoprefixer": "^8.5.0",
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.4",
+    "babel-preset-env": "^1.7.0",
+    "css-loader": "^0.28.11",
+    "date-fns": "^1.29.0",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "file-loader": "^1.1.11",
+    "i18next": "^11.3.2",
+    "i18next-sprintf-postprocessor": "^0.2.2",
+    "node-sass": "^4.9.0",
+    "postcss-loader": "^2.1.5",
+    "precss": "^3.1.2",
+    "sass-loader": "^7.0.1",
+    "twig": "^1.11.0",
+    "uglifyjs-webpack-plugin": "^1.2.5",
+    "webpack": "^3.12.0",
+    "webpack-merge": "^4.1.2",
+    "yaml-loader": "^0.5.0"
+  }
+}

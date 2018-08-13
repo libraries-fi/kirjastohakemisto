@@ -1,0 +1,76 @@
+.multi-select {
+  input {
+    margin-bottom: .5rem;
+  }
+  ul.multi-select-values {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: block;
+
+    li {
+      @extend .badge;
+      @extend .badge-info;
+      display: inline-block;
+      border-radius: 1.5rem;
+      line-height: 2;
+      margin-bottom: .3rem;
+      margin-right: .4rem;
+      padding: .25em .4em .2rem .4rem;
+      background-color: $highlight;
+      color: $body-color;
+
+      // NOTE: Badges use no-wrap but it causes Firefox to split them into two lines...
+      white-space: normal;
+    }
+    li > button {
+      line-height: 1rem;
+      padding: .1rem .3rem .3rem .37rem; /* with generic font: 0 3px 6px 3px */
+      background-color: white;
+      border-radius: 1.5rem;
+      margin-top: .15rem;
+      margin-left: .6rem;
+      margin-right: .15rem;
+    }
+    li > span {
+      margin-left: .5rem;
+      font-size: $font-size-sm;
+      font-weight: 400;
+    }
+  }
+}
+
+/*
+ * NOTE: The popup is moved outside the widget container by Tether, so cannot nest this rule either.
+ */
+.multi-select-popup {
+  width: 240px;
+  max-height: 15em;
+  overflow-y: auto;
+  background-color: $body-bg;
+  color: $body-color;
+  // border: 1px solid $gray-light;
+  border-top-width: 0;
+  padding: .5rem;
+  box-shadow: 3px 3px 5px rgba(0, 0, 0, .3);
+  z-index: 999;
+  position: absolute;
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  li {
+    max-width: 100%;
+    display: block;
+    white-space: nowrap;
+    cursor: pointer;
+    overflow-x: hidden;
+  }
+
+  li:hover {
+    background-color: darken($body-bg, 5%);
+  }
+}

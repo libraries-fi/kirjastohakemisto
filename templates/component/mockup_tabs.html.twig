@@ -1,0 +1,9 @@
+{% if tabs is defined and tabs %}
+  <ul class="nav nav-pills">
+    {% for link in tabs %}
+      <li class="nav-item">
+        <a class="nav-link{% if app.request.pathInfo == link.url %} active{% endif %}" href="{{ link.url }}">{{ link.title|trans }}</a>
+      </li>
+    {% endfor %}
+  </ul>
+{% endif %}

@@ -1,0 +1,92 @@
+{% extends "base.html.twig" %}
+
+{% if page_identifier is not defined %}
+  {% set page_identifier = "index" %}
+{% endif %}
+
+{% if page_title is not defined %}
+  {% set page_title = "Alphabetical index"|trans %}
+{% endif %}
+
+{% block search_form %}
+  <form>
+    <fieldset>
+      <!-- <legend>Foo</legend> -->
+
+      <div class="form-group">
+        <label>Kunta</label>
+        <select class="custom-select">
+          <option>- Kaikki -</option>
+          <!-- <option>Espoo</option>
+          <option>Helsinki</option>
+          <option>Vantaa</option> -->
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Kirjastokimppa</label>
+        <select class="custom-select">
+          <option>- Kaikki -</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label>Tyyppi</label>
+        <select class="custom-select">
+          <option>- Kaikki -</option>
+        </select>
+      </div>
+    </fieldset>
+  <form>
+{% endblock %}
+
+{% block main %}
+  <div class="main content">
+    {#
+    <div class="row">
+      <nav class="col">
+        {%- set breadcrumb = [
+          {url: path("index"), title: "Frontpage"},
+          {url: path("library.index"), title: "Libraries"},
+        ] %}
+        {% include "component/mockup_breadcrumb.html.twig" %}
+      </nav>
+    </div>
+    #}
+    <main class="container">
+      {% block index_content %}
+        <!--<h1>{% trans %}Alphabetical index{% endtrans %}</h1>-->
+        <h1>{% trans %}Index{% endtrans %}: {% trans %}Libraries{% endtrans %}</h1>
+        <nav>
+          {%- set tabs = [
+            {url: path("library.index"), title: "Alphabetical index"},
+            {url: path("library.index_by_consortium"), title: "By consortium"},
+            {url: path("library.index_by_city"), title: "By city"},
+          ] %}
+          {% include "component/mockup_tabs.html.twig" %}
+        </nav>
+
+        {# { block("search_form") } #}
+
+        {% for letter, group in libraries %}
+          <section class="row">
+            <div class="col">
+              <h2 id="{{ letter }}">{{ letter }}</h2>
+            </div>
+            {% block result_iter_list %}
+              <ul class="col-12 cols">
+                {% for batch in group|batch(4) %}
+                  {% for library in batch %}
+                    {% if library.city %}
+                      <li class="index-item">
+                        <a href="{{ path('library.show', {city: library.city.slug, slug: library.slug}) }}">{{ library.name }}</a>
+                      </li>
+                    {% endif %}
+                  {% endfor %}
+                {% endfor %}
+              </ul>
+            {% endblock %}
+          </section>
+        {% endfor %}
+      {% endblock %}
+    </main>
+  </div>
+{% endblock %}

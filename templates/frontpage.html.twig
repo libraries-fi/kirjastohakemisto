@@ -1,0 +1,67 @@
+{% extends "base.html.twig" %}
+
+{% if page_identifier is not defined %}
+  {% set page_identifier = "frontpage" %}
+{% endif %}
+
+{% block _library_quick_search_go_widget %}
+  <button type="submit" class="btn btn-lg btn-primary">
+    <i class="fa fa-search"></i>
+  </button>
+{% endblock %}
+
+{% block main %}
+
+<main class="main">
+  <div class="container showcase-wrapper">
+    <h1 class="sr-only">{% trans %}Finnish Library Directory{% endtrans %}</h1>
+
+    <p id="hakemisto-intro" class="h2 text-justify mb-4">
+      {% trans %}frontpage.description{% endtrans %}
+    </p>
+
+    <p class="mb-4">
+      <a href="{{ path('search') }}" class="btn btn-primary">
+        <i class="fa fa-search mr-2"></i>
+        {% trans %}Find your library{% endtrans %}
+      </a>
+    </p>
+
+    <h2 class="sr-only">{% trans %}Showcasing libraries{% endtrans %}</h2>
+
+    {% if location is defined %}
+      <p class="mb-1">{{ "Suggestions near %s."|trans|format(location.city) }}</p>
+    {% endif %}
+
+    <ul class="showcase list-unstyled">
+      {% for i in range(0, 10) %}
+        {% if i < libraries|length %}
+          {% set library = libraries[i] %}
+          <li class="card">
+            <div class="photo">
+              <div class="photo-frame">
+                {% if library.pictures is not empty %}
+                  <img src="{{ library.pictures[0].files.small }}" alt=""/>
+                {% endif %}
+              </div>
+            </div>
+            <div class="card-body">
+              <a class="card-title text-center mb-0 h4 text-primary" href="{{ path('library.show', {city: library.city.slug, slug: library.slug}) }}">{{ library.name }}</a>
+            </div>
+          </li>
+        {% else %}
+          <li class="card empty"></li>
+        {% endif %}
+      {% endfor %}
+    </ul>
+  </div>
+</main>
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/x-twig" id="twig-library-card">
+    {{- template("Library/partial/card.html.twig") -}}
+  </script>
+
+  {{ parent() }}
+{% endblock %}

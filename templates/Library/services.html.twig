@@ -1,0 +1,113 @@
+{% extends "Library/library.html.twig" %}
+
+{% if page_identifier is not defined %}
+  {% set page_identifier = "library-services" %}
+{% endif %}
+
+{% block content %}
+  {% set DESCRIPTION_PEEK_LENGTH = 80 %}
+
+  <div class="row">
+    <div class="col-md-8">
+      {{ block("page_header") }}
+    </div>
+  </div>
+
+  {#
+  <p>{{ "Cannot find what you're looking for? Try searching for the needed service using the service index."}}</p>
+  #}
+
+  <p>{% trans %}Click on the links for additional information.{% endtrans %}</p>
+
+  <section id="library-services">
+    {% for group in library.services.groups %}
+    <div class="group">
+      <h2>
+        {{ group|trans }}
+        <span class="badge">
+          {% if library.services[group]|length == 1 %}
+            {% trans %}1 service{% endtrans %}
+          {% else %}
+            {{ "%d services"|trans|format(library.services[group]|length) }}
+          {% endif %}
+        </span>
+      </h2>
+
+      <ul class="cols">
+        {% for service in library.services[group] %}
+          {% if service.custom_name %}
+            {% set sname = service.custom_name %}
+          {% else %}
+            {% set sname = service.name %}
+          {% endif %}
+
+          <li class="index-item">
+            {% if (service.description ~ service.short_description ~ service.email ~ service.website ~ service.price)|trim|length %}
+              <a tabindex="0" href="#s-{{ service.unique_id }}" id="s-{{ service.unique_id }}" data-toggle="popover" data-target="#sp-{{ service.unique_id }}" role="button", aria-expanded="false" aria-controls="sp-{{ service.unique_id }}">{{ sname }}</a>
+
+              <div class="content-popup" data-content-popup id="sp-{{ service.unique_id }}">
+                {% if service.short_description %}
+                  <p>{{ service.short_description }}</p>
+                {% endif %}
+
+                {% if service.description %}
+                  <div class="user-input">{{ service.description }}</div>
+                {% endif %}
+
+                {% if service.email %}
+                  <p>{{ service.email }}</p>
+                {% endif %}
+
+                {% if service.price %}
+                  <p>{{ service.price }}</p>
+                {% endif %}
+
+                <ul>
+                  <li>
+                    <a href="{{ url('service.show', {type: service.type, slug: service.slug} )}}">{% trans %}Availability in other libraries{% endtrans %}</a>
+                  </li>
+
+                  {% if service.website starts with "http" %}
+                    <li>
+                      <a href="{{ service.website }}" class="external-link">{% trans %}Additional information{% endtrans %}</a>
+                    </li>
+                  {% endif %}
+                </ul>
+              </div>
+            {% else %}
+              <a id="s-{{ service.unique_id }}">{{ sname }}</a>
+            {% endif %}
+
+
+              {% if service.description %}
+              {#
+              <div class="content-peek" data-content-peek>
+                <div class="content-peek-cover">
+                  <button data-peek-toggle aria-label="{{ 'Show description'|trans }}" aria-haspopup="true" aria-expanded="false" aria-controls="s-{{ loop.index }}"></button>
+                </div>
+                <div class="content-peek-content user-input" id="s-{{ loop.index }}">
+                  {{ service.description }}
+
+                  {% if service.website starts with "http" %}
+                    <a href="{{ service.website }}" class="external-link">some text</a>
+                  {% endif %}
+                </div>
+              </div>
+              #}
+
+              {#
+              <div class="content-peek">
+                <span class="peek-toggle">{{ service.description|sliceText(0, DESCRIPTION_PEEK_LENGTH) }}</span>
+                {% if service.description|length > DESCRIPTION_PEEK_LENGTH %}
+                  <span class="peek-rest d-none">{{ service.description|sliceText(DESCRIPTION_PEEK_LENGTH + 1) }}</span>
+                {% endif %}
+              </div>
+              #}
+            {% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    </div>
+    {% endfor %}
+  </section>
+{% endblock %}

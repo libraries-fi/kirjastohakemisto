@@ -1,0 +1,19 @@
+html {
+  height: 100%;
+}
+
+body {
+  min-height: 100%;
+  display: flex;
+  flex-flow: column;
+}
+
+.main {
+  display: flex;
+  flex-flow: column;
+  flex-grow: 1;
+
+  > .row:last-child {
+    flex-grow: 1;
+  }
+}

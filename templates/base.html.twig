@@ -1,0 +1,186 @@
+{%- set links = [[
+  {
+    href: path("search"),
+    title: "Search"|trans
+  },
+  {
+    href: path("library.index"),
+    title: "Libraries"|trans
+  },
+  {
+    href: path("service.index"),
+    title: "Services"|trans
+  }
+], [
+  {
+    href: path("info"),
+    title: "Info"|trans,
+  },
+  {
+    href: "https://hakemisto.kirjastot.fi",
+    title: "Suomeksi",
+    locale: "fi",
+  },
+  {
+    href: "https://registret.biblioteken.fi",
+    title: "Svenska",
+    locale: "sv"
+  },
+  {
+    href: "https://directory.libraries.fi",
+    title: "English",
+    locale: "en"
+  }
+]] -%}
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+  <title>{% if page_title is defined %}{{ page_title }} – {% endif %}{% trans %}Finnish Library Directory{% endtrans %}</title>
+
+  {% block meta_description %}
+    <meta name="description" content="{{ 'frontpage.description'|trans|replace({'&shy;': ''}) }}"/>
+  {% endblock %}
+
+  <meta property="og:url" content="{{ url(app.request.attributes.get('_route'), app.request.attributes.get('_route_params')) }}"/>
+  <meta property="og:title" content="{%- if page_title is defined %}{{ page_title }}{% else %}{% trans %}Finnish Library Directory{% endtrans %}{% endif %}"/>
+
+  {% block fb_meta %}
+    {% block fb_meta_description %}
+      <meta property="og:description" content="{{ 'frontpage.description'|trans|replace({'&shy;': ''}) }}"/>
+    {% endblock %}
+    {% block fb_meta_image %}
+      <meta property="og:image" content="{{ 'https://%s/images/some/fb.cover.%s.jpeg'|format(app.request.host, app.request.locale) }}"/>
+      <meta property="og:image:width" content="1200"/>
+      <meta property="og:image:height" content="630"/>
+    {% endblock %}
+  {% endblock %}
+
+  {% block styles %}
+    <style>
+      @import url("{{ asset('node_modules/chosen-js/chosen.min.css') }}");
+      @import url("{{ asset('node_modules/font-awesome/css/font-awesome.min.css') }}");
+      @import url("{{ asset('node_modules/ol/ol.css') }}");
+      @import url("{{ asset('dist/hakemisto.css') }}");
+      @import url("https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700|Roboto:300,300i,400,700");
+    </style>
+  {% endblock %}
+</head>
+<body {% if page_identifier is defined %}id="page--{{ page_identifier }}"{% endif %}>
+  {% block layout_header %}
+
+    <div class="kifibar" id="l-nav-kifi">
+      <div class="container">
+        {% if app.request.locale == "fi" %}
+          <a href="https://www.kirjastot.fi" title="{{ 'Return to Kirjastot.fi'|trans }}">
+            <img src="{{ asset('images/kirjastotfi-logo-small-fi.svg') }}" alt=""/>
+          </a>
+          <div class="public-library">
+            <img src="{{ asset('images/yleisten-kirjastojen-tunnus-fi.svg') }}" alt=""/>
+          </div>
+        {% elseif app.request.locale == "sv" %}
+          <a href="http://www.biblioteken.fi" title="{{ 'Return to Kirjastot.fi'|trans }}">
+            <img src="{{ asset('images/kirjastotfi-logo-small-sv.svg') }}" alt=""/>
+          </a>
+          <div class="public-library">
+            <img src="{{ asset('images/yleisten-kirjastojen-tunnus-sv.svg') }}" alt=""/>
+          </div>
+        {% else %}
+          <a href="https://www.libraries.fi" title="{{ 'Return to Kirjastot.fi'|trans }}">
+            <img src="{{ asset('images/kirjastotfi-logo-small-en.svg') }}" alt=""/>
+          </a>
+          <div class="public-library">
+            <img src="{{ asset('images/yleisten-kirjastojen-tunnus-en.svg') }}" alt=""/>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="container main-navigation sticky-top">
+      <nav class="navbar navbar-expand-md" id="l-nav-main">
+        <div class="container">
+          <a class="navbar-brand" href="{{ path('front') }}">{% trans %}Library Directory{% endtrans %}</a>
+
+          <button type="button" class="navbar-toggler navbar-toggler-left collapsed" data-toggle="collapse" data-target="#nav-main-collapse" aria-controls="nav-main-collapse" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="fa fa-bars" aria-hidden="true"></i>
+          </button>
+
+          <div class="collapse navbar-collapse" id="nav-main-collapse">
+            {% include "component/nav-main.html.twig" %}
+          </div>
+        </div>
+      </nav>
+      <div class="container break-bar-container">
+        <div class="break-bar gap">
+          &nbsp;
+        </div>
+        <div class="break-bar">
+          &nbsp;
+        </div>
+      </div>
+    </div>
+
+    {% set breadcrumb = block("breadcrumb") %}
+
+    {% if breadcrumb|trim|length > 0 %}
+      <div class="container">
+        {% block breadcrumb %}{% endblock %}
+      </div>
+    {% endif %}
+  {% endblock %}
+
+  {% block main %}
+    <main class="container main">
+      <div class="row">
+        <div class="col-12">
+          <p>Lorem ipsum dolor sit amet.</p>
+        </div>
+      </div>
+    </main>
+  {% endblock %}
+
+  {% block footer %}
+    <footer class="footer">
+      {{ render(controller("App\\Controller\\FooterController::footer")) }}
+    </footer>
+
+  {% endblock %}
+
+  {% block scripts %}
+    <script type="text/x-service-popover">
+      <div class="popover service-popover shadow-sm" role="dialog" aria-labelledby="my-popover-header" aria-describedby="my-popover-body">
+        <div class="arrow"></div>
+        <h3 class="popover-header" id="my-popover-header"></h3>
+        <div class="popover-body" id="my-popover-body"></div>
+
+        <div class="text-center">
+          <button type="button" class="btn btn-sm btn-primary py-0 mb-2">{% trans %}Close{% endtrans %}</button>
+        </div>
+      </div>
+    </script>
+
+    <script src="{{ asset('node_modules/jquery/dist/jquery.min.js') }}"></script>
+    <script src="{{ asset('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('dist/hakemisto.js') }}"></script>
+
+    <script src="https://gfx.kirjastot.fi/shared-footer/collapse.js"></script>
+  {% endblock %}
+
+  {% block google_analytics %}
+    {% if app.environment == "prod" %}
+      <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+        ga('create', 'UA-707659-23', 'auto');
+        ga('set', 'anonymizeIp', true);
+        ga('send', 'pageview');
+      </script>
+    {% endif %}
+  {% endblock %}
+</body>
+</html>

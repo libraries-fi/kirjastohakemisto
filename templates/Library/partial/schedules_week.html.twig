@@ -1,0 +1,145 @@
+{#
+  NOTE: This template is also used client-side, hence the following restrictions apply:
+  - Only use "foo"|trans and not the {% trans %} tag.
+
+#}
+{% if library.schedules is not empty %}
+  <section class="library-schedules schedules-weekly" data-paged-table>
+    <h3 class="sr-only">{{ "Opening hours"|trans }}</h3>
+
+    <button type="button" class="btn btn-sm btn-light btn-back" data-previous-page aria-hidden="true">
+      <span class="btn-arrow">&#x276E;</span>
+    </button>
+
+    <button type="button" class="btn btn-sm btn-light btn-next" data-next-page aria-hidden="true">
+      <span class="btn-arrow">&#x276F;</span>
+    </button>
+
+    <table class="table table-sm">
+      {#
+        0 := self-service,
+        1 := regular
+      #}
+      {% set EXPAND_ROWS = 0 %}
+
+      {% for schedules in library.schedules|batch(7) %}
+        {% set current_time = "now"|date("H:i") %}
+        {% set current_date = "now"|date("Y-m-d") %}
+        {% set statuses = ["closed", "open", "self-service"] %}
+        {% set week = schedules|first.date|date("W") %}
+
+        {% set highlight_base_rows = false %}
+
+        {% for day in schedules %}
+          {% if day.times|length > 1 %}
+            {% set highlight_base_rows = true %}
+          {% endif %}
+        {% endfor %}
+
+        <tbody {% if schedules|keys|first == 0 %}data-current-page{% endif %}>
+          <tr class="thead-light">
+            <th colspan="3">{{ "Week"|trans }} {{ week }}</th>
+          </tr>
+
+          {% for day in schedules %}
+            {% if day.date < current_date %}
+              {% set scope = "past" %}
+            {% elseif day.date == current_date %}
+              {% set scope = "current" %}
+            {% endif %}
+
+            {% if day.status is not null %}
+              {% set status = "status-" ~ statuses[day.status] %}
+            {% else %}
+              {% set status = null %}
+            {% endif %}
+
+            {% set row_class = "time " %}
+
+            {% if scope is defined %}
+              {% set row_class = row_class ~ scope ~ "-date " %}
+            {% endif %}
+
+            {% if status is defined %}
+              {% set row_class = row_class ~ status ~ " " %}
+            {% endif %}
+
+            {% set row_span = 0 %}
+
+            {% if EXPAND_ROWS is not null and day.times|length > 0 %}
+              {% for time in day.times %}
+                {% if true or time.closed is defined or time.staff == EXPAND_ROWS %}
+                  {% set row_span = row_span + 1 %}
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+
+            <tr {% if row_class %}class="{{ row_class }}"{% endif %}>
+              <th scope="row" {% if row_span %}rowspan="{{ row_span + 1 }}"{% endif %}>
+                <time datetime="{{ day.date|date('Y-m-d') }}">{{ day.date|date("j.n.") }}</time>
+              </th>
+              <td>
+                {{ day.date|date('l')|trans }}
+
+                {% if day.info %}
+                  <br/>
+                  <small>{{ day.info }}</small>
+                {% endif %}
+              </td>
+              <td>
+                {%- if day.closed %}
+                  <em>{{ "Closed"|trans }}</em>
+                {% else %}
+                  <time datetime="{{ day.opens }}">{{ day.opens }}</time> – <time datetime="{{ day.closes }}">{{ day.closes }}</time>
+                {% endif -%}
+              </td>
+            </tr>
+            {% if row_span %}
+              {% for time in day.times %}
+                {% if time.closed is defined %}
+                  {% set sub_row_class = row_class ~ "time--closed" %}
+                {% elseif time.staff %}
+                  {% set sub_row_class = row_class ~ "time--with-staff " %}
+                {% else %}
+                  {% set sub_row_class = row_class ~ "time--no-staff" %}
+                {% endif %}
+
+                {% if true or time.closed is defined or time.staff == EXPAND_ROWS %}
+                  <tr class="time--sub {{ sub_row_class }}">
+                    <td>
+                      {% if time.closed is defined %}
+                        {{ "Library is closed"|trans }}
+                      {% elseif time.staff %}
+                        {{ "Staff present"|trans }}
+                      {% else %}
+                        {{ "Self-service"|trans }}
+                      {% endif %}
+                    </td>
+                    <td>{{ time.opens }} – {{ time.closes }}</td>
+                  </tr>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
+          {% endfor %}
+        </tbody>
+      {% endfor %}
+    </table>
+
+    {% set periods = refs.period|filterByField("description")|sortByField("valid_until")|sortByField("valid_from") %}
+
+    <div class="schedules-period pl-1 pb-2">
+      {% for period in periods %}
+        <div class="pb-1">
+          {% if period.valid_until %}
+            {% if period.valid_from == period.valid_until %}
+              <b>{{ period.valid_from|dateloc }}:</b>
+            {% else %}
+              <b>{{ period.valid_from|dateloc }} – {{ period.valid_until|dateloc }}:</b>
+            {% endif %}
+            <span>{{ period.description }}</span>
+          {% endif %}
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+{% endif %}

@@ -1,0 +1,120 @@
+.library-card {
+  @extend .py-2;
+  position: relative;
+
+  display: flex;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  border-bottom: 1px solid $input-border-color;
+
+  .photo {
+    @extend .d-flex;
+    flex-flow: column;
+    /*justify-content: center;*/
+  }
+
+  .photo-frame {
+    border-right: 1px solid white;
+    border-radius: $border-radius;
+  }
+
+  .contact {
+    @extend .ml-2;
+    @extend .d-flex;
+
+    flex-grow: 1;
+    flex-flow: column;
+  }
+
+  .item-location {
+    display: flex;
+    flex-grow: 1;
+  }
+
+  .item-schedules {
+    @extend .pl-2;
+    @extend .d-flex;
+
+    text-align: center;
+    justify-content: flex-end;
+    flex-flow: column;
+    margin-top: map-get($spacers, 1);
+
+    .item--icon {
+      margin: auto map-get($spacers, 2);
+      color: green;
+    }
+
+    .item--data {
+      flex-grow: 1;
+      margin: auto;
+      height: auto;
+    }
+  }
+
+  @include media-breakpoint-up("xs") {
+    .photo {
+      width: 55px;
+    }
+
+    .photo-frame {
+      min-width: 55px;
+      width: 55px;
+      height: 75px;
+        img {
+          max-width: 150px;
+        }
+    }
+
+    .item-schedules {
+      flex-basis: 8rem;
+      min-width: 8rem;
+    }
+  }
+
+  @include media-breakpoint-up("md") {
+    .photo {
+      width: 140px;
+    }
+
+    .photo-frame {
+      background-position: center;
+      min-width: 140px;
+      width: 140px;
+      height: 100px;
+    }
+
+    .item-schedules {
+      min-width: 9rem;
+      flex-basis: 9rem;
+    }
+  }
+
+  @include media-breakpoint-only("xl") {
+    .photo {
+      width: 180px;
+    }
+
+    .photo-frame {
+      min-width: 180px;
+      width: 180px;
+    }
+  }
+
+  .item-title {
+    font-weight: $font-weight-normal;
+    line-height: 1.2;
+    //overflow-wrap: break-word;
+    //word-break: break-all;
+  }
+
+  @include media-breakpoint-up("md") {
+    .item-title {
+      font-size: $font-size-lg;
+    }
+  }
+
+  .item-hours > span {
+    white-space: nowrap;
+  }
+}

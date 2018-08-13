@@ -1,0 +1,15 @@
+check_schedules: 'Kontrollera öppettiderna'
+choose: '- Välj -'
+gallery:
+    close: 'Stäng galleriet'
+    show_picture: 'Visa bild'
+load_more: 'Ladda fler resultat'
+map: Karta
+search:
+    total: 'Sökningen gav %d resultat.'
+status:
+    closed: Stängt
+    open: Öppet
+    opens_at_time: 'Öppnar kl. %s'
+    self_service: Meröppet
+tomorrow: Imorgon

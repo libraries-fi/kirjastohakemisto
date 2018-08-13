@@ -1,0 +1,31 @@
+
+{% form_theme search_form "form/frontpage_sidebar.html.twig" %}
+
+<div class="details pb-0">
+  <div class="d-flex d-lg-block">
+    <button type="button" class="btn btn-link d-lg-none pl-0" id="toggle-advanced-search" data-target="#library-search-form-content" data-toggle="details" aria-expanded="false" aria-controls="library-search-form-content">{% trans %}Advanced search{% endtrans %}</button>
+
+    <label class="d-none d-lg-block">{% trans %}Options{% endtrans %}</label>
+    <div id="geo-field">
+      {{ form_widget(search_form.geo) }}
+    </div>
+  </div>
+  <div class="details-content pb-0" id="library-search-form-content">
+    <div class="row">
+      <div class="col-md-6 col-lg-12">
+        {{ form_row(search_form.geo) }}
+        {{ form_row(search_form.o) }}
+        {{ form_row(search_form.t) }}
+
+        <div class="d-none">
+          {{ form_row(search_form.a) }}
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-12">
+        {{ form_row(search_form.m) }}
+        {{ form_row(search_form.s) }}
+      </div>
+    </div>
+    {{ form_widget(search_form.submit, {attr: {class: 'btn-primary sr-only'}}) }}
+  </div>
+</div>

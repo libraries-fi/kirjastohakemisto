@@ -1,0 +1,27 @@
+#page--index {
+  .nav-pills {
+    margin-bottom: map-get($spacers, 4);
+  }
+
+  @include media-breakpoint-up("sm") {
+    sup {
+      display: none;
+    }
+  }
+}
+
+/*
+ * This item definition is used also on library's service listing,
+ * so do not scope it with the page ID.
+ */
+.index-item {
+  a {
+    display: inline-block;
+    padding: map-get($spacers, 1);
+  }
+
+  a:target {
+    @extend .bg-warning;
+    color: unset;
+  }
+}

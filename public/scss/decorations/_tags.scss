@@ -1,0 +1,26 @@
+
+.time {
+  font-size: $font-size-base;
+}
+
+.time-open {
+  @extend .badge;
+  @extend .badge-success;
+  @extend .time;
+}
+
+.time-closed {
+  @extend .badge;
+  @extend .badge-danger;
+  @extend .time;
+}
+
+.time-self-service {
+  @extend .badge;
+  @extend .badge-info;
+  @extend .time;
+}
+
+.badge {
+  padding: 0.25em 0.4em 0.35rem 0.4rem;
+}

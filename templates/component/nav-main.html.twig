@@ -1,0 +1,15 @@
+{% for group in links %}
+  <div class="navbar-nav">
+    {% for link in group %}
+      {% if app.request.pathInfo|slice(0, link.href|length) == link.href %}
+        {% set link_active = true %}
+      {% else %}
+        {% set link_active = false %}
+      {% endif %}
+
+      {% if link.locale is not defined or link.locale != app.request.locale %}
+        <a class="nav-item nav-link {% if link_active %}active{% endif %}" href="{{ link.href }}" {% if link.locale is defined %}lang="{{ link.locale }}"{% endif %}>{{ link.title }}</a>
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endfor %}

@@ -1,0 +1,9 @@
+{% if breadcrumb is defined and breadcrumb %}
+  <ol class="breadcrumb">
+    {% for link in breadcrumb %}
+      <li class="breadcrumb-item{% if app.request.pathInfo == link.url %} active{% endif %}">
+        <a href="{{ link.url }}">{{ link.title }}</a>
+      </li>
+    {% endfor %}
+  </ol>
+{% endif %}

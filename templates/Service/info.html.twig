@@ -1,0 +1,71 @@
+{% extends "base.html.twig" %}
+
+{% if page_identifier is not defined %}
+  {% set page_identifier = "service-info" %}
+{% endif %}
+
+{% if page_title is not defined %}
+  {% set page_title = service.name %}
+{% endif %}
+
+{#
+  NOTE: In this implementation the list of libraries is unsorted,
+  but once we employ location services on this page too, we can
+  offer libraries that provide the service near by.
+#}
+
+{% block main %}
+  <main class="container main content">
+    <div class="row">
+      <div class="col">
+        <h1>{{ service.name }} <sup class="badge badge-success">{{ service.type|trans }}</sup></h1>
+
+        {% if service.description %}
+          <p>{{ service.description }}</p>
+        {% endif %}
+
+        <h2>{% trans %}Available in these libraries{% endtrans %}</h2>
+        <ul>
+          {% for library in libraries %}
+            <li>
+              <h3>{{ library.name }}, <span class="text-uppercase">{{ library.address.city }}</span></h3>
+
+              {% for s in library.services %}
+                <ul class="service">
+                  {% if s.id == service.id %}
+                    <li class="service-item">
+                      <dl>
+                        <dt>
+                          <a href="{{ path('library.services', {
+                            city: library.city.slug,
+                            slug: library.slug,
+                          })}}#s-{{ s.unique_id }}">
+                            {% if s.custom_name %}
+                              {{ s.custom_name }}
+                            {% else %}
+                              {{ s.name }}
+                            {% endif %}
+                          </a>
+                        </dt>
+
+                        {% if s.price %}
+                          <dd><b>{% trans %}Price:{% endtrans %}</b> {{ s.price }}</dd>
+                        {% endif %}
+
+                        {% if s.description %}
+                          <dd>{{ s.description }}</dd>
+                        {% endif %}
+                      </dl>
+                    </li>
+                  {% endif %}
+                </ul>
+              {% endfor %}
+            </li>
+          {% else %}
+            <li>{% trans %}No library offers this service.{% endtrans %}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    </div>
+  </main>
+{% endblock %}

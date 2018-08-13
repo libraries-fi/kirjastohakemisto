@@ -1,0 +1,20 @@
+{
+	"check_schedules": "Check schedules",
+	"choose": "- Select -",
+	"gallery": {
+		"close": "Exit gallery",
+		"show_picture": ""
+	},
+	"load_more": "Load more results",
+	"map": "Map",
+	"search": {
+		"total": "Search returned %d results."
+	},
+	"status": {
+		"closed": "Closed",
+		"open": "Open",
+		"opens_at_time": "Opens at %s",
+		"self_service": "Self-service"
+	},
+	"tomorrow": "Tomorrow"
+}
