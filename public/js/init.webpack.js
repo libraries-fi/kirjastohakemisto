@@ -3,9 +3,9 @@ import "../../translations/browser.sv.yaml";
 import "../../translations/browser.en.yaml";
 
 import "babel-polyfill"
-
-
-import "chosen-js";
+import "jquery/dist/jquery.min";
+import "chosen-js/chosen.jquery.min";
+import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import "./init.i18next";
 import "./init.twig";

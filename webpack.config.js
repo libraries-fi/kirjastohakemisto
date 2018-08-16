@@ -1,59 +1,47 @@
-const path = require("path");
-const ExtractTextPlugin = require("extract-text-webpack-plugin");
-
-const precss = require("precss");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require("autoprefixer");
+const path = require("path");
+const precss = require("precss");
+const webpack = require("webpack");
 
 module.exports = {
+  mode: "development",
   entry: {
-    hakemisto: "./js/init.webpack.js",
-    style: "./scss/hakemisto.scss"
+    hakemisto: "./public/js/init.webpack.js",
+    style: "./public/scss/hakemisto.scss",
+    assets: [
+      "./node_modules/chosen-js/chosen.min.css",
+      "./node_modules/font-awesome/css/font-awesome.min.css",
+      "./node_modules/ol/ol.css"
+    ]
   },
   output: {
-    path: path.resolve(__dirname, "dist"),
+    path: path.resolve(__dirname, "public/dist"),
     filename: "[name].js"
   },
   module: {
+    // noParse: [/\.min\.js/],
     rules: [
-      // {
-      //   test: /\.scss/,
-      //   use: [
-      //     "css-loader",
-      //     {
-      //       loader: "postcss-loader",
-      //       options: {
-      //         plugins: [precss, autoprefixer]
-      //       }
-      //     },
-      //     "sass-loader"
-      //   ]
-      // },
-      // {
-      //   test: /\.css$/,
-      //   loader: "css-loader",
-      // },
-
       {
-        test: /\.(scss|css)$/,
-        use: ExtractTextPlugin.extract({
-          use: [
-            {loader: "css-loader"},
-            {
-              loader: "postcss-loader",
-              options: {
-                plugins: function() {
-                  return [
-                    require("precss"),
-                    require("autoprefixer")
-                  ]
-                }
-              }
-            },
-            {
-              loader: "sass-loader"
+        test: /\.scss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          "css-loader",
+          {
+            loader: "postcss-loader",
+            options: {
+              plugins: [autoprefixer]
             }
-          ]
-        })
+          },
+          "sass-loader"
+        ]
+      },
+      {
+        test: /\.css$/,
+        use: [
+          "style-loader",
+          "css-loader"
+        ]
       },
       {
         test: /\.yaml$/,
@@ -61,7 +49,7 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "[path][name].json",
+              name: "[name].json",
               context: path.resolve("../translations")
             }
           },
@@ -69,10 +57,25 @@ module.exports = {
             loader: "yaml-loader"
           }
         ]
+      },
+      {
+        test: /\.(png|jpg|gif|eot|woff|woff2|ttf|svg)$/,
+        use: [
+          {
+            loader: "url-loader",
+            options: {
+              limit: 200,
+            }
+          }
+        ]
       }
     ]
   },
   plugins: [
-    new ExtractTextPlugin({filename: "hakemisto.css"}),
+    new MiniCssExtractPlugin,
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+    })
   ]
 };
