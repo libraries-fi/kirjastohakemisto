@@ -15,7 +15,7 @@ the Finnish Library Database. The website is built as a simple frontend that que
 - Node.js (for compiling modified assets)
 
 ## Deployment
-It is enough to clone this repository and compiled the provided assets. Build environment can be
+It is enough to clone this repository and compile the provided assets. Build environment can be
 installed by running *npm install* in the project root. After this, the build process can be executed
 with *npm run build*.
 
