@@ -20,6 +20,10 @@ To compile the modified assets, one needs to run *npm install* in the web root t
 the dependencies and *npm run dev* to run the compiler. Assets can be compiled in production mode via
 *npm run build*.
 
+### Notes
+After clearing public/dist from pre-compiled assets, the first build will then fail, complaining about
+missing browser translation. To fix this, first run the asset builder in dev mode.
+
 ## Kirkanta repository family
 - [Kirjastohakemisto](https://github.com/libraries-fi/kirjastohakemisto) -- frontend
 - [Kirkanta](https://github.com/libraries-fi/kirkanta) -- backend
