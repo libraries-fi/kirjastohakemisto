@@ -15,14 +15,13 @@ the Finnish Library Database. The website is built as a simple frontend that que
 - Node.js (for compiling modified assets)
 
 ## Deployment
-The repo contains pre-compiled assets, so all-in-all this is just a simple PHP web application.
-To compile the modified assets, one needs to run *npm install* in the web root to install
-the dependencies and *npm run dev* to run the compiler. Assets can be compiled in production mode via
-*npm run build*.
+It is enough to clone this repository and compiled the provided assets. Build environment can be
+installed by running *npm install* in the project root. After this, the build process can be executed
+with *npm run build*.
 
 ### Notes
 After clearing public/dist from pre-compiled assets, the first build will then fail, complaining about
-missing browser translation. To fix this, first run the asset builder in dev mode.
+missing browser translation. To fix this, first run the asset builder in dev mode, *npm run dev*.
 
 ## Kirkanta repository family
 - [Kirjastohakemisto](https://github.com/libraries-fi/kirjastohakemisto) -- frontend
