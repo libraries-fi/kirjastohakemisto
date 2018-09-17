@@ -1,0 +1,22 @@
+#page--widget-builder {
+  background: linear-gradient(to left, $content-bg 0%, $content-bg 50%, $sidebar-bg 50%, $sidebar-bg 100%);
+
+  .main {
+    min-height: 600px;
+    max-height: 800px;
+    margin-top: -1 * map-get($spacers, 4);
+  }
+
+  #right-side {
+    background-image: none;
+    overflow: auto;
+  }
+
+  @include media-breakpoint-down("md") {
+    background: inherit;
+
+    #factory {
+      border-width: 0;
+    }
+  }
+}

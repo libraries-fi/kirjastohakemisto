@@ -48,6 +48,9 @@ class LibrarySearchForm extends AbstractType
                 'label' => 'Municipality',
                 // 'placeholder' => '- Select -',
                 'choices' => array_flip($cities),
+                'attr' => [
+                    'data-custom' => true
+                ],
             ])
             ->add('q', SearchType::class, [
                 'required' => false,
@@ -77,10 +80,12 @@ class LibrarySearchForm extends AbstractType
             ])
             ->add('s', ChoiceType::class, [
                 'required' => false,
-                'multiple' => true,
                 'placeholder' => '',
                 'label' => 'Provides service',
                 'choices' => new Services,
+                'attr' => [
+                    'data-custom' => true
+                ]
             ])
             ->add('t', ChoiceType::class, [
                 'required' => false,

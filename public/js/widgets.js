@@ -11,7 +11,7 @@ $(() => {
     placeholder_text_multiple: i18next.t("choose"),
   });
 
-  $("select").chosen({
+  $("select[data-custom]").chosen({
     width: "100%",
     allow_single_deselect: true,
     placeholder_text_single: i18next.t("choose"),

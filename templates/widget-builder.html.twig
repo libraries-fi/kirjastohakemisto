@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% if page_identifier is not defined %}
+  {% set page_identifier = "widget-builder" %}
+{% endif %}
+
+{% block main %}
+  <main class="container main">
+    <div id="widget-builder"></div>
+    <script src="/widgets/v1/builder.js"></script>
+  </main>
+{% endblock %}

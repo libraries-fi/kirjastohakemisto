@@ -185,43 +185,11 @@ class FrontController extends Controller
     }
 
     /**
-     * Handle cases where the URL contains only a slug of 'something'.
-     *
-     * @Route("/{slug}", name="slug.redirect", requirements={"slug": "[\w\-]+"})
+     * @Route("/info/widgets")
+     * @Template("widget-builder.html.twig")
      */
-    public function slugRedirect(Request $request, string $slug)
+    public function widgetBuilder()
     {
-        $result = $this->kirkanta->getRepository('library')->findBy([
-            'lang' => $request->getLocale(),
-            'slug' => $slug,
-            'refs' => 'city',
-        ]);
 
-        foreach ($result as $library) {
-            if ($library->city()) {
-                return $this->redirectToRoute('library.show', [
-                    'city' => $library->city()->slug(),
-                    'slug' => $library->slug(),
-                ], 301);
-            }
-        }
-
-        /*
-         * FIXME: There is a bug in API v3 that breaks the search with langcode sometimes.
-         *
-         * Workaround is not to pass langcode. Slug has to be unique regardless of language, so it
-         * isn't an issue.
-         */
-        $result = $this->kirkanta->getRepository('city')->findBy([
-            'slug' => $slug,
-        ]);
-
-        foreach ($result as $city) {
-            return $this->redirectToRoute('search', [
-                'm' => $city->slug()->{$request->getLocale()}
-            ], 301);
-        }
-
-        throw new NotFoundHttpException;
     }
 }

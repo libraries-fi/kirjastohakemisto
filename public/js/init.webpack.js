@@ -2,7 +2,6 @@ import "../../translations/browser.fi.yaml";
 import "../../translations/browser.sv.yaml";
 import "../../translations/browser.en.yaml";
 
-import "babel-polyfill"
 import "jquery/dist/jquery.min";
 import "chosen-js/chosen.jquery.min";
 import "bootstrap/dist/js/bootstrap.bundle.min";
@@ -21,6 +20,10 @@ import "./widget.content-peek";
 import "./widgets";
 
 import "./library.search";
+
+if (!global._babelPolyfill) {
+  require("babel-polyfill");
+}
 
 /*
  * NOTE: Initialize base widgets first, then the larger components like form controllers etc.
@@ -62,8 +65,12 @@ popovers
     this.removeAttribute("data-scroll-target");
   });
 
-if (window.location.hash) {
-  popovers.filter(window.location.hash).trigger("click");
+try {
+  if (window.location.hash) {
+    popovers.filter(window.location.hash).trigger("click");
+  }
+} catch (e) {
+  
 }
 
 /*

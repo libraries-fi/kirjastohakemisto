@@ -1,3 +1,6 @@
+front:
+    resource: ../../src/Controller/FrontController.php
+    type: annotation
 search:
     resource: ../../src/Controller/SearchController.php
     type: annotation
@@ -13,9 +16,9 @@ jsonld:
 footer:
     resource: ../../src/Controller/FooterController.php
     type: annotation
-front:
-    resource: ../../src/Controller/FrontController.php
-    type: annotation
 sitemap:
     resource: ../../src/Controller/SiteMapController.php
+    type: annotation
+redirects:
+    resource: ../../src/Controller/RedirectController.php
     type: annotation
