@@ -1,0 +1,3 @@
+parameters:
+    widget_builder_url: "/embed/v1/builder.js"
+    
