@@ -158,7 +158,12 @@
       </div>
     </script>
 
-    <script src="{{ asset('dist/hakemisto.js') }}"></script>
+    {% if app.environment == "prod" %}
+      <script src="{{ asset('dist/hakemisto.js') }}"></script>
+    {% else %}
+      <script src="{{ asset('dev/hakemisto.js') }}"></script>
+    {% endif %}
+    
     <script src="https://gfx.kirjastot.fi/shared-footer/collapse.js"></script>
   {% endblock %}
 

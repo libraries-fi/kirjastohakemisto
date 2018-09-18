@@ -22,7 +22,7 @@ import "./widgets";
 import "./library.search";
 
 if (!global._babelPolyfill) {
-  require("babel-polyfill");
+  require("@babel/polyfill");
 }
 
 /*
@@ -70,7 +70,7 @@ try {
     popovers.filter(window.location.hash).trigger("click");
   }
 } catch (e) {
-  
+
 }
 
 /*

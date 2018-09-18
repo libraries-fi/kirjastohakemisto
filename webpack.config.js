@@ -16,8 +16,7 @@ module.exports = {
     ]
   },
   output: {
-    path: path.resolve(__dirname, "public/dist"),
-    filename: "[name].js"
+    path: path.resolve(__dirname, "public/dev"),
   },
   module: {
     // noParse: [/\.min\.js/],
@@ -45,18 +44,7 @@ module.exports = {
       },
       {
         test: /\.yaml$/,
-        use: [
-          {
-            loader: "file-loader",
-            options: {
-              name: "[name].json",
-              context: path.resolve("../translations")
-            }
-          },
-          {
-            loader: "yaml-loader"
-          }
-        ]
+        use: ["js-yaml-loader"]
       },
       {
         test: /\.(png|jpg|gif|eot|woff|woff2|ttf|svg)$/,
@@ -77,5 +65,12 @@ module.exports = {
       $: "jquery",
       jQuery: "jquery",
     })
-  ]
+  ],
+  resolve: {
+    alias: {
+      "browser.fi.json": path.resolve("translations/browser.fi.yaml"),
+      "browser.sv.json": path.resolve("translations/browser.sv.yaml"),
+      "browser.en.json": path.resolve("translations/browser.en.yaml"),
+    }
+  }
 };

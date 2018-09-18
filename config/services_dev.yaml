@@ -1,2 +1,2 @@
 parameters:
-    widget_builder_url: "/widgets/v1/builder.js"
+    widget_builder_url: "/embed/v1/builder.js"

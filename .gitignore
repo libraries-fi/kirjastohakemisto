@@ -7,4 +7,4 @@
 ###< symfony/framework-bundle ###
 node_modules
 /public/dist/style.js
-/public/dist/*
+/public/dev
