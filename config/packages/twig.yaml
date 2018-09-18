@@ -1,4 +1,6 @@
 twig:
+    globals:
+        widget_builder_url: '%widget_builder_url%'
     paths:
         '%kernel.project_dir%/templates': 'app'
         '%kernel.project_dir%/bundles/BootstrapFourBundle/Resources/views': 'BootstrapFourBundle'

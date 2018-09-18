@@ -5,6 +5,7 @@ parameters:
     kirkanta_api_agent: Kirjastohakemisto/1.0
     kirkanta_api_url: 'https://api.kirjastot.fi'
     kirkanta_result_size: 10
+    widget_builder_url: "/embed/v1/builder.js"
 
 services:
     # default configuration for services in *this* file
