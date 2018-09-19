@@ -185,7 +185,7 @@ class FrontController extends Controller
     }
 
     /**
-     * @Route("/info/widgets")
+     * @Route("/info/widgets", name="widget-builder")
      * @Template("widget-builder.html.twig")
      */
     public function widgetBuilder()

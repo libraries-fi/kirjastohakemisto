@@ -117,7 +117,7 @@ Privacy statement: Rekisteriseloste
 API: Rajapinta
 API documentation: Rajapinnan dokumentaatio
 Embed: Upokkeet
-Open data: Avoin data
+Open data and widgets: Avoin data ja upokkeet
 open_data:
   info: Kirjastohakemiston data on avointa. Dataa tarjotaan avoimen rajapinnan kautta. Lisäksi Kirjastot.fi ylläpitää upokkeita, joilla kirjastojen tiedot voi helposti lisätä omille sivuilleen.
 
@@ -127,5 +127,6 @@ open_data:
   embed:
     info: Upokkeiden avulla hyödynnät Kirjastohakemiston tietoja vaivattomasti.
     disabled: Upoketyökalu on hetkellisesti pois käytöstä Kirjastohakemiston päivityksen vuoksi. Pyrimme palauttamaan työkalun takaisin käyttöön mahdollisimman nopeasti.
-    legacy: Uudet upokkeet ovat työn alla. Vanha upoketyökalu on sillä välin käytettävissä.
+    legacy: Uudet upokkeemme ovat nyt kokeiltavissa. Myös vanhat upokkeet palvelevat toistaiseksi!
     link_label: Siirry upoketyökaluun
+    legacy_link_label: Käytä vanhoja upokkeita
