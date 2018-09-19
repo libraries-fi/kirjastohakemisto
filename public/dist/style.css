@@ -9934,9 +9934,13 @@ form[data-loading] .loader {
   #page--widget-builder #right-side {
     background-image: none;
     overflow: auto; }
+  #page--widget-builder #builder {
+    max-height: 100%; }
   @media (max-width: 991.98px) {
     #page--widget-builder {
       background: inherit; }
+      #page--widget-builder .main {
+        max-height: 1500px; }
       #page--widget-builder #factory {
         border-width: 0; } }
 

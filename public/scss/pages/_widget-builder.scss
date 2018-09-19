@@ -12,8 +12,17 @@
     overflow: auto;
   }
 
+  #builder {
+    // Fix to an overflow issue with Firefox.
+    max-height: 100%;
+  }
+
   @include media-breakpoint-down("md") {
     background: inherit;
+
+    .main {
+      max-height: 1500px;
+    }
 
     #factory {
       border-width: 0;
