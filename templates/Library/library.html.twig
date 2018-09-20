@@ -139,9 +139,16 @@
                   <ul class="list-unstyled">
                     <li>
                       <i class="fa fa-map-o" aria-hidden="true"></i>
-                      {{ library.address.street }}, {{ library.address.zipcode }} {{ library.address.city }}
+                      {{ library.address.street }}, {{ library.address.zipcode }}
+
+                      {% if library.address.area %}
+                        {{ library.address.area }}, {{ library.address.city }}
+                      {% else %}
+                        {{ library.address.city }}
+                      {% endif %}
+
                       {% if library.address.info %}
-                        <small>({{ library.address.info }})</small>
+                        <p class="small">({{ library.address.info }})</p>
                       {% endif %}
                     </li>
                     {% if library.email %}
@@ -155,9 +162,6 @@
                       <li><i class="fa fa-phone" aria-hidden="true"></i> {{ number.number }}, <a href="{{ path('library.contact', {slug: library.slug, city: library.city.slug}) }}">{{ "all phone numbers"|trans }}</a></li>
                     {% endfor %}
                   </ul>
-		  {#
-                  <a href="{{ path('library.map', {slug: library.slug, city: library.city.slug, c: library.coordinates}) }}" class="btn btn-highlight">{% trans %}View map{% endtrans %}</a>
-                  #}
                 </section>
               </div>
             </div>
