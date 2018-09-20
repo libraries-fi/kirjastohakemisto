@@ -9506,6 +9506,18 @@ form[data-loading] .loader {
     height: 0.5em;
     background: none; }
 
+.secure-email {
+  font-size: 0;
+  font-style: italic; }
+  .secure-email:after {
+    font-size: 1rem; }
+  .secure-email:lang(en):after {
+    content: "Email address protected"; }
+  .secure-email:lang(fi):after {
+    content: "S\E4hk\F6postiosoite suojattu"; }
+  .secure-email:lang(sv):after {
+    content: "asdasdsadas"; }
+
 .library-card {
   position: relative;
   display: flex;

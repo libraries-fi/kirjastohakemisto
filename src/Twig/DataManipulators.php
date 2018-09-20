@@ -18,6 +18,7 @@ class DataManipulators extends AbstractExtension
             new TwigFilter('filterByField', [$this, 'filterByField']),
             new TwigFilter('sortByField', [$this, 'sortByField']),
             new TwigFilter('sliceText', [$this, 'sliceText']),
+            new TwigFilter('mailTo', [$this, 'obfuscateEmail']),
         ];
     }
 
@@ -68,6 +69,16 @@ class DataManipulators extends AbstractExtension
         }
 
         return 'foo';
+    }
+
+    public function mailToLink(string $email) : string
+    {
+
+    }
+
+    public function obfuscateEmail(string $email) : string
+    {
+        return str_replace('@', '#', str_rot13($email));
     }
 
     private function findLastSpaceBefore(string $text, int $pos) : int

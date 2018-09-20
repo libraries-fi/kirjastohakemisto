@@ -48,7 +48,9 @@
                         {{ library.mailAddress.area|upper }}
                       {% endif %}
                     </td>
-                    <td>{{ library.email }}</td>
+                    <td>
+                      <span class="secure-email">{{ library.email|mailTo }}</span>
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -120,7 +122,7 @@
                       {{ person.responsibility }}
                     </td>
                     <td>
-                      {{ person.email }}
+                      <span class="secure-email d-block" data-no-link>{{ person.email|mailTo }}</span>
                       {{ person.phone }}
                     </td>
                   </tr>

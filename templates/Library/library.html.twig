@@ -145,8 +145,12 @@
                       {% endif %}
                     </li>
                     {% if library.email %}
-                      <li><i class="fa fa-envelope" aria-hidden="true"></i> {{ library.email }}</li>
+                      <li>
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                        <span class="secure-email">{{ library.email|mailTo }}</span>
+                      </li>
                     {% endif %}
+
                     {% for number in library.phoneNumbers|slice(0, 1) %}
                       <li><i class="fa fa-phone" aria-hidden="true"></i> {{ number.number }}, <a href="{{ path('library.contact', {slug: library.slug, city: library.city.slug}) }}">{{ "all phone numbers"|trans }}</a></li>
                     {% endfor %}

@@ -8,6 +8,7 @@ import "bootstrap/dist/js/bootstrap.bundle.min";
 
 import "./init.i18next";
 import "./init.twig";
+import "./init.deobfuscate-email";
 
 import "./utils/custom-events";
 import "./utils/geolocation";
