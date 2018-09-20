@@ -55,11 +55,12 @@ class RedirectController extends Controller
          */
         $result = $this->kirkanta->getRepository('city')->findBy([
             'slug' => $slug,
+            'lang' => $request->getLocale(),
         ]);
 
         foreach ($result as $city) {
             return $this->redirectToRoute('search', [
-                'm' => $city->slug()->{$request->getLocale()}
+                'm' => $city->slug
             ], 301);
         }
 
