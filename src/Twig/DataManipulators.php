@@ -71,14 +71,13 @@ class DataManipulators extends AbstractExtension
         return 'foo';
     }
 
-    public function mailToLink(string $email) : string
+    public function obfuscateEmail(?string $email) : ?string
     {
-
-    }
-
-    public function obfuscateEmail(string $email) : string
-    {
-        return str_replace('@', '#', str_rot13($email));
+        if ($email) {
+            return str_replace('@', '#', str_rot13($email));
+        } else {
+            return $email;
+        }
     }
 
     private function findLastSpaceBefore(string $text, int $pos) : int
