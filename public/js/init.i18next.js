@@ -3,7 +3,7 @@ import sprintf from "i18next-sprintf-postprocessor";
 
 import fi from "browser.fi.json";
 import sv from "browser.sv.json";
-import en from "browser.sv.json";
+import en from "browser.en.json";
 
 const options = {
   lng: document.documentElement.lang,
