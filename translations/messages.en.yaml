@@ -1,19 +1,2 @@
-collection: Collection
-hardware: Hardware
-room: Room
-service: Service
-web_service: 'Web service'
-frontpage.description: 'Library Directory brings together all Finnish libraries. You can check your local library''s schedules or locate libraries near you with ease.'
-
-open_data:
-  info: "Library Database is an open data project. The data is available through our API. In addition, Libraries.fi maintains embeddable widgets with which it is easy to add your library's information on your website."
-
-  api:
-    info: Read the Library Database API documentation.
-
-  embed:
-    info: "Easily embed library data on your webpages."
-    disabled: "Creating new embeds is temporarily disabled due to a Library Directory update. We will try to restore the widget wizard as soon as possible."
-    legacy: Our new widgets are available! Old widgets will also remain supported until further notice.
-    link_label: Build your widget
-    legacy_link_label: Legacy embed builder
+app:
+  name: Library Directory

@@ -1,8 +1,0 @@
-<section class="some-links">
-  <h3 class="sr-only">{{ "Social media"|trans }}</h3>
-  {% for link in library.links.some %}
-    <a href="{{ link.url }}" title="{{ link.description }}">
-      <img src="{{ asset('images/icons/some/' ~ link.id ~ '.svg') }}" alt="{{ link.name }}"/>
-    </a>
-  {% endfor %}
-</section>

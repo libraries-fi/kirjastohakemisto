@@ -1,0 +1,3 @@
+index:
+   path: /backend/ip-location
+   controller: App\Controller\VueController::ipToLocation

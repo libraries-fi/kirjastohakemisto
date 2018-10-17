@@ -1,76 +1,64 @@
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const autoprefixer = require("autoprefixer");
-const path = require("path");
-const precss = require("precss");
-const webpack = require("webpack");
+const VueLoaderPlugin = require('vue-loader/lib/plugin')
+const autoprefixer = require('autoprefixer')
+const path = require('path')
 
 module.exports = {
-  mode: "development",
+  mode: 'development',
   entry: {
-    hakemisto: "./public/js/init.webpack.js",
-    style: "./public/scss/hakemisto.scss",
-    assets: [
-      "./node_modules/chosen-js/chosen.min.css",
-      "./node_modules/font-awesome/css/font-awesome.min.css",
-      "./node_modules/ol/ol.css"
-    ]
+    main: './frontend/main.js'
   },
   output: {
-    path: path.resolve(__dirname, "public/dev"),
+    path: path.resolve(__dirname, 'public'),
+    filename: 'dev/[name].js'
   },
   module: {
-    // noParse: [/\.min\.js/],
     rules: [
       {
         test: /\.scss$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          "css-loader",
+          'style-loader',
+          'css-loader',
           {
-            loader: "postcss-loader",
+            loader: 'postcss-loader',
             options: {
               plugins: [autoprefixer]
             }
           },
-          "sass-loader"
+          'sass-loader'
         ]
       },
       {
         test: /\.css$/,
-        use: [
-          "style-loader",
-          "css-loader"
-        ]
+        use: ['style-loader', 'css-loader'],
+      },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader',
       },
       {
         test: /\.yaml$/,
-        use: ["js-yaml-loader"]
+        use: [{
+          loader: 'js-yaml-loader',
+          options: {}
+        }]
       },
       {
-        test: /\.(png|jpg|gif|eot|woff|woff2|ttf|svg)$/,
-        use: [
-          {
-            loader: "url-loader",
-            options: {
-              limit: 200,
-            }
-          }
-        ]
+        test: /\.svg$/,
+        use: ['svg-inline-loader']
       }
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin,
-    new webpack.ProvidePlugin({
-      $: "jquery",
-      jQuery: "jquery",
-    })
+    new VueLoaderPlugin,
+    autoprefixer,
   ],
   resolve: {
+    extensions: ['.js', '.vue', '.json'],
     alias: {
-      "browser.fi.json": path.resolve("translations/browser.fi.yaml"),
-      "browser.sv.json": path.resolve("translations/browser.sv.yaml"),
-      "browser.en.json": path.resolve("translations/browser.en.yaml"),
+      'vue$': 'vue/dist/vue.esm.js',
+      '@': path.resolve('./frontend'),
+      'messages.fi.yaml': path.resolve('translations/messages.fi.yaml'),
+      'messages.en.yaml': path.resolve('translations/messages.en.yaml'),
     }
   }
-};
+}

@@ -1,132 +1,31 @@
-Libraries: Kirjastot
-Services: Palvelut
-Options: Asetukset
-Contact: Ota yhteyttä
-Load more results: Lataa lisää tuloksia
-Loading...: Lataa...
-Library type: Kirjaston tyyppi
-Provides service: Tarjoaa palvelua
-Advanced search: Tarkennettu haku
-Search: Haku
-Use geolocation: Käytä paikannusta
-Only open libraries: Vain avoimet kirjastot
-Search by name or municipality: Hae nimellä tai paikkakunnalla
-Find your library: Löydä kirjastosi
-Alphabetical index: Aakkosellinen hakemisto
-By consortium: Kimpoittain
-By city: Kunnittain
-Index: Hakemisto
-Find by name: Hae nimellä
-Closed: Kiinni
-Library Directory: Kirjastohakemisto
-Info: Tietoa
-'- Select -': - Valitse -
-Municipality: Kunta
-
-# Aukiolokalenteri
-Monday: Maanantai
-Tuesday: Tiistai
-Wednesday: Keskiviikko
-Thursday: Torstai
-Friday: Perjantai
-Saturday: Lauantai
-Sunday: Sunnuntai
-Library is closed: Kirjasto on kiinni
-Staff present: Henkilökunta paikalla
-Self-service: Omatoimiaika
-
-# Palvelukategoriat
-hardware: Laitteisto
-collection: Kokoelma
-service: Palvelu
-room: Tila
-web_service: Verkkopalvelu
-
-# Hakulomakkeen kirjaston tyyppivalinnat
-Municipal libraries: Kunnankirjastot
-Vocational college libraries: Ammattioppilaitoskirjastot
-Polytechnic libraries: Ammattikorkeakoulukirjastot
-University libraries: Yliopistokirjastot
-Special libraries: Erikoiskirjastot
-Others: Muut
-
-# Palvelun esittely
-Available in these libraries: Saatavilla näissä kirjastoissa
-No library offers this service.: Palvelu ei ole saatavilla missään kirjastossa.
-'Price:': 'Hinta:'
-Close: Sulje
-
-# Kirjaston esittely
-Introduction: Esittely
-Map: Kartta
-Websites: Verkkosivut
-Visit us!: Tule käymään!
-View map: Näytä kartalla
-Transportation connections: Liikenneyhteydet
-all phone numbers: kaikki numerot
-Homepages: Kotisivut
-Library catalogue: Verkkokirjasto
-Availability in other libraries: Saatavuus muissa kirjastoissa
-How to find us: Näin tavoitat meidät
-Public transport: Julkinen liikenne
-Library introduction: Kirjaston esittely
-Week: Viikko
-Established year: Perustamisvuosi
-Building: Rakennus
-Built: Rakennettu
-Architect: Arkkitehti
-Interior: Sisustus
-'1 photo': '1 kuva'
-'%d photos': '%d kuvaa'
-Buses: Bussit
-Trains: Junat
-Trams: Ratikat
-Parking: Pysäköinti
-Building information: Rakennuksen tiedot
-
-# Kirjaston yhteystiedot
-Contact details: Yhteystiedot
-Address: Osoite
-Mail address: Postiosoite
-Email: Sähköposti
-PO box: PL
-Phone numbers: Puhelinnumerot
-Department: Osasto
-Number: Numero
-Staff: Henkilökunta
-Name: Nimi
-Job title: Työnimike
-
-# Kirjaston palvelut
-'1 service': '1 palvelu'
-'%d services': '%d palvelua'
-'Additional information': Lisätiedot
-'Click on the links for additional information.': Palvelun lisätiedot avautuvat linkkiä klikkaamalla.
-
-# Etusivu
-Suggestions near %s.: Poimintoja kaupungin %s lähistöltä.
-frontpage.description: 'Kir&shy;jas&shy;to&shy;ha&shy;ke&shy;mis&shy;to ko&shy;ko&shy;aa yh&shy;teen kaik&shy;ki Suo&shy;men kir&shy;jas&shy;tot. Vo&shy;it hel&shy;pos&shy;ti tar&shy;kis&shy;taa oman kir&shy;jas&shy;to&shy;si
-au&shy;ki&shy;o&shy;lo&shy;a&shy;jat tai pai&shy;kan&shy;taa lä&shy;hel&shy;lä&shy;si si&shy;jait&shy;se&shy;vat kir&shy;jas&shy;tot.'
-Showcasing libraries: Kirjastot esittelyssä
-Finnish Library Directory: Kirjastohakemisto
-
-# Info
-Privacy statement: Rekisteriseloste
-
-# Open Data
-API: Rajapinta
-API documentation: Rajapinnan dokumentaatio
-Embed: Upokkeet
-Open data and widgets: Avoin data ja upokkeet
-open_data:
-  info: Kirjastohakemiston data on avointa. Dataa tarjotaan avoimen rajapinnan kautta. Lisäksi Kirjastot.fi ylläpitää upokkeita, joilla kirjastojen tiedot voi helposti lisätä omille sivuilleen.
-
-  api:
-    info: Tutustu Kirjastohakemiston rajapinnan dokumentaatioon.
-
-  embed:
-    info: Upokkeiden avulla hyödynnät Kirjastohakemiston tietoja vaivattomasti.
-    disabled: Upoketyökalu on hetkellisesti pois käytöstä Kirjastohakemiston päivityksen vuoksi. Pyrimme palauttamaan työkalun takaisin käyttöön mahdollisimman nopeasti.
-    legacy: Uudet upokkeemme ovat nyt kokeiltavissa. Myös vanhat upokkeet palvelevat toistaiseksi!
-    link_label: Siirry upoketyökaluun
-    legacy_link_label: Käytä vanhoja upokkeita
+app:
+  name: Kirjastohakemisto
+front:
+  hello: Kir­jas­to­ha­ke­mis­to ko­ko­aa yh­teen kaik­ki Suo­men kir­jas­tot. Vo­it hel­pos­ti tar­kis­taa oman kir­jas­to­si au­ki­o­lo­a­jat tai pai­kan­taa lä­hel­lä­si si­jait­se­vat kir­jas­tot.
+  open-search: Löydä kirjastosi
+search:
+  placeholder: Hae kirjastoa tai palvelua
+  advanced: Tarkennettu haku
+  options: Asetukset
+  use-location: Käytä paikannusta
+  only-open: Vain avoimet kirjastot
+  library-type: Kirjaston tyyppi
+library:
+  municipal: Kunnankirjastot
+  special: Erikoiskirjastot
+  university: Yliopistokirjastot
+  polytechnic: AMK-kirjastot
+  other: Muut kirjastot
+  other-links: Linkkejä kirjaston muihin verkkosivustoihin
+  location: Sijainti
+  location-mail: Postiosoite
+calendar:
+  week: Viikko {week}
+  week-day: Päivä
+  date: Päivämäärä
+  schedules: Auki
+  closed: Kiinni
+contact-info:
+  misc: Muut
+  department: Osasto
+  contact-details: Yhteystiedot

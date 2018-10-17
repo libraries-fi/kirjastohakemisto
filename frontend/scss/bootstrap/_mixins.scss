@@ -1,0 +1,5 @@
+@import "~bootstrap/scss/mixins";
+
+@function spacing($size) {
+  @return map-get($spacers, $size);
+}

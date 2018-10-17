@@ -1,5 +1,0 @@
-SVG some icons: https://www.vecteezy.com/vector-icons/53242-flat-vector-social-icons-eps
-
-camera.svg: feathericons.com
-map-marker-2-48.png: https://www.iconsdb.com/tropical-blue-icons/map-marker-2-icon.html
-

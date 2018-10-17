@@ -1,0 +1,15 @@
+#page--search {
+  background: linear-gradient(to right, $content-bg 0%, $content-bg 50%, $sidebar-bg 50%, $sidebar-bg 100%);
+
+  #quick-search,
+  #search-results {
+    background-color: $content-bg;
+    border-right: 1px solid $border-color;
+  }
+
+  #advanced-search {
+    > legend {
+      font-size: x-large !important;
+    }
+  }
+}

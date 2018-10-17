@@ -1,10 +1,5 @@
-
-###> symfony/framework-bundle ###
-.env
-/public/bundles/
-/var/
-/vendor/
-###< symfony/framework-bundle ###
+foo
 node_modules
-/public/dist/style.js
+/custom
 /public/dev
+/public/dist

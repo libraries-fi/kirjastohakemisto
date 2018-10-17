@@ -1,12 +1,15 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const config = require("./webpack.config.js");
 const merge = require("webpack-merge");
 const path = require("path");
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+
+delete config.entry.bootstrap;
 
 module.exports = merge(config, {
   mode: "production",
   output: {
-    path: path.resolve(__dirname, "public/dist"),
+    path: path.resolve(__dirname, "public"),
+    filename: "dist/[name].js"
   },
   module: {
     rules: [
@@ -18,14 +21,13 @@ module.exports = merge(config, {
           options: {
             cacheDirectory: true,
             presets: [
-              ["@babel/preset-env", {
+              ["env", {
                 modules: false,
                 targets: {
                   ie: 11
                 }
               }]
-            ],
-            plugins: ["@babel/plugin-transform-runtime"]
+            ]
           }
         }
       }
