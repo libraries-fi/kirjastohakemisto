@@ -1,4 +1,5 @@
-import './scss/kirjastohakemisto.scss'
+import '@/scss/kirjastohakemisto.scss'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import App from './App'
 import BootstrapVue from 'bootstrap-vue'

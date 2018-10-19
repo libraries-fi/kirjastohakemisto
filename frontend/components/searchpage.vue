@@ -5,7 +5,7 @@
         <div class="col-lg-9" id="quick-search">
           <b-form-group id="query-field" breakpoint="lg" :label="$t('search.placeholder')" label-class="sr-only" class="pt-3">
             <b-input-group>
-              <b-form-input size="lg" :placeholder="$t('search.placeholder')" name="name" v-model="form.name" v-focus/>
+              <b-form-input size="lg" :placeholder="$t('search.placeholder')" v-model="form.q" v-focus/>
               <b-btn variant="primary" type="submit">
                 <fa :icon="faSearch"/>
               </b-btn>
@@ -21,22 +21,26 @@
               <b-form-checkbox id="only-open-libraries" v-model="form.status" value="open" unchecked-value="">{{ $t('search.only-open') }}</b-form-checkbox>
             </b-form-group>
             <b-form-group id="library-type" :label="$t('search.library-type')">
-              <b-form-checkbox-group id="library-type-options" name="type" v-model="form.type" :options="libraryTypes"/>
+              <b-form-checkbox-group id="library-type-options" v-model="form.type" :options="libraryTypes"/>
             </b-form-group>
           </b-form-group>
         </div>
         <div class="col-lg-9" id="search-results">
           <ul class="list-unstyled">
+
+
             <li v-for="library in libraries" class="row library-card">
-              <div class="col-md-3 library-card-photo-frame">
+              <div class="library-card-photo-frame">
                 <api-image :file="library.coverPhoto" alt="" class="library-card-photo"/>
               </div>
-              <div class="col-md-9">
+              <div class="library-card-body">
                 <router-link :to="routeToLibrary(library)">{{ library.name }}</router-link>
-                <p class="text-uppercase m-0">{{ cityName(library) }}</p>
-                <p>{{ libraryAddress(library) }}</p>
+                <div class="text-uppercase">{{ cityName(library) }}</div>
+                <div>{{ libraryAddress(library) }}</div>
               </div>
             </li>
+
+
           </ul>
         </div>
       </div>
@@ -53,7 +57,7 @@
       faSearch,
       form: {
         refs: ['city'].join('+'),
-        name: null,
+        q: null,
         type: null,
         status: '',
         'geo.pos': null,
@@ -99,7 +103,7 @@
           console.warn('geolocation disabled')
         }
         kirkanta.search('library', this.form).then((response) => {
-          this.libraries = response.result
+          this.libraries = response.items
           this.cities = response.refs.city
         })
       }
@@ -137,18 +141,35 @@
   .library-card {
     height: 120px;
     border-bottom: 1px solid $border-color;
-    padding-top: spacing(2);
-    padding-bottom: spacing(2);
+    padding: spacing(2);
+
+    display: flex;
   }
 
   .library-card-photo-frame {
-    width: 120px;
     overflow: hidden;
     text-align: center;
+    margin-right: spacing(2);
+
+    @include media-breakpoint-down("sm") {
+      flex-basis: 80px;
+    }
+
+    @include media-breakpoint-up("md") {
+      flex-basis: 120px;
+    }
+
+    @include media-breakpoint-up("lg") {
+      flex-basis: 140px;
+    }
   }
 
   .library-card-photo {
     object-fit: cover;
+  }
+
+  .library-card-body {
+    flex: 1 1;
   }
 
   @include media-breakpoint-up("lg") {

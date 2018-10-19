@@ -29,18 +29,14 @@
     data: () => ({
       libraries: []
     }),
-    mounted() {
-      GeoLocation.getPosition()
-        .then((pos) => kirkanta.search('library', {
-          'geo.pos': `${pos.coords.latitude},${pos.coords.longitude}`,
-          'geo.dist': 40,
-        }))
-        .then((response) => {
-          this.libraries = response.result
-        })
-        .catch((error) => {
-          console.error('ERROR', error)
-        })
+    async created() {
+      let pos = await GeoLocation.getPosition()
+      let response = await kirkanta.search('library', {
+        'geo.pos': `${pos.coords.latitude},${pos.coords.longitude}`,
+        'geo.dist': 40,
+      })
+
+      this.libraries = response.items
     },
   }
 </script>

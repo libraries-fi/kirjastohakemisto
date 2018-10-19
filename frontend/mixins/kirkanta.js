@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { detectLanguage } from '@/mixins'
 
-const KIRKANTA_URL = 'https://api.kirjastot.fi/v4'
+import config from '@/config.json'
 
 class Kirkanta {
   constructor(baseurl) {
@@ -15,23 +15,25 @@ class Kirkanta {
     return this.query(type, params).then(response => response.data)
   }
 
-  get(type, id, params = {}) {
+  async get(type, id, params = {}) {
     if (typeof id == 'object') {
       params = id
     } else {
       params.id = id
     }
 
-    return this.query(type, params).then(response => {
-      if (response.data.result.length) {
-        return {
-          data: response.data.result[0],
-          refs: response.data.refs
-        }
-      } else {
-        throw `Requested object not found`
+    let response = await this.query(type, params)
+
+    console.log('R', response.data)
+
+    if (response.data.items.length) {
+      return {
+        data: response.data.items[0],
+        refs: response.data.refs
       }
-    })
+    } else {
+      throw `Requested object not found`
+    }
   }
 
   query(path, params = {}) {
@@ -52,7 +54,7 @@ class Kirkanta {
   }
 }
 
-const kirkanta = new Kirkanta(KIRKANTA_URL)
+const kirkanta = new Kirkanta(`${config.apiUrl}/v4`)
 
 export default kirkanta
 export { Kirkanta, kirkanta }

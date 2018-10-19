@@ -56,6 +56,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     alias: {
       'vue$': 'vue/dist/vue.esm.js',
+      'bootstrap-vue$': 'bootstrap-vue/dist/bootstrap-vue.esm.js',
       '@': path.resolve('./frontend'),
       'messages.fi.yaml': path.resolve('translations/messages.fi.yaml'),
       'messages.en.yaml': path.resolve('translations/messages.en.yaml'),

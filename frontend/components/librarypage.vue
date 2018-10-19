@@ -1,9 +1,14 @@
 <template>
-  <main v-if="library">
-    <h1>{{ library.name }}</h1>
-    <blockquote>{{ library.slogan }}</blockquote>
+  <main v-if="library" class="pt-3">
+    <div class="visual-section">
+      <h1>{{ library.name }}</h1>
+      <blockquote>
+        <fa :icon="faQuoteRight" aria-hidden="true"/>
+        {{ library.slogan }}
+      </blockquote>
+    </div>
 
-    <div class="row">
+    <div class="row visual-section">
       <div class="col-md-6 cover-photo-frame">
         <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/>
       </div>
@@ -31,9 +36,9 @@
       </div>
     </div>
 
-    <div v-html="library.description"/>
+    <div v-html="library.description" class="visual-section"/>
 
-    <section v-if="library.links" class="info-links">
+    <section v-if="library.links" class="info-links visual-section">
       <h2 class="sr-only">{{ $t("library.other-links") }}</h2>
       <a v-for="link in sortedLinks" :href="link.url" class="info-link">
         <fa v-if="linkIcon(link)" :icon="linkIcon(link)"/>
@@ -41,7 +46,7 @@
       </a>
     </section>
 
-    <section v-if="library.address" class="row">
+    <section v-if="library.address" class="row visual-section">
       <h2 class="sr-only">{{ $t("Contact details") }}</h2>
 
       <div class="col-md-6">
@@ -65,6 +70,7 @@
       </div>
 
       <div class="col-md-6">
+        <!-- <fa :icon="faEnvelope" size="3x"/> -->
         <div v-if="library.mailAddress">
           <h3>{{ $t('library.location-mail') }}</h3>
           <p>
@@ -102,7 +108,7 @@
       </div>
     </section>
 
-    <section v-if="hasContactInfo()">
+    <section v-if="hasContactInfo()" class="visual-section">
       <table class="table table-sm">
         <thead>
           <tr>
@@ -116,17 +122,17 @@
             <td>
               <ul>
                 <li v-for="entry in department.phones">
-                  {{ entry.number }} / {{ entry.name }}
+                  <a :href="`tel:+358${entry.number.replace(/\D/g, '').substr(1)}`">{{ entry.number}} </a> / {{ entry.name }}
                 </li>
               </ul>
               <ul>
                 <li v-for="entry in department.emails">
-                  {{ entry.email }} / {{ entry.name }}
+                  <a :href="`mailto:${entry.email}`">{{ entry.email }}</a> / {{ entry.name }}
                 </li>
               </ul>
               <ul>
                 <li v-for="entry in department.links">
-                  {{ entry.url }} / {{ entry.name }}
+                  <a :href="entry.url">{{ entry.url.replace(/^http(s?):\/\/(www\.?)/, '') }}</a> / {{ entry.name }}
                 </li>
               </ul>
             </td>
@@ -139,7 +145,7 @@
 
 <script>
   import { kirkanta, first, last } from '@/mixins'
-  import { faQuoteRight, faLink, faLongArrowAltLeft } from "@fortawesome/free-solid-svg-icons";
+  import { faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 
   import {
     faFacebookSquare,
@@ -149,7 +155,7 @@
     faTwitterSquare,
     faVimeoSquare,
     faYoutube
-  } from "@fortawesome/free-brands-svg-icons";
+  } from '@fortawesome/free-brands-svg-icons'
 
   const icon_map = new Map([
     [/facebook\.com/, faFacebookSquare],
@@ -165,6 +171,8 @@
     data: () => ({
       library: null,
       refs: {},
+      faQuoteRight,
+      faEnvelope,
     }),
     computed: {
       sortedLinks() {
@@ -261,7 +269,6 @@
       hasContactInfo() {
         return (this.library.links.length + this.library.emailAddresses.length + this.library.phoneNumbers.length) > 0;
       }
-
     },
     async created() {
       let response = await kirkanta.get('library', {
@@ -286,6 +293,10 @@
     margin-bottom: spacing(3);
   }
 
+  .fa-quote-right {
+    margin-right: spacing(2);
+  }
+
   .cover-photo-frame {
     display: flex;
     flex-flow: column;
@@ -299,6 +310,37 @@
   .info-link {
     display: inline-block;
     margin-right: spacing(3);
+  }
+
+  .visual-section {
+    padding-left: spacing(3);
+    margin-left: -1 * spacing(3);
+    border-left: 5px solid black;
+    margin-bottom: spacing(3);
+
+    &:nth-child(1) {
+      border-color: orange;
+    }
+
+    &:nth-child(2) {
+      border-color: rgb(87, 129, 238);
+    }
+
+    &:nth-child(3) {
+      border-color: rgb(195, 195, 195);
+    }
+
+    &:nth-child(4) {
+      border-color: rgb(167, 244, 135);
+    }
+
+    &:nth-child(5) {
+      border-color: rgb(219, 152, 255);
+    }
+
+    &:nth-child(6) {
+      border-color: rgb(164, 102, 112);
+    }
   }
 </style>
 

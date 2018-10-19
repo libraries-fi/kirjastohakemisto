@@ -3,6 +3,7 @@ import Router from 'vue-router'
 import Frontpage from '@/components/frontpage'
 import SearchPage from '@/components/searchpage'
 import LibraryPage from '@/components/librarypage'
+import LibraryIndexPage from '@/components/libraryindexpage'
 import SlugRedirect from '@/components/slug-redirect'
 
 export default new Router({
@@ -26,6 +27,7 @@ export default new Router({
     {
       path: '/libraries',
       name: 'library.collection',
+      component: LibraryIndexPage,
     },
     {
       path: '/services',

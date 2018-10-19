@@ -1,2 +1,15 @@
 @import "bootstrap/bootstrap";
 @import "page.search";
+
+.page-title {
+  @extend .my-3;
+  
+  font-size: xx-large;
+  font-weight: bold;
+}
+
+@include media-breakpoint-down("md") {
+  .container {
+    max-width: none;
+  }
+}

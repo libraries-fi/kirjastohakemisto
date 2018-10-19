@@ -23,7 +23,8 @@
             city: result.refs.city[library.city].slug
           }
         })
-      } catch (err) {
+      } catch (error) {
+        console.error(error.stack)
         let result = await kirkanta.get('city', {
           slug: this.$route.params.slug
         })

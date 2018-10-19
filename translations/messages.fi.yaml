@@ -29,3 +29,8 @@ contact-info:
   misc: Muut
   department: Osasto
   contact-details: Yhteystiedot
+index:
+  libraries: 'Hakemisto: Kirjastot'
+  by-initial: Aakkosellinen hakemisto
+  by-municipality: Kunnittain
+  by-consortium: Kimpoittain
