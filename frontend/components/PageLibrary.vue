@@ -1,7 +1,10 @@
 <template>
   <main v-if="library" class="pt-3">
     <div class="visual-section">
-      <h1>{{ library.name }}</h1>
+      <h1>
+        {{ library.name }}
+        <b-badge v-if="library.distance" variant="primary" class="float-right">{{ formatDistance(library.distance) }}</b-badge>
+      </h1>
       <blockquote v-if="library.slogan">
         <fa :icon="faQuoteRight" aria-hidden="true"/>
         {{ library.slogan }}
@@ -144,7 +147,7 @@
 </template>
 
 <script>
-  import { kirkanta, first, last } from '@/mixins'
+  import { coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
   import { faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
 
   import {
@@ -215,21 +218,15 @@
         }
 
         for (let entry of this.library.phoneNumbers) {
-          // if (entry.department) {
-            departments.get(entry.department).phones.push(entry)
-          // }
+          departments.get(entry.department).phones.push(entry)
         }
 
         for (let entry of this.library.emailAddresses) {
-          // if (entry.department) {
-            departments.get(entry.department).emails.push(entry)
-          // }
+          departments.get(entry.department).emails.push(entry)
         }
 
         for (let entry of this.library.links) {
-          // if (entry.department) {
-            departments.get(entry.department).links.push(entry)
-          // }
+          departments.get(entry.department).links.push(entry)
         }
 
         return [...departments.values()].sort((a, b) => {
@@ -244,7 +241,7 @@
       }
     },
     methods: {
-      first, last,
+      formatDistance, first, last,
       linkIcon(link) {
         let icon_class = faLink;
 
@@ -271,15 +268,28 @@
       }
     },
     async created() {
-      let response = await kirkanta.get('library', {
+      const params = {
         'city.slug': this.$route.params.city,
         slug: this.$route.params.library,
         with: ['schedules', 'links', 'mailAddress', 'emailAddresses', 'phoneNumbers', 'departments'],
         refs: ['city', 'period'],
         'period.start': '1w',
         'period.end': '8w'
-      })
+      }
 
+      try {
+        let pos = await geolocation.tryGps()
+
+        Object.assign(params, {
+          'geo.pos': coordStr(pos.coords),
+          'geo.dist': 2000,
+        })
+      } catch (err) {
+        // pass
+      }
+
+      let response = await kirkanta.get('library', params)
+      //
       this.library = response.data
       this.refs = response.refs
     }
@@ -301,10 +311,14 @@
     display: flex;
     flex-flow: column;
     justify-content: center;
+    padding-left: 0;
   }
 
   .cover-photo {
     width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
   }
 
   .info-link {

@@ -103,7 +103,13 @@ export function formatDistance(distance) {
     let meters = Math.ceil(distance)
     return `${meters} m`
   } else {
-    let kmeters = distanceFormatter.format(distance / 1000)
+    distance /= 1000
+
+    if (distance > 10) {
+      distance = Math.round(distance)
+    }
+
+    let kmeters = distanceFormatter.format(distance)
     return `${kmeters} km`
   }
 }

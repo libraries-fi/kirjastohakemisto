@@ -32,6 +32,7 @@ class Kirkanta {
         refs: response.data.refs
       }
     } else {
+      console.log(params, response)
       throw `Requested object not found`
     }
   }
@@ -58,11 +59,11 @@ class Kirkanta {
       processed[key] = value
     }
 
-    if (!params.lang) {
-      params.lang = detectLanguage()
+    if (!processed.lang) {
+      processed.lang = detectLanguage()
     }
 
-    return axios.get(`${this.__url}/${path}`, {params})
+    return axios.get(`${this.__url}/${path}`, {params: processed})
   }
 }
 

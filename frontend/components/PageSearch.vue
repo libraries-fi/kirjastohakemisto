@@ -38,14 +38,13 @@
                 <div class="text-uppercase">{{ cityName(library) }}</div>
                 <div>{{ libraryAddress(library) }}</div>
               </div>
-              <div class="library-card-aside" style="display: flex; flex-flow: column; justify-content: space-between">
-                <div>
+              <div class="library-card-aside">
+                <div class="text-right">
                   <b-badge v-if="library.liveStatus == 0" variant="danger">closed</b-badge>
                   <b-badge v-if="library.liveStatus == 1" variant="success">open</b-badge>
                   <b-badge v-if="library.liveStatus == 2" variant="info">self-service</b-badge>
                   <b-badge v-if="library.distance" variant="primary">{{ formatDistance(library.distance) }}</b-badge>
                 </div>
-
                 <div v-if="library.liveStatus !== null">
                   {{ first(first(library.schedules).times).from }} – {{ last(first(library.schedules).times).to }}
                 </div>
@@ -74,7 +73,7 @@
         type: [],
         status: '',
         'geo.pos': null,
-        'geo.dist': 100,
+        'geo.dist': 2000,
         'period.start': '0d',
         'period.end': '1d',
       },
@@ -198,6 +197,12 @@
     flex: 1 1;
     white-space: nowrap;
     overflow: hidden;
+  }
+
+  .library-card-aside {
+    display: flex;
+    flex-flow: column;
+    justify-content: space-between;
   }
 
   @include media-breakpoint-up("lg") {

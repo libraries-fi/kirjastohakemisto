@@ -82,16 +82,16 @@
   }
 
   .card-img-frame {
-    height: 200px;
+    height: 160px;
     text-align: center;
     overflow: hidden;
   }
 
   .card-img-top {
-    // min-height: 200px;
-    // width: 100%;
-    width: unset !important;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center;
   }
 
   .card-body {
