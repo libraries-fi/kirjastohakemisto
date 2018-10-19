@@ -1,0 +1,7 @@
+@import "~bootstrap/scss/badge";
+
+h1, h2, h3, h4 {
+  > .badge {
+    vertical-align: text-bottom;
+  }
+}

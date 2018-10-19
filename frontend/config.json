@@ -1,3 +1,12 @@
 {
-  "apiUrl": "http://api.kirjastot.fi.local"
+  "apiUrl": "http://api.kirjastot.fi.local",
+  "demo": {
+    "enabled": true,
+    "position": {
+      "coords": {
+        "latitude": 60.225672,
+        "longitude": 24.849124
+      }
+    }
+  }
 }

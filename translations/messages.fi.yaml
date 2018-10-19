@@ -1,5 +1,11 @@
 app:
   name: Kirjastohakemisto
+nav:
+  search: Haku
+  info: Tietoa
+  libraries: Kirjastot
+  consortiums: Kimpat
+  services: Palvelut
 front:
   hello: Kir­jas­to­ha­ke­mis­to ko­ko­aa yh­teen kaik­ki Suo­men kir­jas­tot. Vo­it hel­pos­ti tar­kis­taa oman kir­jas­to­si au­ki­o­lo­a­jat tai pai­kan­taa lä­hel­lä­si si­jait­se­vat kir­jas­tot.
   open-search: Löydä kirjastosi
@@ -31,6 +37,18 @@ contact-info:
   contact-details: Yhteystiedot
 index:
   libraries: 'Hakemisto: Kirjastot'
+  consortiums: 'Hakemisto: Kirjastokimpat'
+  services: 'Hakemisto: Palvelut'
   by-initial: Aakkosellinen hakemisto
   by-municipality: Kunnittain
   by-consortium: Kimpoittain
+service-type:
+  collection: Kokoelmat
+  hardware: Laitteistot
+  service: Palvelut
+  room: Tilat
+  web_service: Verkkopalvelut
+service:
+  offered-nearby: Saatavuus lähikirjastoissasi
+  offered-elsewhere: Muissa kirjastoissa
+  offered-at: Saatavilla näissä kirjastoissa

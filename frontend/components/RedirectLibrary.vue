@@ -18,7 +18,6 @@
         this.$router.replace({
           name: 'library.show',
           params: {
-            limit: 1,
             library: library.slug,
             city: result.refs.city[library.city].slug
           }

@@ -1,0 +1,22 @@
+
+.index-section-title {
+  a {
+    color: inherit;
+  }
+}
+
+.index-section-content {
+  break-inside: avoid;
+  
+  @include media-breakpoint-up("sm") {
+    columns: 2;
+  }
+
+  @include media-breakpoint-up("md") {
+    columns: 3;
+  }
+
+  @include media-breakpoint-up("lg") {
+    columns: 4;
+  }
+}

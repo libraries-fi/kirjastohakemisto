@@ -29,7 +29,7 @@
           <ul class="list-unstyled">
 
 
-            <li v-for="library in libraries" class="row library-card">
+            <li v-for="library in libraries" class="row library-card py-2">
               <div class="library-card-photo-frame">
                 <api-image :file="library.coverPhoto" alt="" class="library-card-photo"/>
               </div>
@@ -37,6 +37,18 @@
                 <router-link :to="routeToLibrary(library)">{{ library.name }}</router-link>
                 <div class="text-uppercase">{{ cityName(library) }}</div>
                 <div>{{ libraryAddress(library) }}</div>
+              </div>
+              <div class="library-card-aside" style="display: flex; flex-flow: column; justify-content: space-between">
+                <div>
+                  <b-badge v-if="library.liveStatus == 0" variant="danger">closed</b-badge>
+                  <b-badge v-if="library.liveStatus == 1" variant="success">open</b-badge>
+                  <b-badge v-if="library.liveStatus == 2" variant="info">self-service</b-badge>
+                  <b-badge v-if="library.distance" variant="primary">{{ formatDistance(library.distance) }}</b-badge>
+                </div>
+
+                <div v-if="library.liveStatus !== null">
+                  {{ first(first(library.schedules).times).from }} – {{ last(first(library.schedules).times).to }}
+                </div>
               </div>
             </li>
 
@@ -49,19 +61,22 @@
 </template>
 
 <script>
-  import { kirkanta, geolocation } from '@/mixins'
+  import { kirkanta, formatDistance, geolocation, first, last } from '@/mixins'
   import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
   export default {
     data: () => ({
       faSearch,
       form: {
-        refs: ['city'].join('+'),
+        with: ['schedules'],
+        refs: ['city'],
         q: null,
-        type: null,
+        type: [],
         status: '',
         'geo.pos': null,
         'geo.dist': 100,
+        'period.start': '0d',
+        'period.end': '1d',
       },
       timers: {
         submit: null
@@ -75,6 +90,9 @@
       cities: {}
     }),
     methods: {
+      formatDistance,
+      first,
+      last,
       cityName(library) {
         let city = this.cities[library.city]
         return library.address.area ? `${city.name} (${library.address.area})` : city.name
@@ -102,6 +120,7 @@
         } catch (err) {
           console.warn('geolocation disabled')
         }
+
         kirkanta.search('library', this.form).then((response) => {
           this.libraries = response.items
           this.cities = response.refs.city
@@ -139,9 +158,10 @@
   @import "../scss/bootstrap/init";
 
   .library-card {
-    height: 120px;
+    height: 4.7rem;
     border-bottom: 1px solid $border-color;
     padding: spacing(2);
+    box-sizing: content-box;
 
     display: flex;
   }
@@ -150,8 +170,9 @@
     overflow: hidden;
     text-align: center;
     margin-right: spacing(2);
+    flex-basis: 40px;
 
-    @include media-breakpoint-down("sm") {
+    @include media-breakpoint-up("sm") {
       flex-basis: 80px;
     }
 
@@ -165,11 +186,18 @@
   }
 
   .library-card-photo {
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    object-position: center;
+    border-radius: $border-radius-sm;
   }
 
   .library-card-body {
+    margin-right: spacing(2);
     flex: 1 1;
+    white-space: nowrap;
+    overflow: hidden;
   }
 
   @include media-breakpoint-up("lg") {

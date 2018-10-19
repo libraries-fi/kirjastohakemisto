@@ -11,7 +11,7 @@
             <api-image :file="library.coverPhoto" class="card-img-top" alt=""/>
           </div>
           <div class="card-body">
-            <router-link :to="{ name: 'slug-search', params: { slug: library.slug }}" class="card-title">
+            <router-link :to="{ name: 're', params: { slug: library.slug }}" class="card-title">
               {{ library.name }}
             </router-link>
           </div>
@@ -22,7 +22,7 @@
 </template>
 
 <script>
-  import GeoLocation from '@/mixins/geolocation'
+  import { geolocation } from '@/mixins/geolocation'
   import kirkanta from '@/mixins/kirkanta'
 
   export default {
@@ -30,7 +30,7 @@
       libraries: []
     }),
     async created() {
-      let pos = await GeoLocation.getPosition()
+      let pos = await geolocation.getPosition()
       let response = await kirkanta.search('library', {
         'geo.pos': `${pos.coords.latitude},${pos.coords.longitude}`,
         'geo.dist': 40,

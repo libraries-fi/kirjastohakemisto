@@ -22,9 +22,9 @@ class Kirkanta {
       params.id = id
     }
 
-    let response = await this.query(type, params)
+    params.limit = 1
 
-    console.log('R', response.data)
+    let response = await this.query(type, params)
 
     if (response.data.items.length) {
       return {
@@ -40,10 +40,22 @@ class Kirkanta {
     /**
      * Convert arrays to strings because the API doesn't handle array notation.
      */
+
+    const processed = {}
+
     for (let key in params) {
-      if (Array.isArray(params[key])) {
-        params[key] = params[key].length ? params[key].join(' ') : null
+      let value = params[key]
+
+      if (typeof value == 'boolean' && !value) {
+        // VueBootstrap components might return FALSE when e.g. no checkbox is selected.
+        continue
       }
+
+      if (Array.isArray(value)) {
+        value = value.length ? value.join(' ') : null
+      }
+
+      processed[key] = value
     }
 
     if (!params.lang) {

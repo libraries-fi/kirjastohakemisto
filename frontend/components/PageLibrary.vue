@@ -2,7 +2,7 @@
   <main v-if="library" class="pt-3">
     <div class="visual-section">
       <h1>{{ library.name }}</h1>
-      <blockquote>
+      <blockquote v-if="library.slogan">
         <fa :icon="faQuoteRight" aria-hidden="true"/>
         {{ library.slogan }}
       </blockquote>
@@ -36,7 +36,7 @@
       </div>
     </div>
 
-    <div v-html="library.description" class="visual-section"/>
+    <div v-html="library.description" class="text-justify visual-section"/>
 
     <section v-if="library.links" class="info-links visual-section">
       <h2 class="sr-only">{{ $t("library.other-links") }}</h2>

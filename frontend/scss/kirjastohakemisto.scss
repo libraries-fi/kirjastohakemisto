@@ -1,9 +1,17 @@
 @import "bootstrap/bootstrap";
 @import "page.search";
+@import "index";
+
+.anchor {
+  width: 0;
+  height: 0;
+  position: absolute;
+  margin-top: calc(-40px - 1.5rem);
+}
 
 .page-title {
   @extend .my-3;
-  
+
   font-size: xx-large;
   font-weight: bold;
 }
@@ -11,5 +19,12 @@
 @include media-breakpoint-down("md") {
   .container {
     max-width: none;
+  }
+}
+
+
+#nav-main {
+  .vue-js-switch {
+    margin: 0;
   }
 }
