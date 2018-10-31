@@ -2,6 +2,11 @@
 @import "page.search";
 @import "index";
 
+body {
+  // Fix page position regardless of scrollbar visibility
+  width: 100vw;
+}
+
 .anchor {
   width: 0;
   height: 0;
