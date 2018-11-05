@@ -1,0 +1,1 @@
+const MAX_DIST = 999999;

@@ -23,16 +23,22 @@ library:
   polytechnic: AMK-kirjastot
   other: Muut kirjastot
   other-links: Linkkejä kirjaston muihin verkkosivustoihin
+  photos: Kuvagalleria
   location: Sijainti
   location-mail: Postiosoite
+  services: Palvelut
+  schedules: Aukioloajat
 calendar:
   week: Viikko {week}
   week-day: Päivä
   date: Päivämäärä
-  schedules: Auki
+  schedules: Aukiolot
   closed: Kiinni
 contact-info:
-  misc: Muut
+  email: Sähköpostiosoite
+  phone: Puhelinnumero
+  link: Verkkosivu
+  common: Yleiset
   department: Osasto
   contact-details: Yhteystiedot
 index:
@@ -44,7 +50,7 @@ index:
   by-consortium: Kimpoittain
 service-type:
   collection: Kokoelmat
-  hardware: Laitteistot
+  hardware: Laitteet
   service: Palvelut
   room: Tilat
   web_service: Verkkopalvelut
@@ -52,3 +58,5 @@ service:
   offered-nearby: Saatavuus lähikirjastoissasi
   offered-elsewhere: Muissa kirjastoissa
   offered-at: Saatavilla näissä kirjastoissa
+  common-availability: Saatavuus muualla
+  website: Lisätiedot

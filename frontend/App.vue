@@ -1,5 +1,5 @@
 <template>
-  <div id="app">
+  <div id="app" @click="closeStuff">
     <b-navbar toggleable="md" type="dark" variant="dark" sticky id="nav-main">
       <div class="container">
         <b-navbar-toggle target="nav-collapse"/>
@@ -49,6 +49,11 @@
             this.locationDataAllowed = false
             console.warn('user aborted geolocation')
           }
+        }
+      },
+      closeStuff(event) {
+        if (event.target.tagName != 'A') {
+          this.$root.$emit('bv::hide::popover')
         }
       }
     }

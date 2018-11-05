@@ -12,10 +12,12 @@
     </div>
 
     <div class="row visual-section">
-      <div class="col-md-6 cover-photo-frame">
+      <section class="col-md-6 cover-photo-frame">
+        <h2 class="sr-only">{{ $t('library.photos') }}</h2>
         <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/>
-      </div>
-      <div class="col-md-6">
+      </section>
+      <section class="col-md-6">
+        <h2 class="sr-only">{{ $t('library.schedules') }}</h2>
         <h3 class="text-center">{{ $t('calendar.week', {week: 4}) }}</h3>
         <table class="table table-sm">
           <thead class="sr-only">
@@ -36,10 +38,64 @@
             </tr>
           </tbody>
         </table>
-      </div>
+      </section>
     </div>
 
-    <div v-html="library.description" class="text-justify visual-section"/>
+    <section v-if="library.address" class="visual-section">
+      <div class="row">
+        <h2 class="sr-only">{{ $t("contact-info.contact-details") }}</h2>
+
+        <div class="col-md-6">
+          <h3 class="h2">
+            <fa :icon="faLocationArrow"/>
+            {{ $t('library.location') }}
+          </h3>
+          <address>
+            <p>
+              {{ library.address.street }}, {{ library.address.zipcode }} {{ library.address.city }} <template v-if="library.address.area">({{ library.address.area }})</template><br/>
+              <span v-if="library.address.info" class="text-muted">{{ library.address.info }}</span>
+            </p>
+
+            <p v-if="library.email">
+              <b>{{ library.email.name }}</b><br/>
+              <a :href="'mailto:' + library.email.email">{{ library.email.email }}</a><br/>
+            </p>
+
+            <p v-if="library.phone">
+              <b>{{ library.phone.name }}</b><br/>
+              <a :href="'tel:+358' + library.phone.number.replace(/\D/g, '').substr(1)">{{ library.phone.number }}</a>
+            </p>
+          </address>
+        </div>
+
+        <div class="col-md-6">
+          <div v-if="library.mailAddress">
+            <h3 class="h2">
+              <fa :icon="faEnvelope"/>
+              {{ $t('library.location-mail') }}
+            </h3>
+            <p>
+              {{ library.name }}<br/>
+              <template v-if="library.mailAddress.street">{{ library.mailAddress.street }}<br/></template>
+              <template v-if="library.mailAddress.box_number">P.O. Box {{ library.mailAddress.box_number}}<br/></template>
+              <template>{{ library.mailAddress.zipcode }} {{ library.mailAddress.area.toUpperCase() }}<br/></template>
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- <section v-if="library.services.length > 0" class="visual-section section-services">
+      <h2>{{ $t('library.services') }}</h2>
+      <div v-for="category in serviceCategories">
+        <h3>{{ $t(`service-type.${first(category)}`) }}</h3>
+        <ul class="list-unstyled services-list">
+          <li v-for="service in last(category)">
+            <a class="text-primary" v-b-popover:section-services.click.blur.top="servicePopup(service)">{{ service.name || service.standardName }}</a>
+          </li>
+        </ul>
+      </div>
+    </section> -->
 
     <section v-if="library.links" class="info-links visual-section">
       <h2 class="sr-only">{{ $t("library.other-links") }}</h2>
@@ -49,42 +105,7 @@
       </a>
     </section>
 
-    <section v-if="library.address" class="row visual-section">
-      <h2 class="sr-only">{{ $t("Contact details") }}</h2>
-
-      <div class="col-md-6">
-        <h3>{{ $t('library.location') }}</h3>
-        <address>
-          <p>
-            {{ library.address.street }}, {{ library.address.zipcode }} {{ library.address.city }} <template v-if="library.address.area">({{ library.address.area }})</template><br/>
-            <template v-if="library.address.info">{{ library.address.info }}</template>
-          </p>
-
-          <p v-if="library.email">
-            <b>{{ library.email.name }}</b><br/>
-            <a :href="'mailto:' + library.email.email">{{ library.email.email }}</a><br/>
-          </p>
-
-          <p v-if="library.phone">
-            <b>{{ library.phone.name }}</b><br/>
-            <a :href="'tel:+358' + library.phone.number.replace(/\D/g, '').substr(1)">{{ library.phone.number }}</a>
-          </p>
-        </address>
-      </div>
-
-      <div class="col-md-6">
-        <!-- <fa :icon="faEnvelope" size="3x"/> -->
-        <div v-if="library.mailAddress">
-          <h3>{{ $t('library.location-mail') }}</h3>
-          <p>
-            {{ library.name }}<br/>
-            <template v-if="library.mailAddress.street">{{ library.mailAddress.street }}<br/></template>
-            <template v-if="library.mailAddress.box_number">P.O. Box {{ library.mailAddress.box_number}}<br/></template>
-            <template>{{ library.mailAddress.zipcode }} {{ library.mailAddress.area.toUpperCase() }}<br/></template>
-          </p>
-        </div>
-      </div>
-    </section>
+    <div v-html="library.description" class="text-justify visual-section"/>
 
     <section v-if="hasPublicTransportation()">
       <h2 class="sr-only">{{ $t("Transit directions") }}</h2>
@@ -112,43 +133,66 @@
     </section>
 
     <section v-if="hasContactInfo()" class="visual-section">
+      <h2>
+        <fa :icon="faAddressBook"/>
+        {{ $t('contact-info.contact-details')}}
+      </h2>
       <table class="table table-sm">
         <thead>
           <tr>
-            <th>{{ $t('contact-info.department') }}</th>
+            <th class="col-department">{{ $t('contact-info.department') }}</th>
             <th>{{ $t('contact-info.contact-details') }}</th>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="department in departmentContactInfo">
-            <th scope="row">{{ department.name || $t('contact-info.misc') }}</th>
-            <td>
-              <ul>
-                <li v-for="entry in department.phones">
-                  <a :href="`tel:+358${entry.number.replace(/\D/g, '').substr(1)}`">{{ entry.number}} </a> / {{ entry.name }}
-                </li>
-              </ul>
-              <ul>
-                <li v-for="entry in department.emails">
-                  <a :href="`mailto:${entry.email}`">{{ entry.email }}</a> / {{ entry.name }}
-                </li>
-              </ul>
-              <ul>
-                <li v-for="entry in department.links">
-                  <a :href="entry.url">{{ entry.url.replace(/^http(s?):\/\/(www\.?)/, '') }}</a> / {{ entry.name }}
-                </li>
-              </ul>
-            </td>
-          </tr>
+          <template v-for="department in departmentContactInfo">
+            <tr>
+              <th :rowspan="department.groups.length" scope="row">
+                <h3>{{ department.name || $t('contact-info.common') }}</h3>
+              </th>
+              <td v-for="entries in department.groups.slice(0, 1)">
+                {{ first(entries).name }}<template v-if="first(entries).info">, {{ first(entries).info }}</template>
+                <ul>
+                  <li v-for="entry in entries">
+                    <span class="sr-only">{{ entryTypeLabel(entry) }}</span>
+                    <a :href="entryLinkValue(entry)">{{ entry.number || entry.email || entry.url }}</a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+
+            <tr v-for="entries in department.groups.slice(1)">
+              <td>
+                {{ first(entries).name }}
+                <template v-if="first(entries).info">, {{ first(entries).info }}</template>
+                <ul>
+                  <li v-for="entry in entries">
+                    <span class="sr-only">{{ entryTypeLabel(entry) }}</span>
+                    <a :href="entryLinkValue(entry)">{{ entry.number || entry.email || entry.url }}</a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          </template>
         </tbody>
       </table>
     </section>
+
+    <section class="visual-section">
+      <list-services :services="library.services"/>
+    </section>
+
   </main>
 </template>
 
 <script>
-  import { coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
-  import { faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft } from '@fortawesome/free-solid-svg-icons'
+  import Popper from 'popper.js'
+  import bPopover from 'bootstrap-vue/es/directives/popover/popover'
+
+  import ListServices from './ListServices'
+
+  import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
+  import { faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow, faAddressBook } from '@fortawesome/free-solid-svg-icons'
 
   import {
     faFacebookSquare,
@@ -171,11 +215,16 @@
   ]);
 
   export default {
+    directives: { bPopover },
+    components: { ListServices },
     data: () => ({
-      library: null,
+      activePopups: [],
       refs: {},
+      library: null,
       faQuoteRight,
       faEnvelope,
+      faLocationArrow,
+      faAddressBook
     }),
     computed: {
       sortedLinks() {
@@ -208,40 +257,94 @@
             name: '',
             phones: [],
             emails: [],
-            links: []
+            links: [],
+            namedGroups: new Map,
           }]
         ])
 
+        function makeDepartmentEntry(name, id, description) {
+          return {name, id, description, phones:[], emails: [], links: [], namedGroups: new Map}
+        }
+
         for (let department of this.library.departments) {
           let { name, id, description } = department
-          departments.set(id, {name, id, description, phones:[], emails: [], links: []})
+          departments.set(id, makeDepartmentEntry(name, id, description))
         }
 
         for (let entry of this.library.phoneNumbers) {
+          entry.type = 'phone'
           departments.get(entry.department).phones.push(entry)
+          addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
         }
 
         for (let entry of this.library.emailAddresses) {
+          entry.type = 'email'
           departments.get(entry.department).emails.push(entry)
+          addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
         }
 
         for (let entry of this.library.links) {
+          entry.type = 'link'
           departments.get(entry.department).links.push(entry)
+          addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
+        }
+
+        for (let person of this.library.persons) {
+          const name = `${person.firstName} ${person.lastName}`
+          const dkey = person.department || person.responsibility
+
+          addToMap(departments, dkey, makeDepartmentEntry(dkey))
+
+          if (person.phone) {
+            addToMapArray(departments.get(dkey).namedGroups, name, {
+              name,
+              info: (person.jobTitle || '').toLowerCase(),
+              number: person.phone,
+              type: 'phone',
+            })
+          }
+
+          if (person.email) {
+            addToMapArray(departments.get(dkey).namedGroups, name, {
+              name,
+              info: (person.jobTitle || '').toLowerCase(),
+              email: person.email,
+              type: 'email',
+            })
+          }
+        }
+
+        for (let department of departments.values()) {
+          department.groups = [...department.namedGroups.values()]
+
+          if (!department.groups.length) {
+            departments.delete(department.id)
+          }
         }
 
         return [...departments.values()].sort((a, b) => {
           if (!a.name.length) {
-            return 1000
+            return -1000
           }
           if (!b.name.length) {
-            return -1000
+            return 1000
           }
           return a.name.localeCompare(b.name)
         })
+      },
+      serviceCategories() {
+        const groups = new Map
+
+        for (let service of this.library.services) {
+          addToMapArray(groups, service.type, service)
+        }
+
+        return [...groups]
       }
     },
     methods: {
       formatDistance, first, last,
+
       linkIcon(link) {
         let icon_class = faLink;
 
@@ -265,7 +368,43 @@
       },
       hasContactInfo() {
         return (this.library.links.length + this.library.emailAddresses.length + this.library.phoneNumbers.length) > 0;
-      }
+      },
+      entryIcon(entry) {
+        switch (entry.type) {
+          case 'phone':
+            return faPhone
+
+          case 'email':
+            return faAt
+
+          case 'link':
+            return faLink
+        }
+      },
+      entryLinkValue(entry) {
+        switch (entry.type) {
+          case 'phone':
+            return `tel:+358${entry.number.replace(/\D/g, '').substr(1)}`
+
+          case 'email':
+            return `mailto:${entry.email}`
+
+          case 'link':
+            return entry.url
+        }
+      },
+      entryTypeLabel(entry) {
+        switch (entry.type) {
+          case 'phone':
+            return this.$t('contact-info.phone')
+
+          case 'email':
+            return this.$t('contact-info.email')
+
+          case 'link':
+            return this.$t('contact-info.link')
+        }
+      },
     },
     async created() {
       const params = {
@@ -289,7 +428,7 @@
       }
 
       let response = await kirkanta.get('library', params)
-      //
+
       this.library = response.data
       this.refs = response.refs
     }
@@ -355,6 +494,10 @@
     &:nth-child(6) {
       border-color: rgb(164, 102, 112);
     }
+  }
+
+  .col-department {
+    width: 250px;
   }
 </style>
 

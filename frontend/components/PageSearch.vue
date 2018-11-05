@@ -26,10 +26,10 @@
           </b-form-group>
         </div>
         <div class="col-lg-9" id="search-results">
-          <ul class="list-unstyled">
+          <b-list-group>
 
 
-            <li v-for="library in libraries" class="row library-card py-2">
+            <b-list-group-item v-for="library in libraries" :key="library.id" class="library-card border-0 px-0 my-2">
               <div class="library-card-photo-frame">
                 <api-image :file="library.coverPhoto" alt="" class="library-card-photo"/>
               </div>
@@ -49,10 +49,10 @@
                   {{ first(first(library.schedules).times).from }} – {{ last(first(library.schedules).times).to }}
                 </div>
               </div>
-            </li>
+            </b-list-group-item>
 
 
-          </ul>
+          </b-list-group>
         </div>
       </div>
     </form>

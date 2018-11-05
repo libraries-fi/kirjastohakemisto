@@ -1,5 +1,12 @@
+import { demo } from '@/config.json'
+
 export function useBetaKirkantaDomain(url) {
+  if (!demo.enabled) {
+    return url
+  }
+
   if (url) {
-    return url.replace(/\bkirkanta\.kirjastot\.fi\b/, 'beta-kirkanta.kirjastot.fi')
+    console.log(url.replace(/\bhttp(s?):\/\/kirkanta\.kirjastot\.fi\b/, demo.assetUrl))
+    return url.replace(/\bhttp(s?):\/\/kirkanta\.kirjastot\.fi\b/, demo.assetUrl)
   }
 }
