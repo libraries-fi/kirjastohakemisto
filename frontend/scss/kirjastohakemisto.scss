@@ -2,9 +2,15 @@
 @import "page.search";
 @import "index";
 
-body {
-  // Fix page position regardless of scrollbar visibility
-  width: 100vw;
+html {
+  // Fix content shift when vertical scrollbar is toggled.
+  margin-left: calc(100vw - 100%);
+}
+
+.navbar.sticky-top {
+  // Countermeasure to content shift fix in html{}
+  margin-left: calc(100% - 100vw);
+  padding-left: calc(#{$navbar-padding-x} + 100vw - 100%);
 }
 
 .anchor {
