@@ -63,6 +63,8 @@ class Kirkanta {
       processed.lang = detectLanguage()
     }
 
+    console.log('Q', processed)
+
     return axios.get(`${this.__url}/${path}`, {params: processed})
   }
 }

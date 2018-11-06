@@ -60,3 +60,11 @@ service:
   offered-at: Saatavilla näissä kirjastoissa
   common-availability: Saatavuus muualla
   website: Lisätiedot
+schedules:
+  date: Päivämäärä
+  day: Päivä
+  times: Aukiolot
+  week: Viikko
+  closed: Kiinni
+  staffed: Henkilökunta paikalla
+  self-service: Omatoimiaika

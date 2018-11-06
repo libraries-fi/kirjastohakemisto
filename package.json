@@ -22,6 +22,7 @@
     "bootstrap": "^4.1.3",
     "bootstrap-vue": "^2.0.0-rc.11",
     "css-loader": "^1.0.0",
+    "date-fns": "file:./custom/date-fns/tmp/package",
     "js-yaml-loader": "^1.0.1",
     "node-sass": "^4.9.4",
     "postcss-loader": "^3.0.0",

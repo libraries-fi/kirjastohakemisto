@@ -16,28 +16,10 @@
         <h2 class="sr-only">{{ $t('library.photos') }}</h2>
         <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/>
       </section>
+
       <section class="col-md-6">
         <h2 class="sr-only">{{ $t('library.schedules') }}</h2>
-        <h3 class="text-center">{{ $t('calendar.week', {week: 4}) }}</h3>
-        <table class="table table-sm">
-          <thead class="sr-only">
-            <tr>
-              <th>{{ $t('calendar.date') }}</th>
-              <th>{{ $t('calendar.week-day') }}</th>
-              <th>{{ $t('calendar.schedules') }}</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="entry of library.schedules.slice(0, 7)">
-              <td>{{ entry.date }}</td>
-              <td>day name</td>
-              <td v-if="entry.closed">{{ $t('calendar.closed') }}</td>
-              <td v-else>
-                {{ first(entry.times).from }} – {{ last(entry.times).to }}
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <schedules :schedules="library.schedules"/>
       </section>
     </div>
 
@@ -84,18 +66,6 @@
         </div>
       </div>
     </section>
-
-    <!-- <section v-if="library.services.length > 0" class="visual-section section-services">
-      <h2>{{ $t('library.services') }}</h2>
-      <div v-for="category in serviceCategories">
-        <h3>{{ $t(`service-type.${first(category)}`) }}</h3>
-        <ul class="list-unstyled services-list">
-          <li v-for="service in last(category)">
-            <a class="text-primary" v-b-popover:section-services.click.blur.top="servicePopup(service)">{{ service.name || service.standardName }}</a>
-          </li>
-        </ul>
-      </div>
-    </section> -->
 
     <section v-if="library.links" class="info-links visual-section">
       <h2 class="sr-only">{{ $t("library.other-links") }}</h2>
@@ -190,6 +160,7 @@
   import bPopover from 'bootstrap-vue/es/directives/popover/popover'
 
   import ListServices from './ListServices'
+  import Schedules from "./Schedules.vue";
 
   import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
   import { faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow, faAddressBook } from '@fortawesome/free-solid-svg-icons'
@@ -216,7 +187,7 @@
 
   export default {
     directives: { bPopover },
-    components: { ListServices },
+    components: { ListServices, Schedules },
     data: () => ({
       activePopups: [],
       refs: {},
@@ -412,7 +383,8 @@
         slug: this.$route.params.library,
         with: ['schedules', 'links', 'mailAddress', 'emailAddresses', 'phoneNumbers', 'departments'],
         refs: ['city', 'period'],
-        'period.start': '1w',
+        status: '',
+        'period.start': '0w',
         'period.end': '8w'
       }
 
