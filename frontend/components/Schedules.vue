@@ -2,11 +2,11 @@
   <div class="weekly-schedules" :data-expand-mode="expandMode" v-if="schedules">
     <div class="toolbar">
       <button type="button" @click="previousWeek" class="btn btn-link btn-sm">
-        <font-awesome-icon :icon="faWeekPrev"/>
+        <fa :icon="faWeekPrev"/>
       </button>
       <h3 class="week-label">{{ $t('schedules.week') }} {{ week }}</h3>
       <button type="button" @click="nextWeek" class="btn btn-link btn-sm">
-        <font-awesome-icon :icon="faWeekNext"/>
+        <fa :icon="faWeekNext"/>
       </button>
     </div>
 
@@ -21,15 +21,15 @@
 
       <tbody v-for="(day, index) of schedules.slice(this.i * 7, (this.i + 1) * 7)" :class="isToday(day) ? 'current-day' : null" :data-expanded="index == expandedRow">
         <tr class="day-entry">
-          <th :rowspan="day.times.length + 1 + (day.info ? 1 : 0)" scope="row" class="col-date">
+          <th :rowspan="(day.times ? day.times.length : 0 ) + 1 + (day.info ? 1 : 0)" scope="row" class="col-date">
             <date-time :date="day.date" format="P" formal short/>
           </th>
           <td class="col-weekday">
             <date-time :date="day.date" format="cccc"/>
 
             <button class="btn btn-link" @click="expandedRow = index" v-if="expandMode == 'current' && !day.closed">
-              <font-awesome-icon :icon="faCollapse" v-if="index == expandedRow"/>
-              <font-awesome-icon :icon="faExpand" v-else/>
+              <fa :icon="faCollapse" v-if="index == expandedRow"/>
+              <fa :icon="faExpand" v-else/>
             </button>
           </td>
           <td v-if="day.closed" class="col-time closed">Closed</td>
@@ -76,14 +76,13 @@
   import { format, isSameDay, toDate } from "date-fns";
   import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
 
-  import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
   import { faAngleDoubleLeft, faAngleDoubleRight, faArrowCircleDown, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
   import { faArrowAltCircleRight, faPlusSquare } from "@fortawesome/free-regular-svg-icons";
 
   import DateTime from "./DateTime.vue";
 
   export default {
-    components: { DateTime, FontAwesomeIcon },
+    components: { DateTime },
     props: {
       schedules: {},
       periods: {},
@@ -142,9 +141,11 @@
     },
     created() {
       this.schedules.forEach((day) => {
-        day.times.forEach((time) => {
-          time.status = time.staff ? 1 : 2
-        })
+        if (day.times) {
+          day.times.forEach((time) => {
+            time.status = time.staff ? 1 : 2
+          })
+        }
       })
 
       console.log(this.schedules[1].date, Object.keys(this.schedules[1]))

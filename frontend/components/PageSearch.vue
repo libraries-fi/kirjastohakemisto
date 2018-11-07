@@ -42,14 +42,19 @@
                 <div>{{ libraryAddress(library) }}</div>
               </div>
               <div class="library-card-aside">
+                <span class="library-card-live">
+                  <!-- Always render container to push rest of the content down -->
+                  <template v-if="library.liveStatus !== null">
+                    <date-time :time="first(library.schedules) | opens" format="p"/>
+                      –
+                    <date-time :time="first(library.schedules) | closes" format="p"/>
+                  </template>
+                </span>
                 <div class="text-right">
                   <b-badge v-if="library.liveStatus == 0" variant="danger">closed</b-badge>
                   <b-badge v-if="library.liveStatus == 1" variant="success">open</b-badge>
                   <b-badge v-if="library.liveStatus == 2" variant="info">self-service</b-badge>
                   <b-badge v-if="library.distance" variant="primary">{{ formatDistance(library.distance) }}</b-badge>
-                </div>
-                <div v-if="library.liveStatus !== null">
-                  {{ first(first(library.schedules).times).from }} – {{ last(first(library.schedules).times).to }}
                 </div>
               </div>
             </b-list-group-item>
@@ -63,8 +68,10 @@
 <script>
   import { kirkanta, formatDistance, geolocation, first, last } from '@/mixins'
   import { faSearch } from '@fortawesome/free-solid-svg-icons'
+  import DateTime from "./DateTime.vue";
 
   export default {
+    components: { DateTime },
     data: () => ({
       faSearch,
       form: {
@@ -129,6 +136,14 @@
         this.cities = response.refs.city
 
         this.busy = false
+      }
+    },
+    filters: {
+      opens(day) {
+        return first(day.times).from
+      },
+      closes(day) {
+        return last(day.times).to
       }
     },
     watch: {
@@ -216,6 +231,10 @@
     display: flex;
     flex-flow: column;
     justify-content: space-between;
+  }
+
+  .library-card-live {
+    // font-size: $font-size-lg;
   }
 
   @include media-breakpoint-up("lg") {
