@@ -11,16 +11,27 @@
       </blockquote>
     </div>
 
-    <div class="row visual-section">
-      <section class="col-md-6 cover-photo-frame">
-        <h2 class="sr-only">{{ $t('library.photos') }}</h2>
-        <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/>
-      </section>
+    <div class="visual-section">
+      <div class="row">
+        <div class="col-md-6">
+          <b-tabs class="tabs-photos-map">
+            <b-tab title="Photos" >
+              <section class="cover-photo-frame">
+                <h2 class="sr-only">{{ $t('library.photos') }}</h2>
+                <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/>
+              </section>
+            </b-tab>
+            <b-tab title="Map" active>
+              <map-view class="library-location" :pos="library.coordinates"/>
+            </b-tab>
+          </b-tabs>
+        </div>
 
-      <section v-if="library.schedules.length > 0" class="col-md-6">
-        <h2 class="sr-only">{{ $t('library.schedules') }}</h2>
-        <schedules :schedules="library.schedules"/>
-      </section>
+        <section v-if="library.schedules.length > 0" class="col-md-6">
+          <h2 class="sr-only">{{ $t('library.schedules') }}</h2>
+          <schedules :schedules="library.schedules"/>
+        </section>
+      </div>
     </div>
 
     <section v-if="library.address" class="visual-section">
@@ -160,7 +171,8 @@
   import bPopover from 'bootstrap-vue/es/directives/popover/popover'
 
   import ListServices from './ListServices'
-  import Schedules from "./Schedules.vue";
+  import Schedules from './Schedules.vue'
+  import MapView from './MapView'
 
   import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
   import { faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow, faAddressBook } from '@fortawesome/free-solid-svg-icons'
@@ -189,7 +201,7 @@
 
   export default {
     directives: { bPopover },
-    components: { ListServices, Schedules },
+    components: { ListServices, MapView, Schedules },
     data: () => ({
       activePopups: [],
       refs: {},
@@ -372,6 +384,7 @@
       try {
         let pos = await geolocation.tryGps()
 
+
         Object.assign(params, {
           'geo.pos': coordStr(pos.coords),
           'geo.dist': 2000,
@@ -384,16 +397,14 @@
 
       this.library = response.data
       this.refs = response.refs
+
+      console.log('POS', this.library.coordinates)
     }
   }
 </script>
 
 <style lang="scss" scoped>
   @import "../scss/bootstrap/init";
-
-  section {
-    margin-bottom: spacing(3);
-  }
 
   .fa-quote-right {
     margin-right: spacing(2);
@@ -404,6 +415,8 @@
     flex-flow: column;
     justify-content: center;
     padding-left: 0;
+
+    height: 100%;
   }
 
   .cover-photo {
@@ -451,6 +464,27 @@
 
   .col-department {
     width: 250px;
+  }
+
+  .library-location {
+    height: 300px;
+    overflow: hidden;
+  }
+</style>
+
+<style lang="scss">
+  .tabs-photos-map {
+    height: 100%;
+    display: flex;
+    flex-flow: column;
+
+    .tab-content {
+      flex: 1 1 auto;
+
+      .tab-pane.show {
+        height: 100%;
+      }
+    }
   }
 </style>
 

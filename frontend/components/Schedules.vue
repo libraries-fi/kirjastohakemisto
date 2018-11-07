@@ -52,7 +52,6 @@
           <td colspan="2">{{ day.info }}</td>
         </tr>
       </tbody>
-
     </table>
 
     <div class="period-info" v-if="periodInfo.length">

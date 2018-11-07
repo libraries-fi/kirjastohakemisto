@@ -2,6 +2,7 @@
 @import "page.search";
 @import "index";
 @import "throbber";
+@import "~leaflet/dist/leaflet.css";
 
 html {
   // Fix content shift when vertical scrollbar is toggled.

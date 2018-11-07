@@ -13,7 +13,7 @@
             <b-nav-item :to="{ name: 'info' }">{{ $t('nav.info') }}</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
-        <toggle-button v-model="locationDataAllowed" :sync="true" @change="toggleGeolocation" labels/>
+        <toggle-button v-model="locationDataAllowed" :sync="true" @change="toggleGeolocation" labels :title="locationPosition"/>
       </div>
     </b-navbar>
     <div class="container">
@@ -28,7 +28,8 @@
   export default {
     name: "app",
     data: () => ({
-      locationDataAllowed: false
+      locationDataAllowed: false,
+      locationPosition: null
     }),
     created() {
       geolocation.test()
@@ -45,6 +46,8 @@
           try {
             let pos = await geolocation.gps()
             console.log('GOT POS', pos)
+
+            this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
           } catch (err) {
             this.locationDataAllowed = false
             console.warn('user aborted geolocation')
