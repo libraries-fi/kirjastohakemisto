@@ -74,15 +74,13 @@
 
 <script>
   import { format, isSameDay, toDate } from "date-fns";
+  import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
 
   import { FontAwesomeIcon } from "@fortawesome/vue-fontawesome";
   import { faAngleDoubleLeft, faAngleDoubleRight, faArrowCircleDown, faMinusSquare } from "@fortawesome/free-solid-svg-icons";
   import { faArrowAltCircleRight, faPlusSquare } from "@fortawesome/free-regular-svg-icons";
 
   import DateTime from "./DateTime.vue";
-  import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
-
-  console.log('T', isSameDay)
 
   export default {
     components: { DateTime, FontAwesomeIcon },
@@ -99,7 +97,7 @@
     }),
     computed: {
       week() {
-        if (this.schedules) {
+        if (this.schedules.length > 0) {
           let day = this.schedules[this.i * 7];
           return day ? format(toDate(day.date), "I") : null;
         }

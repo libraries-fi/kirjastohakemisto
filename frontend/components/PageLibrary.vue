@@ -17,7 +17,7 @@
         <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/>
       </section>
 
-      <section class="col-md-6">
+      <section v-if="library.schedules.length > 0" class="col-md-6">
         <h2 class="sr-only">{{ $t('library.schedules') }}</h2>
         <schedules :schedules="library.schedules"/>
       </section>
@@ -69,7 +69,7 @@
 
     <section v-if="library.links" class="info-links visual-section">
       <h2 class="sr-only">{{ $t("library.other-links") }}</h2>
-      <a v-for="link in sortedLinks" :href="link.url" class="info-link">
+      <a v-for="link in someLinks" :href="link.url" class="info-link">
         <fa v-if="linkIcon(link)" :icon="linkIcon(link)"/>
         {{ link.name }}
       </a>
@@ -175,15 +175,17 @@
     faYoutube
   } from '@fortawesome/free-brands-svg-icons'
 
-  const icon_map = new Map([
-    [/facebook\.com/, faFacebookSquare],
-    [/flickr\.com/, faFlickr],
-    [/instagram\.com/, faInstagram],
-    [/pinterest\.com/, faPinterestSquare],
-    [/vimeo\.com/, faVimeoSquare],
-    [/twitter\.com/, faTwitterSquare],
-    [/youtube\.com/, faYoutube],
+  const iconMap = new Map([
+    ['facebook.com', faFacebookSquare],
+    ['flickr.com', faFlickr],
+    ['instagram.com', faInstagram],
+    ['pinterest.com', faPinterestSquare],
+    ['vimeo.com', faVimeoSquare],
+    ['twitter.com', faTwitterSquare],
+    ['youtube.com', faYoutube],
   ]);
+
+  const someRegexp = new RegExp([...iconMap.keys()].join('|').replace('.', '\\.'))
 
   export default {
     directives: { bPopover },
@@ -198,29 +200,8 @@
       faAddressBook
     }),
     computed: {
-      sortedLinks() {
-        if (this.library.links) {
-          return this.library.links.sort((a, b) => {
-            // NOTE: Horribly inefficient but whatever...
-
-            let a_match = 0
-            let b_match = 0
-
-            for (let rx of icon_map.keys()) {
-              if (a.url.match(rx)) {
-                a_match = 1
-              }
-
-              if (b.url.match(rx)) {
-                b_match = 1
-              }
-            }
-
-            return a_match - b_match
-          });
-        } else {
-          return null
-        }
+      someLinks() {
+        return this.library.links.filter((link) => someRegexp.test(link.url)).sort((a, b) => a.name.localeCompare(b.name))
       },
       departmentContactInfo() {
         const departments = new Map([
@@ -319,7 +300,7 @@
       linkIcon(link) {
         let icon_class = faLink;
 
-        for (let [rx, icon] of icon_map) {
+        for (let [rx, icon] of iconMap) {
           if (link.url.match(rx)) {
             icon_class = icon;
           }

@@ -1,22 +1,34 @@
 app:
   name: Kirjastohakemisto
-nav:
-  search: Haku
-  info: Tietoa
-  libraries: Kirjastot
-  consortiums: Kimpat
-  services: Palvelut
+calendar:
+  week: Viikko {week}
+  week-day: Päivä
+  date: Päivämäärä
+  schedules: Aukiolot
+  closed: Kiinni
+consortium:
+  homepage: Kotisivut
+  city-count: Kimppaan kuuluu {count} kuntaa
+  library-count: Kimppaan kuuluu {count} kirjastoa
+contact-info:
+  email: Sähköpostiosoite
+  phone: Puhelinnumero
+  link: Verkkosivu
+  common: Yleiset
+  department: Osasto
+  contact-details: Yhteystiedot
 front:
   hello: Kir­jas­to­ha­ke­mis­to ko­ko­aa yh­teen kaik­ki Suo­men kir­jas­tot. Vo­it hel­pos­ti tar­kis­taa oman kir­jas­to­si au­ki­o­lo­a­jat tai pai­kan­taa lä­hel­lä­si si­jait­se­vat kir­jas­tot.
   open-search: Löydä kirjastosi
-search:
-  placeholder: Hae kirjastoa tai palvelua
-  advanced: Tarkennettu haku
-  options: Asetukset
-  use-location: Käytä paikannusta
-  only-open: Vain avoimet kirjastot
-  library-type: Kirjaston tyyppi
+index:
+  libraries: 'Hakemisto: Kirjastot'
+  consortiums: 'Hakemisto: Kirjastokimpat'
+  services: 'Hakemisto: Palvelut'
+  by-initial: Aakkosellinen hakemisto
+  by-municipality: Kunnittain
+  by-consortium: Kimpoittain
 library:
+  nearby: Poimintoja kaupungin {city} lähistöltä
   municipal: Kunnankirjastot
   special: Erikoiskirjastot
   university: Yliopistokirjastot
@@ -28,38 +40,12 @@ library:
   location-mail: Postiosoite
   services: Palvelut
   schedules: Aukioloajat
-calendar:
-  week: Viikko {week}
-  week-day: Päivä
-  date: Päivämäärä
-  schedules: Aukiolot
-  closed: Kiinni
-contact-info:
-  email: Sähköpostiosoite
-  phone: Puhelinnumero
-  link: Verkkosivu
-  common: Yleiset
-  department: Osasto
-  contact-details: Yhteystiedot
-index:
-  libraries: 'Hakemisto: Kirjastot'
-  consortiums: 'Hakemisto: Kirjastokimpat'
-  services: 'Hakemisto: Palvelut'
-  by-initial: Aakkosellinen hakemisto
-  by-municipality: Kunnittain
-  by-consortium: Kimpoittain
-service-type:
-  collection: Kokoelmat
-  hardware: Laitteet
-  service: Palvelut
-  room: Tilat
-  web_service: Verkkopalvelut
-service:
-  offered-nearby: Saatavuus lähikirjastoissasi
-  offered-elsewhere: Muissa kirjastoissa
-  offered-at: Saatavilla näissä kirjastoissa
-  common-availability: Saatavuus muualla
-  website: Lisätiedot
+nav:
+  search: Haku
+  info: Tietoa
+  libraries: Kirjastot
+  consortiums: Kimpat
+  services: Palvelut
 schedules:
   date: Päivämäärä
   day: Päivä
@@ -68,3 +54,22 @@ schedules:
   closed: Kiinni
   staffed: Henkilökunta paikalla
   self-service: Omatoimiaika
+search:
+  placeholder: Hae kirjastoa tai palvelua
+  advanced: Tarkennettu haku
+  options: Asetukset
+  use-location: Käytä paikannusta
+  only-open: Vain avoimet kirjastot
+  library-type: Kirjaston tyyppi
+service:
+  offered-nearby: Saatavuus lähikirjastoissasi
+  offered-elsewhere: Muissa kirjastoissa
+  offered-at: Saatavilla näissä kirjastoissa
+  common-availability: Saatavuus muualla
+  website: Lisätiedot
+service-type:
+  collection: Kokoelmat
+  hardware: Laitteet
+  service: Palvelut
+  room: Tilat
+  web_service: Verkkopalvelut

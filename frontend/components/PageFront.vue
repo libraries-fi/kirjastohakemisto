@@ -1,33 +1,43 @@
-<template>
-  <main class="pt-3">
-    <div class="mb-4">
-      <p class="h1 text-justify mb-4">{{ $t('front.hello') }}</p>
-      <router-link :to="{name: 'search'}" class="btn btn-primary">{{ $t('front.open-search') }}</router-link>
-    </div>
-    <div class="showcase">
-      <template v-for="library in libraries">
-        <div class="card">
-          <div class="card-img-frame">
-            <api-image :file="library.coverPhoto" class="card-img-top" alt=""/>
+ <template>
+   <div class="pt-3">
+     <header class="mb-4">
+       <h1 class="sr-only">{{ $t('app.name') }}</h1>
+       <p class="h1 text-justify mb-4">{{ $t('front.hello') }}</p>
+       <router-link :to="{name: 'search'}" class="btn btn-primary">
+         <fa :icon="faSearch" class="mr-2"/>
+         {{ $t('front.open-search') }}
+       </router-link>
+     </header>
+    <main v-if="this.currentCity">
+      <p class="mb-1">{{ $t('library.nearby', {city: this.currentCity}) }}</p>
+      <div class="showcase">
+        <template v-for="library in libraries">
+          <div class="card">
+            <div class="card-img-frame">
+              <api-image :file="library.coverPhoto" class="card-img-top" alt=""/>
+            </div>
+            <div class="card-body">
+              <router-link :to="{ name: 're', params: { slug: library.slug }}" class="card-title">
+                {{ library.name }}
+              </router-link>
+            </div>
           </div>
-          <div class="card-body">
-            <router-link :to="{ name: 're', params: { slug: library.slug }}" class="card-title">
-              {{ library.name }}
-            </router-link>
-          </div>
-        </div>
-      </template>
-    </div>
-  </main>
+        </template>
+      </div>
+    </main>
+  </div>
 </template>
 
 <script>
   import { geolocation } from '@/mixins/geolocation'
   import kirkanta from '@/mixins/kirkanta'
+  import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
   export default {
     data: () => ({
-      libraries: []
+      libraries: [],
+      currentCity: null,
+      faSearch
     }),
     async created() {
       let pos = await geolocation.getPosition()
@@ -37,6 +47,7 @@
       })
 
       this.libraries = response.items
+      this.currentCity = this.libraries.length > 0 ? this.libraries[0].address.city : null
     },
   }
 </script>

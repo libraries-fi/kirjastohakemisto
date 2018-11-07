@@ -6,9 +6,14 @@
           <b-form-group id="query-field" breakpoint="lg" :label="$t('search.placeholder')" label-class="sr-only" class="pt-3">
             <b-input-group>
               <b-form-input size="lg" :placeholder="$t('search.placeholder')" v-model="form.q" v-focus/>
-              <b-btn variant="primary" type="submit">
-                <fa :icon="faSearch"/>
-              </b-btn>
+
+              <b-input-group-append>
+                <div v-if="busy" class="loader" id="form-input-throbber" aria-hidden="true">Loading</div>
+
+                <b-btn variant="primary" type="submit">
+                  <fa :icon="faSearch"/>
+                </b-btn>
+              </b-input-group-append>
             </b-input-group>
           </b-form-group>
         </div>
@@ -27,8 +32,6 @@
         </div>
         <div class="col-lg-9" id="search-results">
           <b-list-group>
-
-
             <b-list-group-item v-for="library in libraries" :key="library.id" class="library-card border-0 px-0 my-2">
               <div class="library-card-photo-frame">
                 <api-image :file="library.coverPhoto" alt="" class="library-card-photo"/>
@@ -50,8 +53,6 @@
                 </div>
               </div>
             </b-list-group-item>
-
-
           </b-list-group>
         </div>
       </div>
@@ -86,7 +87,8 @@
       },
       libraryTypes: [],
       libraries: [],
-      cities: {}
+      cities: {},
+      busy: true,
     }),
     methods: {
       formatDistance,
@@ -112,6 +114,8 @@
         }
       },
       async onSubmit() {
+        this.busy = true
+
         try {
           await geolocation.test()
           let pos = await geolocation.gps()
@@ -120,10 +124,11 @@
           console.warn('geolocation disabled')
         }
 
-        kirkanta.search('library', this.form).then((response) => {
-          this.libraries = response.items
-          this.cities = response.refs.city
-        })
+        let response = await kirkanta.search('library', this.form)
+        this.libraries = response.items
+        this.cities = response.refs.city
+
+        this.busy = false
       }
     },
     watch: {
@@ -155,6 +160,14 @@
 
 <style lang="scss" scoped>
   @import "../scss/bootstrap/init";
+
+  #form-input-throbber {
+    position: absolute;
+    font-size: 36px;
+    margin-left: -1em;
+    margin-top: 5px;
+    z-index: $zindex-tooltip;
+  }
 
   .library-card {
     height: 4.7rem;

@@ -3,6 +3,9 @@ export * from './geolocation'
 export * from './language'
 export * from './collections'
 
+import * as constants from './constants'
+export { constants }
+
 export function first(items) {
   if (Array.isArray(items)) {
     return items[0]
