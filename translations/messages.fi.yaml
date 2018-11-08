@@ -1,5 +1,7 @@
 app:
   name: Kirjastohakemisto
+  beta-warning: Tämä on uuden Kirjastohakemiston beta-versio! Kirjastojen tiedot eivät välttämättä ole ajan tasalla.
+  beta-link-back: Näet kirjastojen ajantasaiset tiedot <a href="{url}">vanhasta Kirjastohakemistosta.
 calendar:
   week: Viikko {week}
   week-day: Päivä
@@ -27,6 +29,10 @@ index:
   by-initial: Aakkosellinen hakemisto
   by-municipality: Kunnittain
   by-consortium: Kimpoittain
+kifi:
+  name: Kirjastot.fi
+  footer-title: Linkkejä Kirjastot.fi'n muihin palveluihin
+  public-library-logo: Yleisten kirjastojen tunnus
 library:
   nearby: Poimintoja kaupungin {city} lähistöltä
   municipal: Kunnankirjastot

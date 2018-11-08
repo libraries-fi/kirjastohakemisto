@@ -1,8 +1,9 @@
+@import "~leaflet/dist/leaflet.css";
 @import "bootstrap/bootstrap";
 @import "page.search";
 @import "index";
 @import "throbber";
-@import "~leaflet/dist/leaflet.css";
+@import "sticky-footer";
 
 html {
   // Fix content shift when vertical scrollbar is toggled.
@@ -13,6 +14,24 @@ html {
   // Countermeasure to content shift fix in html{}
   margin-left: calc(100% - 100vw);
   padding-left: calc(#{$navbar-padding-x} + 100vw - 100%);
+}
+
+.primary-alert-box {
+  margin-left: calc(100% - 100vw);
+  padding-left: calc(#{spacing(3)} + 100vw - 100%);
+}
+
+.alert-container {
+  display: flex;
+
+  .alert-icon {
+    margin-top: 6px;
+  }
+
+  .alert-messages {
+    flex-grow: 1;
+    margin-left: spacing(3);
+  }
 }
 
 .anchor {
@@ -50,9 +69,13 @@ html {
   }
 }
 
-
 #nav-main {
   .vue-js-switch {
     margin: 0;
   }
+}
+
+#l-footer {
+  background-color: #dedcdc;
+  color: black;
 }

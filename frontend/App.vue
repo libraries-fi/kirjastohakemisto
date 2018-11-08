@@ -16,20 +16,39 @@
         <toggle-button v-model="locationDataAllowed" :sync="true" @change="toggleGeolocation" labels :title="locationPosition"/>
       </div>
     </b-navbar>
-    <div class="container">
+    <div class="alert alert-warning primary-alert-box mb-0">
+      <div class="container alert-container">
+        <div class="alert-icon">
+          <fa :icon="faExclamationTriangle" size="2x"/>
+        </div>
+        <div class="alert-messages">
+          <p class="m-0">{{ $t('app.beta-warning') }}</p>
+          <p v-html="$t('app.beta-link-back')" class="m-0"/>
+        </div>
+      </div>
+    </div>
+    <div class="container main-content">
       <router-view></router-view>
     </div>
+    <footer id="l-footer">
+      <kifi-footer/>
+    </footer>
   </div>
 </template>
 
 <script>
   import { geolocation } from './mixins'
+  import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+
+  import KifiFooter from '@/components/KifiFooter'
 
   export default {
     name: "app",
+    components: { KifiFooter },
     data: () => ({
       locationDataAllowed: false,
-      locationPosition: null
+      locationPosition: null,
+      faExclamationTriangle
     }),
     created() {
       geolocation.test()
@@ -45,8 +64,6 @@
         if (event.value) {
           try {
             let pos = await geolocation.gps()
-            console.log('GOT POS', pos)
-
             this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
           } catch (err) {
             this.locationDataAllowed = false

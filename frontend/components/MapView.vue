@@ -26,7 +26,7 @@
     }),
     mounted() {
       this.$nextTick(() => {
-        console.log('TICK')
+        // console.log('TICK')
       })
     }
   }

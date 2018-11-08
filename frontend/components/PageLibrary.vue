@@ -13,21 +13,23 @@
 
     <div class="visual-section">
       <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-6 col-xl-7">
           <b-tabs class="tabs-photos-map">
-            <b-tab title="Photos" >
+            <b-tab title="Photos" active>
               <section class="cover-photo-frame">
                 <h2 class="sr-only">{{ $t('library.photos') }}</h2>
-                <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/>
+                <!-- <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/> -->
+
+                <photos :source="library.pictures"/>
               </section>
             </b-tab>
-            <b-tab title="Map" active>
+            <b-tab title="Map" >
               <map-view class="library-location" :pos="library.coordinates"/>
             </b-tab>
           </b-tabs>
         </div>
 
-        <section v-if="library.schedules.length > 0" class="col-md-6">
+        <section v-if="library.schedules.length > 0" class="col-md-6 col-xl-5">
           <h2 class="sr-only">{{ $t('library.schedules') }}</h2>
           <schedules :schedules="library.schedules"/>
         </section>
@@ -38,7 +40,7 @@
       <div class="row">
         <h2 class="sr-only">{{ $t("contact-info.contact-details") }}</h2>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
           <h3 class="h2">
             <fa :icon="faLocationArrow"/>
             {{ $t('library.location') }}
@@ -61,7 +63,7 @@
           </address>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div v-if="library.mailAddress">
             <h3 class="h2">
               <fa :icon="faEnvelope"/>
@@ -173,6 +175,7 @@
   import ListServices from './ListServices'
   import Schedules from './Schedules.vue'
   import MapView from './MapView'
+  import Photos from './Photos'
 
   import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
   import { faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow, faAddressBook } from '@fortawesome/free-solid-svg-icons'
@@ -201,7 +204,7 @@
 
   export default {
     directives: { bPopover },
-    components: { ListServices, MapView, Schedules },
+    components: { ListServices, MapView, Photos, Schedules },
     data: () => ({
       activePopups: [],
       refs: {},
@@ -397,8 +400,6 @@
 
       this.library = response.data
       this.refs = response.refs
-
-      console.log('POS', this.library.coordinates)
     }
   }
 </script>
@@ -416,7 +417,8 @@
     justify-content: center;
     padding-left: 0;
 
-    height: 100%;
+    height: 320px;
+    overflow: hidden;
   }
 
   .cover-photo {

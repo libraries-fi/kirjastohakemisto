@@ -146,8 +146,6 @@
           })
         }
       })
-
-      console.log(this.schedules[1].date, Object.keys(this.schedules[1]))
     }
   };
 </script>
@@ -174,6 +172,7 @@
   .week-label {
     text-align: center;
     flex-grow: 1;
+    padding: $nav-link-padding-y $nav-link-padding-x;
     margin: 0;
   }
 
