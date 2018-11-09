@@ -12,10 +12,11 @@
 
     <div class="border border-top-0 p-3 mb-3">
       <b-form class="p-2 mb-2">
+        <span class="sr-only">{{ $t('index.type-filter') }}</span>
         <b-form-radio-group id="type" v-model="form.type" :options="libraryTypeOptions"/>
       </b-form>
 
-      <em class="d-block mb-3">{{ $t('index.library-count', {count: visibleCount}) }}</em>
+      <p class="d-block mb-3 text-muted">{{ $t('index.library-count', {count: visibleCount}) }}</p>
 
       <div class="index">
         <div v-for="group of groups" class="index-section">

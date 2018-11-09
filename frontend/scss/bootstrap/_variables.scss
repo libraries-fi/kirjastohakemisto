@@ -18,3 +18,20 @@ $sidebar-bg: whitesmoke;
 $enable-rounded: true;
 $enable-gradients: true;
 $enable-shadows: false;
+
+$kifigray: #4c4c4c;
+$kififooter: #dedcdc;
+$highlight: #ffc314;
+
+$theme-colors: (
+  "dark": $kifigray,
+
+  "primary":    $primary,
+  "highlight":  $highlight,
+  "secondary":  $secondary,
+  "success":    $success,
+  "info":       $info,
+  "warning":    $warning,
+  "danger":     $danger,
+  "light":      $light,
+);

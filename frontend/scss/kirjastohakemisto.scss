@@ -51,6 +51,18 @@ html {
   font-weight: bold;
 }
 
+h2 .svg-inline--fa,
+h3 .svg-inline--fa {
+  @extend .bg-highlight;
+  @extend .py-1;
+  @extend .px-1;
+  @include border-radius();
+
+  width: 1.5em !important;
+  height: 1.4em;
+  margin-bottom: -0.2em;
+}
+
 @include media-breakpoint-down("md") {
   .container {
     max-width: none;

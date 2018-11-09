@@ -33,6 +33,7 @@ index:
   all-libraries: Kaikki kirjastot
   municipal-libraries: Kunnankirjastot
   mobile-libraries: Kirjastoautot
+  type-filter: Suodata kirjaston tyypin perusteella
 kifi:
   name: Kirjastot.fi
   footer-title: Linkkejä Kirjastot.fi'n muihin palveluihin

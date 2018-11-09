@@ -117,7 +117,7 @@
 
     <section v-if="hasContactInfo()" class="visual-section">
       <h2>
-        <fa :icon="faAddressBook"/>
+        <fa :icon="faAddressCard"/>
         {{ $t('contact-info.contact-details')}}
       </h2>
       <contact-info :data="departmentContactInfo"/>
@@ -141,7 +141,7 @@
   import ContactInfo from './ContactInfo'
 
   import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
-  import { faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow, faAddressBook } from '@fortawesome/free-solid-svg-icons'
+  import { faAddressCard, faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
   import {
     faFacebookSquare,
@@ -175,7 +175,7 @@
       faQuoteRight,
       faEnvelope,
       faLocationArrow,
-      faAddressBook
+      faAddressCard
     }),
     computed: {
       someLinks() {
@@ -298,42 +298,6 @@
       },
       hasContactInfo() {
         return (this.library.links.length + this.library.emailAddresses.length + this.library.phoneNumbers.length) > 0;
-      },
-      entryIcon(entry) {
-        switch (entry.type) {
-          case 'phone':
-            return faPhone
-
-          case 'email':
-            return faAt
-
-          case 'link':
-            return faLink
-        }
-      },
-      entryLinkValue(entry) {
-        switch (entry.type) {
-          case 'phone':
-            return `tel:+358${entry.number.replace(/\D/g, '').substr(1)}`
-
-          case 'email':
-            return `mailto:${entry.email}`
-
-          case 'link':
-            return entry.url
-        }
-      },
-      entryTypeLabel(entry) {
-        switch (entry.type) {
-          case 'phone':
-            return this.$t('contact-info.phone')
-
-          case 'email':
-            return this.$t('contact-info.email')
-
-          case 'link':
-            return this.$t('contact-info.link')
-        }
       },
     },
     async created() {
