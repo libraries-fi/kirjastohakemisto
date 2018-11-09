@@ -240,7 +240,7 @@
   @include media-breakpoint-up("lg") {
     #sidebar {
       background-color: $sidebar-bg;
-      margin-top: -5.45rem;
+      margin-top: -5.05rem;
     }
 
     #advanced-search {

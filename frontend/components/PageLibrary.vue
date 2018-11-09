@@ -120,45 +120,7 @@
         <fa :icon="faAddressBook"/>
         {{ $t('contact-info.contact-details')}}
       </h2>
-      <table class="table table-sm">
-        <thead>
-          <tr>
-            <th class="col-department">{{ $t('contact-info.department') }}</th>
-            <th>{{ $t('contact-info.contact-details') }}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <template v-for="department in departmentContactInfo">
-            <tr>
-              <th :rowspan="department.groups.length" scope="row">
-                <h3>{{ department.name || $t('contact-info.common') }}</h3>
-              </th>
-              <td v-for="entries in department.groups.slice(0, 1)">
-                {{ first(entries).name }}<template v-if="first(entries).info">, {{ first(entries).info }}</template>
-                <ul>
-                  <li v-for="entry in entries">
-                    <span class="sr-only">{{ entryTypeLabel(entry) }}</span>
-                    <a :href="entryLinkValue(entry)">{{ entry.number || entry.email || entry.url }}</a>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-
-            <tr v-for="entries in department.groups.slice(1)">
-              <td>
-                {{ first(entries).name }}
-                <template v-if="first(entries).info">, {{ first(entries).info }}</template>
-                <ul>
-                  <li v-for="entry in entries">
-                    <span class="sr-only">{{ entryTypeLabel(entry) }}</span>
-                    <a :href="entryLinkValue(entry)">{{ entry.number || entry.email || entry.url }}</a>
-                  </li>
-                </ul>
-              </td>
-            </tr>
-          </template>
-        </tbody>
-      </table>
+      <contact-info :data="departmentContactInfo"/>
     </section>
 
     <section class="visual-section">
@@ -176,6 +138,7 @@
   import Schedules from './Schedules.vue'
   import MapView from './MapView'
   import Photos from './Photos'
+  import ContactInfo from './ContactInfo'
 
   import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
   import { faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow, faAddressBook } from '@fortawesome/free-solid-svg-icons'
@@ -204,7 +167,7 @@
 
   export default {
     directives: { bPopover },
-    components: { ListServices, MapView, Photos, Schedules },
+    components: { ContactInfo, ListServices, MapView, Photos, Schedules },
     data: () => ({
       activePopups: [],
       refs: {},

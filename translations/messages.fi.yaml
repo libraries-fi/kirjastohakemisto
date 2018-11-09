@@ -24,11 +24,15 @@ front:
   open-search: Löydä kirjastosi
 index:
   libraries: 'Hakemisto: Kirjastot'
+  library-count: Näytetään {count} kirjastoa.
   consortiums: 'Hakemisto: Kirjastokimpat'
   services: 'Hakemisto: Palvelut'
   by-initial: Aakkosellinen hakemisto
   by-municipality: Kunnittain
   by-consortium: Kimpoittain
+  all-libraries: Kaikki kirjastot
+  municipal-libraries: Kunnankirjastot
+  mobile-libraries: Kirjastoautot
 kifi:
   name: Kirjastot.fi
   footer-title: Linkkejä Kirjastot.fi'n muihin palveluihin

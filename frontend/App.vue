@@ -16,7 +16,7 @@
         <toggle-button v-model="locationDataAllowed" :sync="true" @change="toggleGeolocation" labels :title="locationPosition"/>
       </div>
     </b-navbar>
-    <div class="alert alert-warning primary-alert-box mb-0">
+    <div class="alert alert-warning mb-0" id="l-alert-box">
       <div class="container alert-container">
         <div class="alert-icon">
           <fa :icon="faExclamationTriangle" size="2x"/>
@@ -79,3 +79,31 @@
     }
   }
 </script>
+
+<style lang="scss">
+  @import "./scss/bootstrap/init";
+
+  #nav-main {
+    .vue-js-switch {
+      margin: 0;
+    }
+  }
+
+  #l-footer {
+    background-color: #dedcdc;
+    color: black;
+  }
+
+  .alert-container {
+    display: flex;
+
+    .alert-icon {
+      margin-top: 6px;
+    }
+
+    .alert-messages {
+      flex-grow: 1;
+      margin-left: spacing(3);
+    }
+  }
+</style>

@@ -1,3 +1,11 @@
+export function * filtered(items, callback) {
+  for (let item of items) {
+    if (callback(item)) {
+      yield item
+    }
+  }
+}
+
 export function groupBy(items, callback) {
   const groups = new Map
 

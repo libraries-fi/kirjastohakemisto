@@ -45,6 +45,7 @@
       let pCities = kirkanta.search('city', {
         'consortium.slug': cid,
         limit: constants.AllResults,
+        sort: 'name'
       })
 
       let pLibraries = kirkanta.search('library', {
