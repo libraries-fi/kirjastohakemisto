@@ -8,7 +8,7 @@ use Symfony\Component\Cache\Simple\ApcuCache;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-class VueController extends Controller
+class LocationController extends Controller
 {
     const MUNICIPALITIES_FILE = '../data/municipality-coordinates.txt';
 

@@ -1,3 +1,6 @@
-index:
+ip2location:
    path: /backend/ip-location
-   controller: App\Controller\VueController::ipToLocation
+   controller: App\Controller\LocationController::ipToLocation
+map-regions:
+   path: /backend/regions
+   controller: App\Controller\BoundariesController::regions

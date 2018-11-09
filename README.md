@@ -28,3 +28,8 @@ missing browser translation. To fix this, first run the asset builder in dev mod
 - [Kirkanta](https://github.com/libraries-fi/kirkanta) -- backend
 - [Kirkanta API](https://github.com/libraries-fi/kirkanta-api) -- REST API
 - [Kirkanta Widgets](https://github.com/libraries-fi/kirkanta-embed) -- Build embeddable widgets
+
+
+### Credits
+Kirjastohakemisto employs data from OpenStreetMaps. Municipal regions were fetched using
+[OSM Boundaries Map](https://wambachers-osm.website/boundaries/).

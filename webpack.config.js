@@ -8,8 +8,8 @@ module.exports = {
     main: './frontend/main.js'
   },
   output: {
-    path: path.resolve(__dirname, 'public'),
-    filename: 'dev/[name].js'
+    path: path.resolve(__dirname, 'public', 'dev'),
+    filename: '[name].js',
   },
   module: {
     rules: [

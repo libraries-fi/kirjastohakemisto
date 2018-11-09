@@ -8,8 +8,7 @@ delete config.entry.bootstrap;
 module.exports = merge(config, {
   mode: "production",
   output: {
-    path: path.resolve(__dirname, "public"),
-    filename: "dist/[name].js"
+    path: path.resolve(__dirname, 'public', 'dist'),
   },
   module: {
     rules: [

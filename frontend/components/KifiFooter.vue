@@ -48,8 +48,6 @@
       })
 
       this.footer = response.data
-
-      console.log(response.data)
     }
   }
 </script>

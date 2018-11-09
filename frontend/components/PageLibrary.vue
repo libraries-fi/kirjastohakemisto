@@ -24,7 +24,8 @@
               </section>
             </b-tab>
             <b-tab title="Map" >
-              <map-view class="library-location" :pos="library.coordinates"/>
+              <map-view class="library-location" :pos="library.coordinates | coords"
+                :markers="[[library.name, [library.coordinates.lat, library.coordinates.lon]]]"/>
             </b-tab>
           </b-tabs>
         </div>
@@ -270,6 +271,11 @@
         }
 
         return [...groups]
+      }
+    },
+    filters: {
+      coords: (posObject) => {
+        return [posObject.lat, posObject.lon]
       }
     },
     methods: {
