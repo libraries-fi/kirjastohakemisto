@@ -20,6 +20,8 @@ import "./widget.load-more";
 import "./widget.content-peek";
 import "./widgets";
 
+import "./init.ie-warning";
+
 import "./library.search";
 
 if (!global._babelPolyfill) {
