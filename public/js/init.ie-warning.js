@@ -20,6 +20,4 @@ if (navigator.userAgent.match(/Trident/)) {
   banner.append(options);
 
   $("main").prepend(banner);
-
-  console.log(langcode, translations[langcode], translations["fi"]);
 }
