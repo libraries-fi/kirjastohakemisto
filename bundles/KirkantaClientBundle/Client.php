@@ -24,6 +24,10 @@ class Client
         }
 
         $response = file_get_contents($this->url($resource, $query));
+
+        if (!$response) {
+            throw new \RuntimeException('Could not connect to Kirkanta API');
+        }
         return json_decode($response);
     }
 
