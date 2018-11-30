@@ -4,9 +4,7 @@ const path = require('path')
 
 module.exports = {
   mode: 'development',
-  entry: {
-    main: './frontend/main.js'
-  },
+  entry: ['./frontend/main.js'],
   output: {
     path: path.resolve(__dirname, 'public', 'dev'),
     filename: '[name].js',

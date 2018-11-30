@@ -60,16 +60,20 @@
         })
     },
     methods: {
-      async toggleGeolocation(event) {
-        if (event.value) {
-          try {
-            let pos = await geolocation.gps()
-            this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
-          } catch (err) {
-            this.locationDataAllowed = false
-            console.warn('user aborted geolocation')
+      toggleGeolocation(event) {
+        async function run() {
+          if (event.value) {
+            try {
+              let pos = await geolocation.gps()
+              this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
+            } catch (err) {
+              this.locationDataAllowed = false
+              console.warn('user aborted geolocation')
+            }
           }
         }
+
+        run()
       },
       closeStuff(event) {
         if (event.target.tagName != 'A') {

@@ -34,3 +34,5 @@ module.exports = merge(config, {
   },
   plugins: [new UglifyJsPlugin]
 });
+
+module.exports.entry.unshift('@babel/polyfill')
