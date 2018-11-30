@@ -310,7 +310,7 @@
       const params = {
         'city.slug': this.$route.params.city,
         slug: this.$route.params.library,
-        with: ['schedules', 'links', 'mailAddress', 'emailAddresses', 'phoneNumbers', 'departments'],
+        with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'phoneNumbers', 'schedules', 'services'],
         refs: ['city', 'period'],
         status: '',
         'period.start': '0w',

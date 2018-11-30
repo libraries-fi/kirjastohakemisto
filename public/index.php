@@ -1,3 +1,22 @@
+<?php
+
+function webapp_script() {
+  $paths = [
+    'dev/main.js',
+    'dist/main.js',
+  ];
+
+  foreach ($paths as $path) {
+    if (is_file($path)) {
+      $mtime = filemtime($path);
+      return "/{$path}?{$mtime}";
+    }
+  }
+
+  exit('Failed to locate the script file.');
+}
+
+?>
 <!DOCTYPE html>
 <html lang="fi">
   <head>
@@ -13,6 +32,6 @@
     <noscript>
       Build here a simple interface for Links.
     </noscript>
-    <script src="/dev/main.js"></script>
+    <script src="<?= webapp_script() ?>"></script>
   </body>
 </html>

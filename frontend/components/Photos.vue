@@ -1,6 +1,6 @@
 <template>
   <div class="photos">
-    <api-image :file="currentPhoto.files" size="medium" alt=""/>
+    <api-image v-if="currentPhoto" :file="currentPhoto.files" size="medium" alt=""/>
     <button type="button" class="expand" @click="expand">
       <fa :icon="faExpand"/>
     </button>
@@ -16,7 +16,7 @@
     props: {
       source: {
         type: Array,
-        default: []
+        default: () => []
       },
       index: {
         type: Number,
