@@ -20,7 +20,7 @@ module.exports = merge(config, {
           options: {
             cacheDirectory: true,
             presets: [
-              ["env", {
+              ["@babel/preset-env", {
                 modules: false,
                 targets: {
                   ie: 11
