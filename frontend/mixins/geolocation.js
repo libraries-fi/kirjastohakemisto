@@ -1,10 +1,10 @@
 import axios from 'axios'
 import { detectLanguage } from './language'
-import { demo } from '@/config'
+import config from '@/config'
 
 const IP_LOCATION_URL = '/backend/ip-location'
 const LOCATION_CACHE_TIME = 1000 * 120
-const DEMO_MODE_ENABLED = (demo && demo.enabled && demo.position)
+const DEMO_MODE_ENABLED = (config.demo && config.demo.enabled && config.demo.position)
 
 export class GeoLocation {
   constructor() {

@@ -1,7 +1,7 @@
 import axios from 'axios'
 import { detectLanguage } from '@/mixins'
 
-import config from '@/config.json'
+import config from '@/config'
 
 class Kirkanta {
   constructor(baseurl) {
