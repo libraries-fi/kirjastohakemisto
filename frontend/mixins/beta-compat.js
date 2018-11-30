@@ -1,7 +1,7 @@
 import config from '@/config'
 
 export function useBetaKirkantaDomain(url) {
-  if (!config.demo.enabled) {
+  if (!config.demo || !config.demo.enabled) {
     return url
   }
 

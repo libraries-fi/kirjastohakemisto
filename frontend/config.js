@@ -24,6 +24,4 @@ const config = (() => {
   }
 })()
 
-console.log('CONFIG', config, BUILD_MODE)
-
 export default config
