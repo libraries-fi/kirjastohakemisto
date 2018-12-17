@@ -44,11 +44,11 @@
               <div class="library-card-aside">
                 <span class="library-card-live">
                   <!-- Always render container to push rest of the content down -->
-                  <template v-if="library.liveStatus !== null">
+                  <!-- <template v-if="library.liveStatus !== null">
                     <date-time :time="first(library.schedules) | opens" format="p"/>
                       –
                     <date-time :time="first(library.schedules) | closes" format="p"/>
-                  </template>
+                  </template> -->
                 </span>
                 <div class="text-right">
                   <b-badge v-if="library.liveStatus == 0" variant="danger">closed</b-badge>
@@ -140,10 +140,19 @@
     },
     filters: {
       opens(day) {
-        return first(day.times).from
+        if (day.times.length) {
+          return first(day.times).from
+        }
       },
       closes(day) {
-        return last(day.times).to
+        if (day.times.length) {
+          return last(day.times).to
+        }
+      },
+      closed(day) {
+        console.log("DAY", day)
+        return true
+        // return day.closed == true
       }
     },
     watch: {

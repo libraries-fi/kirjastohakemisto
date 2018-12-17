@@ -9,10 +9,10 @@ const config = (() => {
 
     default:
       return {
-        apiUrl: 'http://api.kirjastot.fi.local',
+        apiUrl: 'https://api.kirjastot.fi.local',
         demo: {
-          enabled: true,
-          assetUrl: 'http://kirkanta.kirjastot.fi.local',
+          enabled: false,
+          assetUrl: 'https://kirkanta.kirjastot.fi.local',
           position: {
             coords: {
               latitude: 60.225672,
