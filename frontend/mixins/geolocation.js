@@ -99,13 +99,11 @@ const distanceFormatter = new Intl.NumberFormat(detectLanguage(), {
 })
 
 export function formatDistance(distance) {
-  if (distance < 1000) {
+  if (distance < 1.0) {
     let meters = Math.ceil(distance)
     return `${meters} m`
   } else {
-    distance /= 1000
-
-    if (distance > 10) {
+    if (distance > 10.0) {
       distance = Math.round(distance)
     }
 

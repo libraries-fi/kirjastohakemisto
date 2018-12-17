@@ -43,7 +43,7 @@
       let pos = await geolocation.getPosition()
       let response = await kirkanta.search('library', {
         'geo.pos': `${pos.coords.latitude},${pos.coords.longitude}`,
-        'geo.dist': 40,
+        limit: 10
       })
 
       this.libraries = response.items

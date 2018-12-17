@@ -75,7 +75,6 @@
 
         Object.assign(params, {
           'geo.pos': coordStr(pos.coords),
-          'geo.dist': 2000,
         })
       } catch (err) {
         // pass

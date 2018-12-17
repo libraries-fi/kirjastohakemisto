@@ -81,7 +81,6 @@
         type: [],
         status: '',
         'geo.pos': null,
-        'geo.dist': 2000,
         'period.start': '0d',
         'period.end': '1d',
       },
