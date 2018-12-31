@@ -6,9 +6,8 @@ the Finnish Library Database. The website is built as a simple frontend that que
 [api.kirjastot.fi](https://api.kirjastot.fi). The API serves as the database.
 
 ## See it in action
-- https://hakemisto.kirjastot.fi
-- https://directory.libraries.fi
-- https://registret.biblioteken.fi
+- https://beta-hakemisto.kirjastot.fi
+- https://beta-directory.libraries.fi
 
 ## Dependencies
 - PHP 7.1+
@@ -19,16 +18,11 @@ It is enough to clone this repository and compile the provided assets. Build env
 installed by running *npm install* in the project root. After this, the build process can be executed
 with *npm run build*.
 
-### Notes
-After clearing public/dist from pre-compiled assets, the first build will then fail, complaining about
-missing browser translation. To fix this, first run the asset builder in dev mode, *npm run dev*.
-
 ## Kirkanta repository family
 - [Kirjastohakemisto](https://github.com/libraries-fi/kirjastohakemisto) -- frontend
 - [Kirkanta](https://github.com/libraries-fi/kirkanta) -- backend
 - [Kirkanta API](https://github.com/libraries-fi/kirkanta-api) -- REST API
 - [Kirkanta Widgets](https://github.com/libraries-fi/kirkanta-embed) -- Build embeddable widgets
-
 
 ### Credits
 Kirjastohakemisto employs data from OpenStreetMaps. Municipal regions were fetched using
