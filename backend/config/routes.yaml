@@ -1,6 +1,37 @@
 ip2location:
-   path: /backend/ip-location
-   controller: App\Controller\LocationController::ipToLocation
+  path: /backend/ip-location
+  controller: App\Controller\LocationController::ipToLocation
 map-regions:
-   path: /backend/regions
-   controller: App\Controller\BoundariesController::regions
+  path: /backend/regions
+  controller: App\Controller\BoundariesController::regions
+front:
+  path: /
+  controller: App\Controller\StaticController::frontpage
+search:
+  path:
+    en: /search
+    fi: /haku
+  controller: App\Controller\StaticController::search
+libraries:
+  path:
+    en: /libraries
+    fi: /kirjastot
+  controller: App\Controller\StaticController::libraries
+services:
+  path:
+    en: /services
+    fi: /palvelut
+  controller: App\Controller\StaticController::services
+consortiums:
+  path:
+    en: /consortiums
+    fi: /kimpat
+  controller: App\Controller\StaticController::consortiums
+
+# Place last because the route matches almost anything.
+library:
+  path: /{city}/{library}
+  controller: App\Controller\StaticController::library
+  requirements:
+    city: '[a-z][\w\-]+'
+    library: '[a-z][\w\-]+'

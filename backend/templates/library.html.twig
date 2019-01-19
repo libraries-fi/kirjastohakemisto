@@ -1,0 +1,62 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+  <h1>{{ library.name }}</h1>
+
+  <section>
+    <h2>{% trans %}Contact details{% endtrans %}</h2>
+    <address>
+      <h3>{% trans %}Location{% endtrans %}</h3>
+      {{ library.address.street }}, {{ library.address.zipcode }}
+
+      {% if library.address.area %}
+        {{ library.address.area }}, {{ library.address.city }}
+      {% else %}
+        {{ library.address.city }}
+      {% endif %}
+
+      {% if library.address.info %}
+        <p class="small">({{ library.address.info }})</p>
+      {% endif %}
+
+    </address>
+
+    <section>
+      {% if library.primaryContactInfo.phone %}
+        <h3>{% trans %}Phone number{% endtrans %}</h3>
+        <strong>{{ library.primaryContactInfo.phone.name }}</strong>
+        <br/>
+        {{ library.primaryContactInfo.phone.number }}
+      {% endif %}
+
+      {% if library.primaryContactInfo.homepage %}
+        <h3>{{ library.primaryContactInfo.homepage.name }}</h3>
+        <a href="{{ library.primaryContactInfo.homepage.url }}">{{ library.primaryContactInfo.homepage.url }}</a>
+      {% endif %}
+    </section>
+
+    {% if library.mailAddress %}
+      <div>
+        <h3>{% trans %}Mail address{% endtrans %}</h3>
+        {{ library.name }}<br />
+        {% if library.mailAddress.boxNumber %}
+          {% trans %}PO box{% endtrans %} {{ library.mailAddress.boxNumber }}<br/>
+        {% endif %}
+        {{ library.mailAddress.zipcode }}
+        {{ library.mailAddress.area|upper }}
+      </div>
+    {% endif %}
+
+    {% if library.services is not empty %}
+      <h2>{% trans %}Services{% endtrans %}</h2>
+      <ul>
+        {% for service in library.services %}
+          <li>
+            {{ service.standardName }}
+            {% if service.name %}(<small>{{ service.name }}</small>){% endif %}
+          </li>
+        {% endfor %}
+      </ul>
+    {% endif %}
+  </section>
+{% endblock %}

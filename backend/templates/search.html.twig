@@ -1,0 +1,39 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+  <h1>{% trans %}Find your library{% endtrans %}</h1>
+
+  <form method="get">
+    <h2 class="sr-only">{% trans %}Search{% endtrans %}</h2>
+    {{ form_row(form.q) }}
+    <fieldset>
+      <legend>{% trans %}Options{% endtrans %}</legend>
+      {{ form_row(form.geo) }}
+    </fieldset>
+    <div>
+      <button type="submit">{% trans %}Search{% endtrans %}</button>
+    </div>
+  </form>
+
+  {% if libraries is defined %}
+    <div>
+      <h2>{% trans %}Search results{% endtrans %}</h2>
+      <ol>
+        {% for city in libraryGroups|keys %}
+          <h3>{{ city }}</h3>
+          <ul>
+            {% for library in attribute(libraryGroups, city) %}
+              {% set city = attribute(cities, library.city) %}
+              <li>
+                <a href="{{ path('library', {city: city.slug, library: library.slug}) }}">{{ library.name }}</a>
+              </li>
+            {% endfor %}
+          </ul>
+        {% else %}
+          <li>{% trans %}No results.{% endtrans %}</li>
+        {% endfor %}
+      </ol>
+    </div>
+  {% endif %}
+
+{% endblock %}
