@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+  <h1>{% trans %}Library Consortiums{% endtrans %}</h1>
+
+  {% for consortium in consortiums %}
+    <h2>{{ consortium.name }}</h2>
+
+    <ul>
+        {% for library in attribute(libraryGroups, consortium.id) %}
+          {% set city = attribute(cities, library.city).slug %}
+          <li>
+            <a href="{{ path('library', {city: city, library: library.slug}) }}">{{ library.name }}</a>
+          </li>
+        {% endfor %}
+    </ul>
+  {% endfor %}
+{% endblock %}

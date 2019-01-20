@@ -2,6 +2,49 @@
 
 {% block body %}
   <h1>{{ library.name }}</h1>
+  <blockquote>{{ library.slogan }}</blockquote>
+
+  {% if library.description %}
+    <section>
+      {% trans %}Presentation{% endtrans %}
+      {% autoescape false %}{{ library.description }}{% endautoescape %}
+    </section>
+  {% endif %}
+
+  {% if library.schedules %}
+    <section>
+      <h2>{% trans %}Service hours{% endtrans %}</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>{% trans %}Date{% endtrans %}</th>
+            <th>{% trans %}Hours{% endtrans %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for day in library.schedules %}
+            <tr>
+              <td>{{ day.date|date('l') }}</td>
+
+              {% if day.closed %}
+                <td colspan="2">{{ "Closed"|trans|lower }}</td>
+              {% else %}
+                <td>{{ (day.times|first).from }} – {{ (day.times|last).to }}</td>
+                <td>
+                  {% for time in day.times %}
+                    {% if prev is defined and prev.to < time.from %}
+                      ({% trans %}Closed{% endtrans %} {{ prev.to }} – {{ time.from }})
+                    {% endif %}
+                    {% set prev = time %}
+                  {% endfor %}
+                </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </section>
+  {% endif %}
 
   <section>
     <h2>{% trans %}Contact details{% endtrans %}</h2>
@@ -18,8 +61,19 @@
       {% if library.address.info %}
         <p class="small">({{ library.address.info }})</p>
       {% endif %}
-
     </address>
+
+    {% if library.mailAddress %}
+      <section>
+        <h3>{% trans %}Mail address{% endtrans %}</h3>
+        {{ library.name }}<br />
+        {% if library.mailAddress.boxNumber %}
+          {% trans %}PO box{% endtrans %} {{ library.mailAddress.boxNumber }}<br/>
+        {% endif %}
+        {{ library.mailAddress.zipcode }}
+        {{ library.mailAddress.area|upper }}
+      </section>
+    {% endif %}
 
     <section>
       {% if library.primaryContactInfo.phone %}
@@ -34,18 +88,6 @@
         <a href="{{ library.primaryContactInfo.homepage.url }}">{{ library.primaryContactInfo.homepage.url }}</a>
       {% endif %}
     </section>
-
-    {% if library.mailAddress %}
-      <div>
-        <h3>{% trans %}Mail address{% endtrans %}</h3>
-        {{ library.name }}<br />
-        {% if library.mailAddress.boxNumber %}
-          {% trans %}PO box{% endtrans %} {{ library.mailAddress.boxNumber }}<br/>
-        {% endif %}
-        {{ library.mailAddress.zipcode }}
-        {{ library.mailAddress.area|upper }}
-      </div>
-    {% endif %}
 
     {% if library.services is not empty %}
       <h2>{% trans %}Services{% endtrans %}</h2>

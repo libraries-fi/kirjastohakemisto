@@ -26,6 +26,14 @@ class StaticController extends Controller
     }
 
     /**
+     * @Template("base.html.twig")
+     */
+    public function fallback()
+    {
+        return [];
+    }
+
+    /**
      * @Template("search.html.twig")
      */
     public function search(Request $request)
@@ -85,12 +93,21 @@ class StaticController extends Controller
         $result = $this->httpGet("library", [
             'city.slug' => $city,
             'slug' => $library,
-            'with' => 'mailAddress,primaryContactInfo,services'
+            'with' => 'mailAddress,primaryContactInfo,services,schedules',
+            'period.start' => '0w',
+            'period.end' => '0w',
         ]);
 
         if ($result->total == 0) {
-            throw new NotFoundHttpException;
+            // throw new NotFoundHttpException;
+            return $this->forward('App\Controller\StaticController::fallback');
         }
+
+        $library = $result->items[0];
+
+        usort($library->services, function($a, $b) {
+            return strcasecmp($a->standardName, $b->standardName);
+        });
 
         return [
             'library' => $result->items[0]
@@ -102,7 +119,24 @@ class StaticController extends Controller
      */
     public function libraries()
     {
-        return [];
+        $result = $this->httpGet('library', [
+            'limit' => 10000,
+            'sort' => 'city,name',
+            'refs' => 'city'
+        ]);
+
+        $libraries = $result->items;
+        $groups = [];
+
+        foreach ($libraries as $library) {
+            $groups[$library->city][] = $library;
+        }
+
+        return [
+            'libraries' => $libraries,
+            'libraryGroups' => $groups,
+            'cities' => $result->refs->city,
+        ];
     }
 
     /**
@@ -110,15 +144,31 @@ class StaticController extends Controller
      */
     public function consortiums()
     {
-        return [];
-    }
+        $result = $this->httpGet('library', [
+            'limit' => 10000,
+            'sort' => 'consortium,name',
+            'refs' => 'city,consortium',
+        ]);
 
-    /**
-     * @Template("services.html.twig")
-     */
-    public function services()
-    {
-        return [];
+        $groups = [];
+
+        foreach ($result->items as $library) {
+            if ($cid = $library->consortium) {
+                $groups[$cid][] = $library;
+            }
+        }
+
+        $consortiums = get_object_vars($result->refs->consortium);
+
+        usort($consortiums, function($a, $b) {
+            return strcasecmp($a->name, $b->name);
+        });
+
+        return [
+            'consortiums' => $consortiums,
+            'libraryGroups' => $groups,
+            'cities' => $result->refs->city,
+        ];
     }
 
     private function httpGet(string $path, array $query) : \stdClass

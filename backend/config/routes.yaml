@@ -1,12 +1,12 @@
+front:
+  path: /
+  controller: App\Controller\StaticController::frontpage
 ip2location:
   path: /backend/ip-location
   controller: App\Controller\LocationController::ipToLocation
 map-regions:
   path: /backend/regions
   controller: App\Controller\BoundariesController::regions
-front:
-  path: /
-  controller: App\Controller\StaticController::frontpage
 search:
   path:
     en: /search
@@ -17,11 +17,6 @@ libraries:
     en: /libraries
     fi: /kirjastot
   controller: App\Controller\StaticController::libraries
-services:
-  path:
-    en: /services
-    fi: /palvelut
-  controller: App\Controller\StaticController::services
 consortiums:
   path:
     en: /consortiums
@@ -35,3 +30,9 @@ library:
   requirements:
     city: '[a-z][\w\-]+'
     library: '[a-z][\w\-]+'
+
+fallback:
+  path: /{anything}
+  controller: App\Controller\StaticController::fallback
+  requirements:
+    anything: '.+'

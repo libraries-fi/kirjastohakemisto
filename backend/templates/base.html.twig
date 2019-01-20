@@ -11,9 +11,21 @@
   </head>
   <body id="page--frontpage">
     <div id="app"></div>
-    
+
     <noscript>
-      {% block body %}{% endblock %}
+      <nav>
+        <a href="{{ path('front') }}">{% trans %}Library Directory{% endtrans %}</a>
+        <a href="{{ path('search') }}">{% trans %}Search{% endtrans %}</a>
+        <a href="{{ path('libraries') }}">{% trans %}Libraries{% endtrans %}</a>
+        <a href="{{ path('consortiums') }}">{% trans %}Consortiums{% endtrans %}</a>
+      </nav>
+      {% block body %}
+        <p>{% trans %}This page is not supported in the simplified version of Library Directory.{% endtrans %}</p>
+      {% endblock %}
+
+      <footer>
+        <small>{% trans %}Service provided by Libraries.fi{% endtrans %}</small>
+      </footer>
     </noscript>
 
     {% if app.environment == "dev" %}

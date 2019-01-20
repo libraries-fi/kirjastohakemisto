@@ -1,0 +1,18 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+  <h1>{% trans %}Libraries{% endtrans %}</h1>
+
+  {% for libraries in libraryGroups %}
+    <h2>{{ libraries[0].address.city }}</h2>
+
+    <ul>
+      {% for library in libraries %}
+        {% set city = attribute(cities, library.city).slug %}
+        <li>
+          <a href="{{ path('library', {city: city, library: library.slug}) }}">{{ library.name }}</a>
+        </li>
+      {% endfor %}
+    </ul>
+  {% endfor %}
+{% endblock %}
