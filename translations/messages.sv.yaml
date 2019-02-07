@@ -55,7 +55,7 @@ Name: Namn
 'No library offers this service.': 'Tjänsten finns inte i något bibliotek'
 Number: Nummer
 'Only open libraries': 'Bara öppna bibliotek'
-'Open data and widgets': 'Öppen data'
+'Open data and widgets': 'Öppen data och gränssnittskomponenter'
 Options: Inställningar
 Others: Andra
 'PO box': PB
@@ -99,9 +99,10 @@ open_data:
         info: 'Bekanta dig med gränssnittsdokumentation för Biblioteksregistret.'
     embed:
         disabled: 'Verktyget för gränsnittskomponenterna fungerar för tillfället inte på grund av uppdatering av Biblioteksregistret. Vi försöker få verktyget i funktion igen så snabbt som möjligt.'
-        info: 'Med hjälp av gränssnittskomponenter kan du enkelt utnyttja informationen i Biblioteksregistret.'
-        legacy: '  '
-        link_label: 'Bygg en widget'
+        info: 'Med hjälp av gränssnittskomponenter kan du enkelt utnyttja informationen i Biblioteksregistret. '
+        legacy: 'Du kan nu testa de nya gränssnittskomponenterna. Också de gamla gränssnittskomponenterna går tillsvidare att använda.'
+        link_label: 'Använd de nya gränssnittkomponenterna'
+        legacy_link_label: 'Använd de gamla gränssnittskomponenterna'
     info: 'Biblioteksregistrets data är öppen. Datan erbjuds via ett öppet gränssnitt. Dessutom erbjuder Biblioteken.fi gränssnittskomponenter med vars hjälp du lätt kan bädda in bibliotekets uppgifter på bibliotekets egna sidor.'
 room: Rum
 service: Tjänst
