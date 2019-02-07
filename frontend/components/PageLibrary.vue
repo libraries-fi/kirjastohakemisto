@@ -121,7 +121,7 @@
         <fa :icon="faAddressCard"/>
         {{ $t('contact-info.contact-details')}}
       </h2>
-      <contact-info :data="departmentContactInfo"/>
+      <contact-info :library="library"/>
     </section>
 
     <section class="visual-section">
@@ -141,7 +141,7 @@
   import Photos from './Photos'
   import ContactInfo from './ContactInfo'
 
-  import { addToMap, addToMapArray, coordStr, geolocation, formatDistance, kirkanta, first, last } from '@/mixins'
+  import { coordStr, geolocation, formatDistance, kirkanta } from '@/mixins'
   import { faAddressCard, faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
   import {
@@ -182,87 +182,6 @@
       someLinks() {
         return this.library.links.filter((link) => someRegexp.test(link.url)).sort((a, b) => a.name.localeCompare(b.name))
       },
-      departmentContactInfo() {
-        const departments = new Map([
-          [null, {
-            name: '',
-            phones: [],
-            emails: [],
-            links: [],
-            namedGroups: new Map,
-          }]
-        ])
-
-        function makeDepartmentEntry(name, id, description) {
-          return {name, id, description, phones:[], emails: [], links: [], namedGroups: new Map}
-        }
-
-        for (let department of this.library.departments) {
-          let { name, id, description } = department
-          departments.set(id, makeDepartmentEntry(name, id, description))
-        }
-
-        for (let entry of this.library.phoneNumbers) {
-          entry.type = 'phone'
-          departments.get(entry.department).phones.push(entry)
-          addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
-        }
-
-        for (let entry of this.library.emailAddresses) {
-          entry.type = 'email'
-          departments.get(entry.department).emails.push(entry)
-          addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
-        }
-
-        for (let entry of this.library.links) {
-          entry.type = 'link'
-          departments.get(entry.department).links.push(entry)
-          addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
-        }
-
-        for (let person of this.library.persons) {
-          const name = `${person.firstName} ${person.lastName}`
-          const dkey = person.department || person.responsibility
-
-          addToMap(departments, dkey, makeDepartmentEntry(dkey))
-
-          if (person.phone) {
-            addToMapArray(departments.get(dkey).namedGroups, name, {
-              name,
-              info: (person.jobTitle || '').toLowerCase(),
-              number: person.phone,
-              type: 'phone',
-            })
-          }
-
-          if (person.email) {
-            addToMapArray(departments.get(dkey).namedGroups, name, {
-              name,
-              info: (person.jobTitle || '').toLowerCase(),
-              email: person.email,
-              type: 'email',
-            })
-          }
-        }
-
-        for (let department of departments.values()) {
-          department.groups = [...department.namedGroups.values()]
-
-          if (!department.groups.length) {
-            departments.delete(department.id)
-          }
-        }
-
-        return [...departments.values()].sort((a, b) => {
-          if (!a.name.length) {
-            return -1000
-          }
-          if (!b.name.length) {
-            return 1000
-          }
-          return a.name.localeCompare(b.name)
-        })
-      },
       serviceCategories() {
         const groups = new Map
 
@@ -279,8 +198,7 @@
       }
     },
     methods: {
-      formatDistance, first, last,
-
+      formatDistance,
       linkIcon(link) {
         let icon_class = faLink;
 
