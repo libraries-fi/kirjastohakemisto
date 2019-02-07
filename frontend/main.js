@@ -1,16 +1,20 @@
 import '@/scss/kirjastohakemisto.scss'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
-import App from './App'
+import App from '@/App'
 import BootstrapVue from 'bootstrap-vue'
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import Router from 'vue-router'
-import router from './router'
+import router from '@/router'
 import ToggleButton from 'vue-js-toggle-button'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ApiImage from '@/components/api-image'
+
+import fi from 'messages.fi.yaml'
+import en from 'messages.en.yaml'
+import { detectLanguage } from '@/mixins'
 
 Vue.config.productionTip = false
 
@@ -29,28 +33,24 @@ Vue.directive('focus', {
   inserted: (e) => e.focus()
 })
 
-import fi from 'messages.fi.yaml'
-import en from 'messages.en.yaml'
-
-import { detectLanguage } from '@/mixins'
-
-function setPageId(id) {
-  document.body.id = "page--" + id.replace(/[-\.]+/, '-')
+function setPageId (id) {
+  const identifier = id.replace(/-+/g, '-').replace(/\./g, '--')
+  document.body.id = `page--${identifier}`
 }
 
 const i18n = new VueI18n({
   locale: detectLanguage(),
-  messages: { fi, en },
+  messages: { fi, en }
 })
 
-new Vue({
+const app = new Vue({
   el: '#app',
-  created() {
+  created () {
     setPageId(this.$route.name)
   },
   watch: {
     $route: async (to, from) => {
-      setPageId(to.name);
+      setPageId(to.name)
     }
   },
   router,
@@ -58,3 +58,6 @@ new Vue({
   template: '<App/>',
   components: { App }
 })
+
+// Avoids linter whine
+export default app
