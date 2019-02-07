@@ -56,7 +56,7 @@
 
   const libraryTypeMap = new Map([
     ['_all', 'index.all-libraries'],
-    ['library', 'index.municipal-libraries'],
+    ['municipal', 'index.municipal-libraries'],
     ['mobile', 'index.mobile-libraries'],
   ])
 

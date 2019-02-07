@@ -238,7 +238,6 @@
       try {
         let pos = await geolocation.tryGps()
 
-
         Object.assign(params, {
           'geo.pos': coordStr(pos.coords),
         })
