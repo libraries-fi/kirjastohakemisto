@@ -94,6 +94,7 @@ Week: Vecka
 collection: Samling
 frontpage.description: 'Biblio&shy;teks&shy;reg&shy;istr&shy;et för sam&shy;man alla Fin&shy;lands bib&shy;lio&shy;tek. Här kan du en&shy;kelt kont&shy;roll&shy;era ditt eget  biblio&shy;teks öppet&shy;tider eller hitta biblio&shy;tek be&shy;lägna nära dig.'
 hardware: Apparat
+Open data: Öppen data
 open_data:
     api:
         info: 'Bekanta dig med gränssnittsdokumentation för Biblioteksregistret.'
