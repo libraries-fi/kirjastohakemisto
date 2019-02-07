@@ -61,7 +61,7 @@
 
     for (let person of library.persons) {
       const name = `${person.firstName} ${person.lastName}`
-      const dkey = person.department || person.responsibility
+      const dkey = person.department || person.responsibility || null
 
       addToMap(departments, dkey, makeDepartmentEntry(dkey))
 
