@@ -51,8 +51,8 @@ html {
   font-weight: bold;
 }
 
-h2 .svg-inline--fa,
-h3 .svg-inline--fa {
+h2 > .svg-inline--fa:first-child,
+h3 > .svg-inline--fa:first-child {
   @extend .bg-highlight;
   @extend .py-1;
   @extend .px-1;

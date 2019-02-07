@@ -22,7 +22,10 @@
         <div v-for="group of groups" class="index-section">
           <a :id="group[0]" class="anchor"/>
           <h2 class="index-section-title">
-            <a :href="`#${group[0]}`">{{ group[0] }}</a>
+            {{ group[0] }}
+            <a :href="`#${group[0]}`">
+              <fa :icon="faArrowAltCircleRight"/>
+            </a>
           </h2>
 
           <ul class="list-unstyled index-section-content">
@@ -39,6 +42,7 @@
 <script>
   import { filtered, toArray, groupBy } from '@/mixins/collections'
   import { detectLanguage, initial, kirkanta } from '@/mixins'
+  import { faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons'
 
   function indexByMunicipality(library, refs) {
     return library.address.city
@@ -68,7 +72,8 @@
       libraryTypeOptions: {},
       form: {
         type: '_all',
-      }
+      },
+      faArrowAltCircleRight
     }),
     methods: {
       buildGroups() {

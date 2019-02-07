@@ -78,6 +78,17 @@
             </p>
           </div>
         </div>
+
+        <div v-if="consortium" class="col-md-4">
+          <h3>
+            <fa :icon="faExchangeAlt"/>
+            {{ $t('library.consortium') }}
+          </h3>
+          <p>
+            {{ consortium.name }}</br>
+            <a :href="consortium.homepage" class="external-link">{{ $t('library.web-library') }}</a>
+          </p>
+        </div>
       </div>
     </section>
 
@@ -124,10 +135,9 @@
       <contact-info :library="library"/>
     </section>
 
-    <section class="visual-section">
+    <section v-if="hasServices()" class="visual-section">
       <list-services :services="library.services"/>
     </section>
-
   </main>
 </template>
 
@@ -142,7 +152,7 @@
   import ContactInfo from './ContactInfo'
 
   import { coordStr, geolocation, formatDistance, kirkanta } from '@/mixins'
-  import { faAddressCard, faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
+  import { faAddressCard, faExchangeAlt, faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
   import {
     faFacebookSquare,
@@ -176,7 +186,8 @@
       faQuoteRight,
       faEnvelope,
       faLocationArrow,
-      faAddressCard
+      faAddressCard,
+      faExchangeAlt
     }),
     computed: {
       someLinks() {
@@ -190,6 +201,9 @@
         }
 
         return [...groups]
+      },
+      consortium () {
+        return this.refs.consortium[this.library.consortium]
       }
     },
     filters: {
@@ -199,7 +213,7 @@
     },
     methods: {
       formatDistance,
-      linkIcon(link) {
+      linkIcon (link) {
         let icon_class = faLink;
 
         for (let [rx, icon] of iconMap) {
@@ -210,7 +224,7 @@
 
         return icon_class;
       },
-      hasPublicTransportation() {
+      hasPublicTransportation () {
         if (this.library.transit) {
           for (let [field, info] of Object.entries(this.library.transit)) {
             if (info && info.length) {
@@ -220,16 +234,19 @@
         }
         return false;
       },
-      hasContactInfo() {
-        return (this.library.links.length + this.library.emailAddresses.length + this.library.phoneNumbers.length) > 0;
+      hasContactInfo () {
+        return (this.library.links.length + this.library.emailAddresses.length + this.library.phoneNumbers.length) > 0
       },
+      hasServices () {
+        return this.library.services.length > 0
+      }
     },
     async created() {
       const params = {
         'city.slug': this.$route.params.city,
         slug: this.$route.params.library,
         with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'phoneNumbers', 'schedules', 'services'],
-        refs: ['city', 'period'],
+        refs: ['city', 'consortium', 'period'],
         status: '',
         'period.start': '0w',
         'period.end': '8w'
