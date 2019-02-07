@@ -28,34 +28,31 @@ export default new Router({
     {
       path: '/libraries',
       component: PageLibraryIndex,
+      name: 'library.collection',
+      meta: {
+        indexBy: 'initial'
+      },
       children: [
-        {
-          path: '',
-          name: 'library.collection',
-          meta: {
-            indexBy: 'initial'
-          },
-        },
         {
           path: 'by-municipality',
           name: 'library.collection.by-municipality',
           meta: {
             indexBy: 'municipality'
-          },
+          }
         },
         {
           path: 'by-consortium',
           name: 'library.collection.by-consortium',
           meta: {
             indexBy: 'consortium'
-          },
+          }
         }
       ]
     },
     {
       path: '/consortiums',
       name: 'consortium.collection',
-      component: PageConsortiumIndex,
+      component: PageConsortiumIndex
     },
     {
       path: '/consortiums/:consortium',
@@ -65,7 +62,7 @@ export default new Router({
     {
       path: '/services',
       name: 'service.collection',
-      component: PageServiceIndex,
+      component: PageServiceIndex
     },
     {
       path: '/services/:service',
@@ -79,22 +76,22 @@ export default new Router({
     {
       path: '/:slug',
       name: 're',
-      component: RedirectLibrary,
+      component: RedirectLibrary
     },
     {
       path: '/c/:slug',
       name: 'rc',
-      component: RedirectConsortium,
+      component: RedirectConsortium
     },
     {
       path: '/s/:slug',
       name: 'rs',
-      component: RedirectService,
+      component: RedirectService
     },
     {
       path: '/:city/:library',
       name: 'library.show',
       component: PageLibrary
-    },
+    }
   ]
 })

@@ -4,9 +4,9 @@
 
     <nav class="mt-4">
       <b-nav tabs>
-        <b-nav-item :to="{name: 'library.collection'}">{{ $t('index.by-initial') }}</b-nav-item>
-        <b-nav-item :to="{name: 'library.collection.by-municipality'}">{{ $t('index.by-municipality') }}</b-nav-item>
-        <b-nav-item :to="{name: 'library.collection.by-consortium'}">{{ $t('index.by-consortium') }}</b-nav-item>
+        <b-nav-item :to="{name: 'library.collection'}" replace exact>{{ $t('index.by-initial') }}</b-nav-item>
+        <b-nav-item :to="{name: 'library.collection.by-municipality'}" replace>{{ $t('index.by-municipality') }}</b-nav-item>
+        <b-nav-item :to="{name: 'library.collection.by-consortium'}" replace>{{ $t('index.by-consortium') }}</b-nav-item>
       </b-nav>
     </nav>
 
@@ -37,9 +37,8 @@
 </template>
 
 <script>
-  import { kirkanta } from '@/mixins'
   import { filtered, toArray, groupBy } from '@/mixins/collections'
-  import { initial, detectLanguage } from '@/mixins'
+  import { detectLanguage, initial, kirkanta } from '@/mixins'
 
   function indexByMunicipality(library, refs) {
     return library.address.city
