@@ -14,8 +14,8 @@
     <div class="visual-section">
       <div class="row">
         <div class="col-md-6 col-xl-7">
-          <b-tabs class="tabs-photos-map">
-            <b-tab title="Photos" active>
+          <b-tabs class="tabs-photos-map" @input="onChangeTab">
+            <b-tab title="Photos" v-if="library.pictures.length" active>
               <section class="cover-photo-frame">
                 <h2 class="sr-only">{{ $t('library.photos') }}</h2>
                 <!-- <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/> -->
@@ -23,8 +23,8 @@
                 <photos :source="library.pictures"/>
               </section>
             </b-tab>
-            <b-tab title="Map" >
-              <map-view class="library-location" :pos="library.coordinates | coords"
+            <b-tab title="Map">
+              <map-view v-if="mapIsVisible" class="library-location" :pos="library.coordinates | coords"
                 :markers="[[library.name, [library.coordinates.lat, library.coordinates.lon]]]"/>
             </b-tab>
           </b-tabs>
@@ -183,6 +183,7 @@
       activePopups: [],
       refs: {},
       library: null,
+      mapIsVisible: false,
       faQuoteRight,
       faEnvelope,
       faLocationArrow,
@@ -239,13 +240,17 @@
       },
       hasServices () {
         return this.library.services.length > 0
+      },
+      onChangeTab (index) {
+        this.mapIsVisible = index == 1
+        // this.mapIsVisible = true
       }
     },
     async created() {
       const params = {
         'city.slug': this.$route.params.city,
         slug: this.$route.params.library,
-        with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'phoneNumbers', 'schedules', 'services'],
+        with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'pictures', 'phoneNumbers', 'schedules', 'services'],
         refs: ['city', 'consortium', 'period'],
         status: '',
         'period.start': '0w',
