@@ -16,6 +16,12 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 class StaticController extends Controller
 {
     private $httpClient;
+    private $apiUrl;
+
+    public function __construct(string $apiUrl)
+    {
+        $this->apiUrl = $apiUrl;
+    }
 
     /**
      * @Template("frontpage.html.twig")
@@ -173,15 +179,15 @@ class StaticController extends Controller
 
     private function httpGet(string $path, array $query) : \stdClass
     {
-        $url = "http://api.kirjastot.fi.local/v4/{$path}";
-        $result = $this->http()->request('GET', $url, ['query' => $query])->getBody();
+        // $url = "http://api.kirjastot.fi.local/v4/{$path}";
+        $result = $this->http()->request('GET', $path, ['query' => $query])->getBody();
         return json_decode($result);
     }
 
     private function http()
     {
         if (!$this->httpClient) {
-            $this->httpClient = new \GuzzleHttp\Client;
+            $this->httpClient = new \GuzzleHttp\Client(['base_uri' => $this->apiUrl]);
         }
         return $this->httpClient;
     }
