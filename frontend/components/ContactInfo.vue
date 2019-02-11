@@ -5,7 +5,7 @@
 
       <div class="contact-info-body">
         <div v-for="entries in department.groups" class="contact-info-item">
-          <h4 class="contact-info-entry-label h6">{{ first(entries).name }}</h4>
+          <h4 class="contact-info-entry-label h6">{{ first(entries).name }}<template v-if="first(entries).info">, {{ first(entries).info }}</template></h4>
           <ul>
             <li v-for="entry in entries">
               <span class="sr-only">{{ entryTypeLabel(entry) }}</span>
@@ -32,6 +32,8 @@
       }]
     ])
 
+    const nameMap = new Map([[null, departments.get(null)]])
+
     function makeDepartmentEntry(name, id, description) {
       return {name, id, description, phones:[], emails: [], links: [], namedGroups: new Map}
     }
@@ -39,6 +41,7 @@
     for (let department of library.departments) {
       let { name, id, description } = department
       departments.set(id, makeDepartmentEntry(name, id, description))
+      nameMap.set(name, departments.get(id))
     }
 
     for (let entry of library.phoneNumbers) {
@@ -60,13 +63,17 @@
     }
 
     for (let person of library.persons) {
-      const name = `${person.firstName} ${person.lastName}`
-      const dkey = person.department || person.responsibility || null
+      let department = nameMap.get(person.responsibility || null)
 
-      addToMap(departments, dkey, makeDepartmentEntry(dkey))
+      if (!department) {
+        department = makeDepartmentEntry(person.responsibility)
+        addToMap(departments, person.responsibility, department)
+      }
+
+      const name = `${person.firstName} ${person.lastName}`
 
       if (person.phone) {
-        addToMapArray(departments.get(dkey).namedGroups, name, {
+        addToMapArray(department.namedGroups, name, {
           name,
           info: (person.jobTitle || '').toLowerCase(),
           number: person.phone,
@@ -75,7 +82,7 @@
       }
 
       if (person.email) {
-        addToMapArray(departments.get(dkey).namedGroups, name, {
+        addToMapArray(department.namedGroups, name, {
           name,
           info: (person.jobTitle || '').toLowerCase(),
           email: person.email,
