@@ -51,7 +51,7 @@
                 {% endif %}
 
                 {% if service.description %}
-                  <div class="user-input">{{ service.description }}</div>
+                  <div class="user-input">{% autoescape false %}{{ service.description }}{% endautoescape %}</div>
                 {% endif %}
 
                 {% if service.email %}
