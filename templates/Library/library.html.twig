@@ -118,6 +118,11 @@
                         <a href="{{ library.consortium.homepage }}" class="external-link">{{ "Library catalogue"|trans }}</a>
                         ({{ library.consortium.name }})
                       </li>
+                    {% elseif library.web_library %}
+                      <li>
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                        <a href="{{ library.web_library }}" class="external-link">{{ "Library catalogue"|trans }}</a>
+                      </li>
                     {% endif %}
                     {% if library.homepage %}
                       <li>
