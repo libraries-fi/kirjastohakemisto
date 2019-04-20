@@ -1,7 +1,7 @@
 const config = require('./webpack.config.js')
 const merge = require('webpack-merge')
 const path = require('path')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+// const TerserPlugin = require('terser-webpack-plugin')
 
 delete config.entry.bootstrap
 
@@ -31,8 +31,11 @@ module.exports = merge(config, {
         }
       }
     ]
-  },
-  plugins: [new UglifyJsPlugin()]
+  }
+  // ,
+  // optimization: {
+  //   minimizer: [new TerserPlugin()]
+  // }
 })
 
 module.exports.entry.unshift('@babel/polyfill')
