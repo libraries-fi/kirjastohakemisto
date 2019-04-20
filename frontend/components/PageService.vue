@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import { coordStr, formatDistance, geolocation, kirkanta } from '@/mixins'
+import { coordStr, formatDistance, kirkanta } from '@/mixins'
 import { faMap, faSmile, faMeh } from '@fortawesome/free-regular-svg-icons'
 
 const PROXIMITY_THRESHOLD = 20000
@@ -71,7 +71,7 @@ export default {
     }
 
     try {
-      let pos = await geolocation.tryGps()
+      let pos = await this.$location.query(true)
 
       Object.assign(params, {
         'geo.pos': coordStr(pos.coords)

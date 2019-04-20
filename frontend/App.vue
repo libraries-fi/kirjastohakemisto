@@ -37,7 +37,6 @@
 </template>
 
 <script>
-import { geolocation } from './mixins'
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
 import KifiFooter from '@/components/KifiFooter'
@@ -46,39 +45,49 @@ export default {
   name: 'app',
   components: { KifiFooter },
   data: () => ({
-    locationDataAllowed: false,
     locationPosition: null,
     faExclamationTriangle
   }),
-  created () {
-    geolocation.test()
-      .then(() => {
-        this.locationDataAllowed = true
-      })
-      .catch(() => {
-        this.locationDataAllowed = false
-      })
-  },
-  methods: {
-    toggleGeolocation (event) {
-      async function run () {
-        if (event.value) {
+  computed: {
+    locationDataAllowed: {
+      get () {
+        // return this.$session.get('location.enabled') || false
+        return this.$location.enabled
+      },
+      async set (state) {
+        if (state) {
           try {
-            let pos = await geolocation.gps()
-            this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
-          } catch (err) {
-            this.locationDataAllowed = false
-            console.warn('user aborted geolocation')
+            await this.$location.query()
+          } catch (error) {
+            console.log(error)
           }
+        } else {
+          console.log('TURN OFF')
+          this.$location.turnOff()
         }
       }
-
-      run()
+    }
+  },
+  methods: {
+    async toggleGeolocation (event) {
+      if (event.value) {
+        try {
+          let pos = await this.$location.tryEnable()
+          this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
+          this.locationDataEnabled = true
+        } catch (err) {
+          this.locationDataEnabled = false
+          console.warn('user aborted geolocation', err)
+        }
+      }
     },
     closeStuff (event) {
       if (event.target.tagName !== 'A') {
         this.$root.$emit('bv::hide::popover')
       }
+    },
+    setGeolocationEnabled (state) {
+      this.$session.set('location.enabled', !!state)
     }
   }
 }

@@ -5,9 +5,12 @@ import App from '@/App'
 import BootstrapVue from 'bootstrap-vue'
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
+import VueSession from 'vue-session'
 import Router from 'vue-router'
 import router from '@/router'
 import ToggleButton from 'vue-js-toggle-button'
+
+import { LocationService } from '@/plugins'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import ApiImage from '@/components/api-image'
@@ -22,6 +25,8 @@ Vue.use(BootstrapVue)
 Vue.use(Router)
 Vue.use(ToggleButton)
 Vue.use(VueI18n)
+Vue.use(VueSession)
+Vue.use(LocationService)
 
 Vue.component('fa', FontAwesomeIcon)
 Vue.component('api-image', ApiImage)

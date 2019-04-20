@@ -151,7 +151,7 @@ import MapView from './MapView'
 import Photos from './Photos'
 import ContactInfo from './ContactInfo'
 
-import { coordStr, geolocation, formatDistance, kirkanta, addToMapArray } from '@/mixins'
+import { coordStr, formatDistance, kirkanta, addToMapArray } from '@/mixins'
 import { faAddressCard, faExchangeAlt, faQuoteRight, faEnvelope, faLink, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
 import {
@@ -258,12 +258,12 @@ export default {
     }
 
     try {
-      let pos = await geolocation.tryGps()
+      let pos = await this.$location.query(true)
 
       Object.assign(params, {
         'geo.pos': coordStr(pos.coords)
       })
-    } catch (err) {
+    } catch (error) {
       // pass
     }
 

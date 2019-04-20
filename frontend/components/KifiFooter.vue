@@ -40,14 +40,18 @@ export default {
   async created () {
     const lang = 'fi'
 
-    const response = await axios.get(GFX_BASE_URL, {
-      params: { lang },
-      headers: {
-        'X-Requested-With': 'XMLHttpRequest'
-      }
-    })
+    try {
+      const response = await axios.get(GFX_BASE_URL, {
+        params: { lang },
+        headers: {
+          'X-Requested-With': 'XMLHttpRequest'
+        }
+      })
 
-    this.footer = response.data
+      this.footer = response.data
+    } catch (error) {
+      // Network error or something really, really bad.
+    }
   }
 }
 </script>

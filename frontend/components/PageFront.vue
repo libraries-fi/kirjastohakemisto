@@ -29,7 +29,6 @@
 </template>
 
 <script>
-import { geolocation } from '@/mixins/geolocation'
 import kirkanta from '@/mixins/kirkanta'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
@@ -40,7 +39,7 @@ export default {
     faSearch
   }),
   async created () {
-    let pos = await geolocation.getPosition()
+    let pos = await this.$location.query()
     let response = await kirkanta.search('library', {
       'geo.pos': `${pos.coords.latitude},${pos.coords.longitude}`,
       limit: 10

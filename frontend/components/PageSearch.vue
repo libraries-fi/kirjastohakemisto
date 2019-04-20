@@ -22,7 +22,7 @@
         <div class="col-lg-3 order-lg-3" id="sidebar">
           <b-form-group id="advanced-search" :label="$t('search.advanced')" label-class="h1" >
             <b-form-group :label="$t('search.options')">
-              <b-form-checkbox id="toggle-gps-1" v-model="options.gps">{{ $t('search.use-location') }}</b-form-checkbox>
+              <b-form-checkbox id="toggle-gps-1" v-model="useLocation">{{ $t('search.use-location') }}</b-form-checkbox>
               <b-form-checkbox id="only-open-libraries" v-model="form.status" value="open" unchecked-value="">{{ $t('search.only-open') }}</b-form-checkbox>
             </b-form-group>
             <b-form-group id="library-type" :label="$t('search.library-type')">
@@ -74,7 +74,7 @@
 </template>
 
 <script>
-import { kirkanta, formatDistance, geolocation, first, last } from '@/mixins'
+import { kirkanta, formatDistance, first, last } from '@/mixins'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import DateTime from './DateTime'
 import ScrollGuard from './ScrollGuard'
@@ -101,7 +101,6 @@ export default {
       submit: null
     },
     options: {
-      gps: false,
       onlyOpen: false
     },
     userLoadedMore: false,
@@ -110,6 +109,23 @@ export default {
     cities: {},
     busy: true
   }),
+  computed: {
+    useLocation: {
+      get () {
+        let formState = this.$session.get('search_page.location')
+        let globalState = this.$location.enabled
+
+        if (formState === undefined) {
+          return globalState
+        } else {
+          return formState && globalState
+        }
+      },
+      set (state) {
+        this.$session.set('search_page.location', !!state)
+      }
+    }
+  },
   methods: {
     formatDistance,
     first,
@@ -135,19 +151,19 @@ export default {
     },
     loadMore () {
       this.userLoadedMore = true
-
       this.searchOptions.skip += this.searchOptions.limit
       this.submit(true)
     },
     async submit (append = false) {
       this.busy = true
 
-      try {
-        await geolocation.test()
-        let pos = await geolocation.gps()
-        this.form['geo.pos'] = `${pos.coords.latitude},${pos.coords.longitude}`
-      } catch (err) {
-        console.warn('geolocation disabled')
+      if (this.useLocation) {
+        try {
+          let pos = await this.$location.query()
+          this.form['geo.pos'] = `${pos.coords.latitude},${pos.coords.longitude}`
+        } catch (error) {
+          console.warn('geolocation disabled')
+        }
       }
 
       let options = {
@@ -199,9 +215,7 @@ export default {
       }
     }
   },
-  created () {
-    this.submit()
-
+  async created () {
     this.libraryTypes = [
       { text: this.$t('library.type.municipal'), value: 'library main_library mobile regional' },
       { text: this.$t('library.type.polytechnic'), value: 'polytechnic' },
@@ -209,6 +223,8 @@ export default {
       { text: this.$t('library.type.special'), value: 'special' },
       { text: this.$t('library.type.other'), value: 'home_service institutional children other' }
     ]
+
+    this.submit()
   }
 }
 </script>
