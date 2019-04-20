@@ -1,10 +1,10 @@
-const BUILD_MODE = process.env.NODE_ENV;
+const BUILD_MODE = process.env.NODE_ENV
 
 const config = (() => {
   switch (BUILD_MODE) {
     case 'production':
       return {
-        apiUrl: 'https://api.kirjastot.fi',
+        apiUrl: 'https://api.kirjastot.fi'
       }
 
     default:
