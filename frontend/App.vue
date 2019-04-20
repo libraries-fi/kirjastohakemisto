@@ -37,51 +37,51 @@
 </template>
 
 <script>
-  import { geolocation } from './mixins'
-  import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
+import { geolocation } from './mixins'
+import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
-  import KifiFooter from '@/components/KifiFooter'
+import KifiFooter from '@/components/KifiFooter'
 
-  export default {
-    name: "app",
-    components: { KifiFooter },
-    data: () => ({
-      locationDataAllowed: false,
-      locationPosition: null,
-      faExclamationTriangle
-    }),
-    created() {
-      geolocation.test()
-        .then(() => {
-          this.locationDataAllowed = true
-        })
-        .catch(() => {
-          this.locationDataAllowed = false
-        })
-    },
-    methods: {
-      toggleGeolocation(event) {
-        async function run() {
-          if (event.value) {
-            try {
-              let pos = await geolocation.gps()
-              this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
-            } catch (err) {
-              this.locationDataAllowed = false
-              console.warn('user aborted geolocation')
-            }
+export default {
+  name: 'app',
+  components: { KifiFooter },
+  data: () => ({
+    locationDataAllowed: false,
+    locationPosition: null,
+    faExclamationTriangle
+  }),
+  created () {
+    geolocation.test()
+      .then(() => {
+        this.locationDataAllowed = true
+      })
+      .catch(() => {
+        this.locationDataAllowed = false
+      })
+  },
+  methods: {
+    toggleGeolocation (event) {
+      async function run () {
+        if (event.value) {
+          try {
+            let pos = await geolocation.gps()
+            this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
+          } catch (err) {
+            this.locationDataAllowed = false
+            console.warn('user aborted geolocation')
           }
         }
+      }
 
-        run()
-      },
-      closeStuff(event) {
-        if (event.target.tagName != 'A') {
-          this.$root.$emit('bv::hide::popover')
-        }
+      run()
+    },
+    closeStuff (event) {
+      if (event.target.tagName !== 'A') {
+        this.$root.$emit('bv::hide::popover')
       }
     }
   }
+}
 </script>
 
 <style lang="scss">
