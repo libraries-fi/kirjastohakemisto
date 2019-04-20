@@ -7,7 +7,7 @@ module.exports = {
   entry: ['./frontend/main.js'],
   output: {
     path: path.resolve(__dirname, 'public', 'dev'),
-    filename: '[name].js',
+    filename: '[name].js'
   },
   module: {
     rules: [
@@ -27,11 +27,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: ['style-loader', 'css-loader']
       },
       {
         test: /\.vue$/,
-        loader: 'vue-loader',
+        loader: 'vue-loader'
       },
       {
         test: /\.yaml$/,
@@ -48,9 +48,9 @@ module.exports = {
         test: /\.(png|jpg|gif|eot|woff|woff2|ttf)$/,
         use: [
           {
-            loader: "url-loader",
+            loader: 'url-loader',
             options: {
-              limit: 200,
+              limit: 200
             }
           }
         ]
@@ -58,8 +58,8 @@ module.exports = {
     ]
   },
   plugins: [
-    new VueLoaderPlugin,
-    autoprefixer,
+    new VueLoaderPlugin(),
+    autoprefixer
   ],
   resolve: {
     extensions: ['.js', '.vue', '.json'],
@@ -68,7 +68,7 @@ module.exports = {
       'bootstrap-vue$': 'bootstrap-vue/dist/bootstrap-vue.esm.js',
       '@': path.resolve('./frontend'),
       'messages.fi.yaml': path.resolve('translations/messages.fi.yaml'),
-      'messages.en.yaml': path.resolve('translations/messages.en.yaml'),
+      'messages.en.yaml': path.resolve('translations/messages.en.yaml')
     }
   }
 }

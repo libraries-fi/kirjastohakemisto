@@ -8,7 +8,7 @@ delete config.entry.bootstrap
 module.exports = merge(config, {
   mode: 'production',
   output: {
-    path: path.resolve(__dirname, 'public', 'dist'),
+    path: path.resolve(__dirname, 'public', 'dist')
   },
   module: {
     rules: [
@@ -32,7 +32,7 @@ module.exports = merge(config, {
       }
     ]
   },
-  plugins: [new UglifyJsPlugin]
+  plugins: [new UglifyJsPlugin()]
 })
 
 module.exports.entry.unshift('@babel/polyfill')
