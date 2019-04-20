@@ -60,11 +60,12 @@
             </b-list-group-item>
           </b-list-group>
           <div class="text-center">
+            <scroll-guard @scroll="loadMore" :enabled="userLoadedMore && !busy"/>
+
             <button type="button" class="btn btn-lg btn-link my-3" id="btn-load-more" @click="loadMore()">
               {{ $t('search.load-more') }}
               <span v-if="busy" class="loader" id="form-submit-throbber" aria-hidden="true">Loading</span>
             </button>
-
           </div>
         </div>
       </div>
@@ -76,9 +77,10 @@
 import { kirkanta, formatDistance, geolocation, first, last } from '@/mixins'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 import DateTime from './DateTime'
+import ScrollGuard from './ScrollGuard'
 
 export default {
-  components: { DateTime },
+  components: { DateTime, ScrollGuard },
   data: () => ({
     faSearch,
     searchOptions: {
@@ -102,6 +104,7 @@ export default {
       gps: false,
       onlyOpen: false
     },
+    userLoadedMore: false,
     libraryTypes: [],
     libraries: [],
     cities: {},
@@ -130,17 +133,9 @@ export default {
         }
       }
     },
-    tryLoadMore (event) {
-      console.log('SCROLL', event)
-
-      // let scroll = window.scrollY + window.innerHeight;
-      // let limit = $(this._button).offset().top;
-
-      // if (limit > 0 && (scroll - limit > 100)) {
-      //   $(this._button).trigger('click')
-      // }
-    },
     loadMore () {
+      this.userLoadedMore = true
+
       this.searchOptions.skip += this.searchOptions.limit
       this.submit(true)
     },
@@ -214,11 +209,6 @@ export default {
       { text: this.$t('library.type.special'), value: 'special' },
       { text: this.$t('library.type.other'), value: 'home_service institutional children other' }
     ]
-
-    window.addEventListener('scroll', this.tryLoadMore)
-  },
-  destroyed () {
-    window.removeEventListener('scroll', this.tryLoadMore)
   }
 }
 </script>
