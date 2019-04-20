@@ -7,7 +7,7 @@ const LOCATION_CACHE_TIME = 1000 * 120
 const DEMO_MODE_ENABLED = (config.demo && config.demo.enabled && config.demo.position)
 
 export class GeoLocation {
-  constructor (sessionStorage) {
+  constructor () {
     this.__enabled = false
 
     this.test()

@@ -22,7 +22,7 @@
         <div class="col-lg-3 order-lg-3" id="sidebar">
           <b-form-group id="advanced-search" :label="$t('search.advanced')" label-class="h1" >
             <b-form-group :label="$t('search.options')">
-              <b-form-checkbox id="toggle-gps-1" v-model="useLocation">{{ $t('search.use-location') }}</b-form-checkbox>
+              <b-form-checkbox id="toggle-gps-1" v-model="options.locationChecked">{{ $t('search.use-location') }}</b-form-checkbox>
               <b-form-checkbox id="only-open-libraries" v-model="form.status" value="open" unchecked-value="">{{ $t('search.only-open') }}</b-form-checkbox>
             </b-form-group>
             <b-form-group id="library-type" :label="$t('search.library-type')">
@@ -101,6 +101,7 @@ export default {
       submit: null
     },
     options: {
+      locationChecked: false,
       onlyOpen: false
     },
     userLoadedMore: false,
@@ -112,7 +113,8 @@ export default {
   computed: {
     useLocation: {
       get () {
-        let formState = this.$session.get('search_page.location')
+        // let formState = this.$session.get('search_page.location')
+        let formState = this.options.locationChecked
         let globalState = this.$location.enabled
 
         if (formState === undefined) {
@@ -164,6 +166,8 @@ export default {
         } catch (error) {
           console.warn('geolocation disabled')
         }
+      } else {
+        this.form['geo.pos'] = undefined
       }
 
       let options = {
@@ -213,6 +217,11 @@ export default {
 
         this.timers.submit = setTimeout(this.submit, 500)
       }
+    },
+    'options.locationChecked': {
+      handler () {
+        this.submit()
+      }
     }
   },
   async created () {
@@ -224,7 +233,16 @@ export default {
       { text: this.$t('library.type.other'), value: 'home_service institutional children other' }
     ]
 
+    this.options.locationChecked = this.$session.get('search_page.location')
     this.submit()
+
+    this.$location.$on('enabled', () => {
+      this.options.locationChecked = true
+    })
+
+    this.$location.$on('disabled', () => {
+      this.options.locationChecked = false
+    })
   }
 }
 </script>

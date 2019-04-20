@@ -57,7 +57,8 @@ export default {
       async set (state) {
         if (state) {
           try {
-            await this.$location.query()
+            let pos = await this.$location.tryEnable()
+            this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
           } catch (error) {
             console.log(error)
           }
@@ -69,17 +70,8 @@ export default {
     }
   },
   methods: {
-    async toggleGeolocation (event) {
-      if (event.value) {
-        try {
-          let pos = await this.$location.tryEnable()
-          this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
-          this.locationDataEnabled = true
-        } catch (err) {
-          this.locationDataEnabled = false
-          console.warn('user aborted geolocation', err)
-        }
-      }
+    toggleGeolocation (event) {
+      this.locationDataEnabled = !!event.value
     },
     closeStuff (event) {
       if (event.target.tagName !== 'A') {

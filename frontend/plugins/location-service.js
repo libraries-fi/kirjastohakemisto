@@ -3,8 +3,9 @@ import { geolocation } from '@/mixins'
 const CONFIG_KEY = 'location.enabled'
 
 class LocationService {
-  constructor (session) {
+  constructor (session, events) {
     this.session = session
+    this.events = events
   }
 
   get enabled () {
@@ -13,15 +14,18 @@ class LocationService {
 
   async tryEnable () {
     try {
+      let pos = await geolocation.gps()
       this.session.set(CONFIG_KEY, true)
-      return this.query(true)
+      this.events.$emit('enabled')
+      return pos
     } catch (error) {
-      // pass
+      this.session.set(CONFIG_KEY, false)
     }
   }
 
   async turnOff () {
     this.session.set(CONFIG_KEY, false)
+    this.events.$emit('disabled')
   }
 
   async query (tryGps = false) {
@@ -49,12 +53,18 @@ class LocationService {
     return geolocation.test()
   }
 
+  $on (...args) {
+    this.events.$on(...args)
+    return this
+  }
+
   static install (Vue, options) {
     if (!('$session' in Vue.prototype)) {
       throw new Error('LocationService must be registered after VueSession')
     }
 
-    Vue.prototype.$location = new LocationService(Vue.prototype.$session)
+    console.log(Vue.prototype)
+    Vue.prototype.$location = new LocationService(Vue.prototype.$session, new Vue())
   }
 }
 
