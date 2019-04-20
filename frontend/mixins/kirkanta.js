@@ -4,19 +4,19 @@ import { detectLanguage } from '@/mixins'
 import config from '@/config'
 
 class Kirkanta {
-  constructor(baseurl) {
-    this.__url = baseurl;
+  constructor (baseurl) {
+    this.__url = baseurl
   }
 
-  search(type, params = {}) {
+  search (type, params = {}) {
     if (!params.limit) {
       params.limit = 10
     }
     return this.query(type, params).then(response => response.data)
   }
 
-  async get(type, id, params = {}) {
-    if (typeof id == 'object') {
+  async get (type, id, params = {}) {
+    if (typeof id === 'object') {
       params = id
     } else {
       params.id = id
@@ -33,11 +33,11 @@ class Kirkanta {
       }
     } else {
       console.log(params, response)
-      throw `Requested object not found`
+      throw new Error(`Requested object not found`)
     }
   }
 
-  query(path, params = {}) {
+  query (path, params = {}) {
     /**
      * Convert arrays to strings because the API doesn't handle array notation.
      */
@@ -47,7 +47,7 @@ class Kirkanta {
     for (let key in params) {
       let value = params[key]
 
-      if (typeof value == 'boolean' && !value) {
+      if (typeof value === 'boolean' && !value) {
         // VueBootstrap components might return FALSE when e.g. no checkbox is selected.
         continue
       }
@@ -63,7 +63,7 @@ class Kirkanta {
       processed.lang = detectLanguage()
     }
 
-    return axios.get(`${this.__url}/${path}`, {params: processed})
+    return axios.get(`${this.__url}/${path}`, { params: processed })
   }
 }
 

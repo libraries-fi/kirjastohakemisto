@@ -10,43 +10,43 @@
 </template>
 
 <script>
-  import { faExpand } from '@fortawesome/free-solid-svg-icons'
+import { faExpand } from '@fortawesome/free-solid-svg-icons'
 
-  export default {
-    props: {
-      source: {
-        type: Array,
-        default: () => []
-      },
-      index: {
-        type: Number,
-        default: 0
-      }
+export default {
+  props: {
+    source: {
+      type: Array,
+      default: () => []
     },
-    data: () => ({
-      currentIndex: 0,
-      faExpand
-    }),
-    computed: {
-      currentPhoto() {
-        return this.source[this.currentIndex]
-      }
-    },
-    methods: {
-      prev() {
-        this.currentIndex = Math.max(this.currentIndex - 1, 0)
-      },
-      next() {
-        this.currentIndex = Math.min(this.currentIndex + 1, this.source.length - 1)
-      },
-      expand() {
-        console.log("EXPAND");
-      }
-    },
-    created() {
-      this.currentIndex = this.index
+    index: {
+      type: Number,
+      default: 0
     }
+  },
+  data: () => ({
+    currentIndex: 0,
+    faExpand
+  }),
+  computed: {
+    currentPhoto () {
+      return this.source[this.currentIndex]
+    }
+  },
+  methods: {
+    prev () {
+      this.currentIndex = Math.max(this.currentIndex - 1, 0)
+    },
+    next () {
+      this.currentIndex = Math.min(this.currentIndex + 1, this.source.length - 1)
+    },
+    expand () {
+      console.log('EXPAND')
+    }
+  },
+  created () {
+    this.currentIndex = this.index
   }
+}
 </script>
 
 <style lang="scss" scoped>

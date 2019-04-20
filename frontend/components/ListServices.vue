@@ -36,70 +36,70 @@
 </template>
 
 <script>
-  import Popper from 'popper.js'
-  import bPopover from 'bootstrap-vue/es/directives/popover/popover'
-  import { faStreetView } from '@fortawesome/free-solid-svg-icons'
-  import { addToMapArray, first, last } from '@/mixins'
+import Popper from 'popper.js'
+import bPopover from 'bootstrap-vue/es/directives/popover/popover'
+import { faStreetView } from '@fortawesome/free-solid-svg-icons'
+import { addToMapArray, first, last } from '@/mixins'
 
-  export default {
-    props: ['services'],
-    directives: {
-      bPopover
-    },
-    data: () => ({
-      activePopups: [],
-      faStreetView
-    }),
-    computed: {
-      categories() {
-        const groups = new Map
-        const instances = new Map
+export default {
+  props: ['services'],
+  directives: {
+    bPopover
+  },
+  data: () => ({
+    activePopups: [],
+    faStreetView
+  }),
+  computed: {
+    categories () {
+      const groups = new Map()
+      const instances = new Map()
 
-        for (let service of this.services) {
-          if (!instances.has(service.id)) {
-            instances.set(service.id, 1)
-          } else {
-            instances.set(service.id, instances.get(service.id) + 1)
-          }
-
-          service.uniqueId = `${service.slug}--${instances.get(service.id)}`
-          addToMapArray(groups, service.type, service)
-        }
-
-        return [...groups]
-      }
-    },
-    methods: {
-      first,
-      last,
-      close(event) {
-        this.$root.$emit('bv::hide::popover')
-      },
-      closeAll(event) {
-        if (event) {
-          for (let id of this.activePopups) {
-            if (event.target.id != id) {
-              this.$root.$emit('bv::hide::popover', id)
-            }
-          }
+      for (let service of this.services) {
+        if (!instances.has(service.id)) {
+          instances.set(service.id, 1)
         } else {
-          this.$root.$emit('bv::hide::popover')
+          instances.set(service.id, instances.get(service.id) + 1)
         }
-      },
-      doClick(event) {
-        this.$root.$emit('bv::show::popover', event.target.id)
+
+        service.uniqueId = `${service.slug}--${instances.get(service.id)}`
+        addToMapArray(groups, service.type, service)
+      }
+
+      return [...groups]
+    }
+  },
+  methods: {
+    first,
+    last,
+    close (event) {
+      this.$root.$emit('bv::hide::popover')
+    },
+    closeAll (event) {
+      if (event) {
+        for (let id of this.activePopups) {
+          if (event.target.id !== id) {
+            this.$root.$emit('bv::hide::popover', id)
+          }
+        }
+      } else {
+        this.$root.$emit('bv::hide::popover')
       }
     },
-    mounted() {
-      this.$root.$on('bv::popover::shown', (event) => {
-        if (!event.target.id) {
-          let id = Math.ceil(Math.random() * 999999)
-          event.target.id = `popup-toggle-${id}`
-        }
-        this.activePopups.push(event.target.id)
-      })
+    doClick (event) {
+      this.$root.$emit('bv::show::popover', event.target.id)
     }
+  },
+  mounted () {
+    this.$root.$on('bv::popover::shown', (event) => {
+      if (!event.target.id) {
+        let id = Math.ceil(Math.random() * 999999)
+        event.target.id = `popup-toggle-${id}`
+      }
+      this.activePopups.push(event.target.id)
+    })
   }
+}
 </script>
 
 <style lang="scss">

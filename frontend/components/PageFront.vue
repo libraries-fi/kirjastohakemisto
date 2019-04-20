@@ -29,27 +29,27 @@
 </template>
 
 <script>
-  import { geolocation } from '@/mixins/geolocation'
-  import kirkanta from '@/mixins/kirkanta'
-  import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { geolocation } from '@/mixins/geolocation'
+import kirkanta from '@/mixins/kirkanta'
+import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
-  export default {
-    data: () => ({
-      libraries: [],
-      currentCity: null,
-      faSearch
-    }),
-    async created() {
-      let pos = await geolocation.getPosition()
-      let response = await kirkanta.search('library', {
-        'geo.pos': `${pos.coords.latitude},${pos.coords.longitude}`,
-        limit: 10
-      })
+export default {
+  data: () => ({
+    libraries: [],
+    currentCity: null,
+    faSearch
+  }),
+  async created () {
+    let pos = await geolocation.getPosition()
+    let response = await kirkanta.search('library', {
+      'geo.pos': `${pos.coords.latitude},${pos.coords.longitude}`,
+      limit: 10
+    })
 
-      this.libraries = response.items
-      this.currentCity = this.libraries.length > 0 ? this.libraries[0].address.city : null
-    },
+    this.libraries = response.items
+    this.currentCity = this.libraries.length > 0 ? this.libraries[0].address.city : null
   }
+}
 </script>
 
 <style lang="scss">

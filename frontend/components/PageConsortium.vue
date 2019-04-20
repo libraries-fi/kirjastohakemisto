@@ -30,76 +30,75 @@
 </template>
 
 <script>
-  import { constants, detectLanguage, kirkanta } from '@/mixins'
-  import axios from 'axios'
+import { constants, detectLanguage, kirkanta } from '@/mixins'
+import axios from 'axios'
+import MapView from './MapView'
 
-  import MapView from './MapView'
+const API_BOUNDARY_URL = '/backend/regions'
 
-  const API_BOUNDARY_URL = '/backend/regions'
+export default {
+  components: { MapView },
+  data: () => ({
+    consortium: null,
+    cities: [],
+    libraries: [],
+    regions: null,
+    markers: null
+  }),
+  async created () {
+    const cid = this.$route.params.consortium
 
-  export default {
-    components: { MapView },
-    data: () => ({
-      consortium: null,
-      cities: [],
-      libraries: [],
-      regions: null,
-      markers: null,
-    }),
-    async created() {
-      const cid = this.$route.params.consortium
+    let pConsortiums = kirkanta.get('consortium', {
+      slug: cid
+    })
 
-      let pConsortiums = kirkanta.get('consortium', {
-        slug: cid
-      })
+    let pCities = kirkanta.search('city', {
+      'consortium.slug': cid,
+      limit: constants.AllResults,
+      sort: 'name'
+    })
 
-      let pCities = kirkanta.search('city', {
-        'consortium.slug': cid,
-        limit: constants.AllResults,
-        sort: 'name'
-      })
+    let pLibraries = kirkanta.search('library', {
+      'consortium.slug': cid,
+      limit: constants.AllResults,
+      sort: 'name'
+    })
 
-      let pLibraries = kirkanta.search('library', {
-        'consortium.slug': cid,
-        limit: constants.AllResults,
-        sort: 'name'
-      })
+    let [rConsortiums, rCities, rLibraries] = await Promise.all([pConsortiums, pCities, pLibraries])
 
-      let [rConsortiums, rCities, rLibraries] = await Promise.all([pConsortiums, pCities, pLibraries])
+    this.consortium = rConsortiums.data
+    this.cities = rCities.items
+    this.libraries = rLibraries.items
 
-      this.consortium = rConsortiums.data
-      this.cities = rCities.items
-      this.libraries = rLibraries.items
+    this.markers = this.libraries.filter(l => l.coordinates).map((library) => {
+      if (library.coordinates) {
+        return [library.name, library.coordinates]
+      }
+    })
 
-      this.markers = this.libraries.filter(l => l.coordinates).map((library) => {
-        if (library.coordinates) {
-          return [library.name, library.coordinates]
-        }
-      })
+    let pBoundaries = await axios.get(API_BOUNDARY_URL, {
+      params: {
+        lang: detectLanguage(),
+        q: this.cities.map((city) => city.name).join(' ')
+      }
+    })
 
-      let pBoundaries = await axios.get(API_BOUNDARY_URL, {
-        params: {
-          lang: detectLanguage(),
-          q: this.cities.map((city) => city.name).join(' ')
-        }
-      })
+    /**
+     * Each boundary of a municipality is an array of polygons (often just 1 but sometimes more)
+     */
+    const regions = Object.values(pBoundaries.data).reduce((acc, b) => {
+      acc.push(...b)
+      return acc
+    }, [])
 
-      /**
-       * Each boundary of a municipality is an array of polygons (often just 1 but sometimes more)
-       */
-      const regions = Object.values(pBoundaries.data).reduce((acc, b) => {
-        acc.push(...b)
-        return acc
-      }, [])
-
-      this.regions = Object.values(regions)
-    },
-    mounted() {
-      this.$nextTick(() => {
-        // console.log(this.$refs.map)
-      })
-    }
+    this.regions = Object.values(regions)
+  },
+  mounted () {
+    this.$nextTick(() => {
+      // console.log(this.$refs.map)
+    })
   }
+}
 </script>
 
 <style lang="scss" scoped>

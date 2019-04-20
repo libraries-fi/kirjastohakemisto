@@ -19,149 +19,138 @@
 </template>
 
 <script>
-  import { addToMap, addToMapArray, first, last } from '@/mixins'
+import { addToMap, addToMapArray, first, last } from '@/mixins'
 
-  function departmentContactInfo (library) {
-    const departments = new Map([
-      [null, {
-        name: '',
-        phones: [],
-        emails: [],
-        links: [],
-        namedGroups: new Map,
-      }]
-    ])
+function departmentContactInfo (library) {
+  const departments = new Map([
+    [null, {
+      name: '',
+      phones: [],
+      emails: [],
+      links: [],
+      namedGroups: new Map()
+    }]
+  ])
 
-    const nameMap = new Map([[null, departments.get(null)]])
+  const nameMap = new Map([[null, departments.get(null)]])
 
-    function makeDepartmentEntry(name, id, description) {
-      return {name, id, description, phones:[], emails: [], links: [], namedGroups: new Map}
-    }
-
-    for (let department of library.departments) {
-      let { name, id, description } = department
-      departments.set(id, makeDepartmentEntry(name, id, description))
-      nameMap.set(name, departments.get(id))
-    }
-
-    for (let entry of library.phoneNumbers) {
-      entry.type = 'phone'
-      departments.get(entry.department).phones.push(entry)
-      addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
-    }
-
-    for (let entry of library.emailAddresses) {
-      entry.type = 'email'
-      departments.get(entry.department).emails.push(entry)
-      addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
-    }
-
-    for (let entry of library.links) {
-      entry.type = 'link'
-      departments.get(entry.department).links.push(entry)
-      addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
-    }
-
-    for (let person of library.persons) {
-      let department = nameMap.get(person.responsibility || null)
-
-      if (!department) {
-        department = makeDepartmentEntry(person.responsibility)
-        addToMap(departments, person.responsibility, department)
-      }
-
-      const name = `${person.firstName} ${person.lastName}`
-
-      if (person.phone) {
-        addToMapArray(department.namedGroups, name, {
-          name,
-          info: (person.jobTitle || '').toLowerCase(),
-          number: person.phone,
-          type: 'phone',
-        })
-      }
-
-      if (person.email) {
-        addToMapArray(department.namedGroups, name, {
-          name,
-          info: (person.jobTitle || '').toLowerCase(),
-          email: person.email,
-          type: 'email',
-        })
-      }
-    }
-
-    for (let department of departments.values()) {
-      department.groups = [...department.namedGroups.values()]
-
-      if (!department.groups.length) {
-        departments.delete(department.id)
-      }
-    }
-
-    return [...departments.values()].sort((a, b) => {
-      if (!a.name.length) {
-        return -1000
-      }
-      if (!b.name.length) {
-        return 1000
-      }
-      return a.name.localeCompare(b.name)
-    })
+  function makeDepartmentEntry (name, id, description) {
+    return { name, id, description, phones: [], emails: [], links: [], namedGroups: new Map() }
   }
 
-  export default {
-    props: {
-      library: {
-        type: Object,
-        default: () => new Object()
-      }
-    },
-    computed: {
-      departments() {
-        return departmentContactInfo(this.library)
-      }
-    },
-    methods: {
-      first, last,
-      entryIcon(entry) {
-        switch (entry.type) {
-          case 'phone':
-            return faPhone
+  for (let department of library.departments) {
+    let { name, id, description } = department
+    departments.set(id, makeDepartmentEntry(name, id, description))
+    nameMap.set(name, departments.get(id))
+  }
 
-          case 'email':
-            return faAt
+  for (let entry of library.phoneNumbers) {
+    entry.type = 'phone'
+    departments.get(entry.department).phones.push(entry)
+    addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
+  }
 
-          case 'link':
-            return faLink
-        }
-      },
-      entryLinkValue(entry) {
-        switch (entry.type) {
-          case 'phone':
-            return `tel:+358${entry.number.replace(/\D/g, '').substr(1)}`
+  for (let entry of library.emailAddresses) {
+    entry.type = 'email'
+    departments.get(entry.department).emails.push(entry)
+    addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
+  }
 
-          case 'email':
-            return `mailto:${entry.email}`
+  for (let entry of library.links) {
+    entry.type = 'link'
+    departments.get(entry.department).links.push(entry)
+    addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
+  }
 
-          case 'link':
-            return entry.url
-        }
-      },
-      entryTypeLabel(entry) {
-        switch (entry.type) {
-          case 'phone':
-            return this.$t('contact-info.phone')
+  for (let person of library.persons) {
+    let department = nameMap.get(person.responsibility || null)
 
-          case 'email':
-            return this.$t('contact-info.email')
+    if (!department) {
+      department = makeDepartmentEntry(person.responsibility)
+      addToMap(departments, person.responsibility, department)
+    }
 
-          case 'link':
-            return this.$t('contact-info.link')
-        }
-      },
+    const name = `${person.firstName} ${person.lastName}`
+
+    if (person.phone) {
+      addToMapArray(department.namedGroups, name, {
+        name,
+        info: (person.jobTitle || '').toLowerCase(),
+        number: person.phone,
+        type: 'phone'
+      })
+    }
+
+    if (person.email) {
+      addToMapArray(department.namedGroups, name, {
+        name,
+        info: (person.jobTitle || '').toLowerCase(),
+        email: person.email,
+        type: 'email'
+      })
     }
   }
+
+  for (let department of departments.values()) {
+    department.groups = [...department.namedGroups.values()]
+
+    if (!department.groups.length) {
+      departments.delete(department.id)
+    }
+  }
+
+  return [...departments.values()].sort((a, b) => {
+    if (!a.name.length) {
+      return -1000
+    }
+    if (!b.name.length) {
+      return 1000
+    }
+    return a.name.localeCompare(b.name)
+  })
+}
+
+export default {
+  props: {
+    library: {
+      type: Object,
+      default: () => ({})
+    }
+  },
+  computed: {
+    departments () {
+      return departmentContactInfo(this.library)
+    }
+  },
+  methods: {
+    first,
+    last,
+    entryLinkValue (entry) {
+      switch (entry.type) {
+        case 'phone':
+          return `tel:+358${entry.number.replace(/\D/g, '').substr(1)}`
+
+        case 'email':
+          return `mailto:${entry.email}`
+
+        case 'link':
+          return entry.url
+      }
+    },
+    entryTypeLabel (entry) {
+      switch (entry.type) {
+        case 'phone':
+          return this.$t('contact-info.phone')
+
+        case 'email':
+          return this.$t('contact-info.email')
+
+        case 'link':
+          return this.$t('contact-info.link')
+      }
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>

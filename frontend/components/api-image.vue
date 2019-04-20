@@ -4,26 +4,26 @@
 </template>
 
 <script>
-  import { useBetaKirkantaDomain } from '@/mixins/beta-compat'
-  import { faCamera } from '@fortawesome/free-solid-svg-icons'
+import { useBetaKirkantaDomain } from '@/mixins/beta-compat'
+import { faCamera } from '@fortawesome/free-solid-svg-icons'
 
-  export default {
-    props: ['file', 'size'],
-    data: () => ({
-      faCamera
-    }),
-    methods: {
-      hasImage() {
-        return this.file && this.file[this.imageSize]
-      }
+export default {
+  props: ['file', 'size'],
+  data: () => ({
+    faCamera
+  }),
+  methods: {
+    hasImage () {
+      return this.file && this.file[this.imageSize]
+    }
+  },
+  computed: {
+    imageSize () {
+      return this.size || 'small'
     },
-    computed: {
-      imageSize: function() {
-        return this.size || 'small'
-      },
-      imageUrl: function() {
-        return useBetaKirkantaDomain(this.file[this.imageSize].url)
-      },
+    imageUrl () {
+      return useBetaKirkantaDomain(this.file[this.imageSize].url)
     }
   }
+}
 </script>

@@ -21,35 +21,35 @@
 </template>
 
 <script>
-  import axios from 'axios'
+import axios from 'axios'
 
-  const GFX_BASE_URL = 'https://gfx.kirjastot.fi/shared-footer/';
+const GFX_BASE_URL = 'https://gfx.kirjastot.fi/shared-footer/'
 
-  export default {
-    data: () => ({
-      expandedMenu: null,
-      footer: {
-        title: null,
-        logo: {},
-        logo_public_libraries: {},
-        menu_button: {},
-        cookies: {},
-        links: [],
-      }
-    }),
-    async created() {
-      const lang = 'fi'
-
-      const response = await axios.get(GFX_BASE_URL, {
-        params: { lang },
-        headers: {
-          'X-Requested-With': 'XMLHttpRequest'
-        }
-      })
-
-      this.footer = response.data
+export default {
+  data: () => ({
+    expandedMenu: null,
+    footer: {
+      title: null,
+      logo: {},
+      logo_public_libraries: {},
+      menu_button: {},
+      cookies: {},
+      links: []
     }
+  }),
+  async created () {
+    const lang = 'fi'
+
+    const response = await axios.get(GFX_BASE_URL, {
+      params: { lang },
+      headers: {
+        'X-Requested-With': 'XMLHttpRequest'
+      }
+    })
+
+    this.footer = response.data
   }
+}
 </script>
 
 <style lang="scss" scoped>

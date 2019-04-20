@@ -3,33 +3,33 @@
 </template>
 
 <script>
-  import { kirkanta } from '@/mixins'
+import { kirkanta } from '@/mixins'
 
-  export default {
-    async created() {
-      try {
-        let result = await kirkanta.get('library', {
-          slug: this.$route.params.slug,
-          refs: ['city']
-        })
+export default {
+  async created () {
+    try {
+      let result = await kirkanta.get('library', {
+        slug: this.$route.params.slug,
+        refs: ['city']
+      })
 
-        let library = result.data
+      let library = result.data
 
-        this.$router.replace({
-          name: 'library.show',
-          params: {
-            library: library.slug,
-            city: result.refs.city[library.city].slug
-          }
-        })
-      } catch (error) {
-        console.error(error.stack)
-        let result = await kirkanta.get('city', {
-          slug: this.$route.params.slug
-        })
+      this.$router.replace({
+        name: 'library.show',
+        params: {
+          library: library.slug,
+          city: result.refs.city[library.city].slug
+        }
+      })
+    } catch (error) {
+      console.error(error.stack)
+      let result = await kirkanta.get('city', {
+        slug: this.$route.params.slug
+      })
 
-        console.log('city', result.data)
-      }
+      console.log('city', result.data)
     }
   }
+}
 </script>

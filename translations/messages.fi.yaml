@@ -71,6 +71,7 @@ schedules:
 search:
   advanced: Tarkennettu haku
   library-type: Kirjaston tyyppi
+  load-more: Lataa lisää tuloksia
   only-open: Vain avoimet kirjastot
   options: Asetukset
   placeholder: Hae kirjastoa tai palvelua

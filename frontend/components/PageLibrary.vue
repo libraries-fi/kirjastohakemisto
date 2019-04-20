@@ -142,137 +142,137 @@
 </template>
 
 <script>
-  import Popper from 'popper.js'
-  import bPopover from 'bootstrap-vue/es/directives/popover/popover'
+import Popper from 'popper.js'
+import bPopover from 'bootstrap-vue/es/directives/popover/popover'
 
-  import ListServices from './ListServices'
-  import Schedules from './Schedules.vue'
-  import MapView from './MapView'
-  import Photos from './Photos'
-  import ContactInfo from './ContactInfo'
+import ListServices from './ListServices'
+import Schedules from './Schedules.vue'
+import MapView from './MapView'
+import Photos from './Photos'
+import ContactInfo from './ContactInfo'
 
-  import { coordStr, geolocation, formatDistance, kirkanta } from '@/mixins'
-  import { faAddressCard, faExchangeAlt, faQuoteRight, faEnvelope, faLink, faLongArrowAltLeft, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
+import { coordStr, geolocation, formatDistance, kirkanta, addToMapArray } from '@/mixins'
+import { faAddressCard, faExchangeAlt, faQuoteRight, faEnvelope, faLink, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
 
-  import {
-    faFacebookSquare,
-    faFlickr,
-    faInstagram,
-    faPinterestSquare,
-    faTwitterSquare,
-    faVimeoSquare,
-    faYoutube
-  } from '@fortawesome/free-brands-svg-icons'
+import {
+  faFacebookSquare,
+  faFlickr,
+  faInstagram,
+  faPinterestSquare,
+  faTwitterSquare,
+  faVimeoSquare,
+  faYoutube
+} from '@fortawesome/free-brands-svg-icons'
 
-  const iconMap = new Map([
-    ['facebook.com', faFacebookSquare],
-    ['flickr.com', faFlickr],
-    ['instagram.com', faInstagram],
-    ['pinterest.com', faPinterestSquare],
-    ['vimeo.com', faVimeoSquare],
-    ['twitter.com', faTwitterSquare],
-    ['youtube.com', faYoutube],
-  ]);
+const iconMap = new Map([
+  ['facebook.com', faFacebookSquare],
+  ['flickr.com', faFlickr],
+  ['instagram.com', faInstagram],
+  ['pinterest.com', faPinterestSquare],
+  ['vimeo.com', faVimeoSquare],
+  ['twitter.com', faTwitterSquare],
+  ['youtube.com', faYoutube]
+])
 
-  const someRegexp = new RegExp([...iconMap.keys()].join('|').replace('.', '\\.'))
+const someRegexp = new RegExp([...iconMap.keys()].join('|').replace('.', '\\.'))
 
-  export default {
-    directives: { bPopover },
-    components: { ContactInfo, ListServices, MapView, Photos, Schedules },
-    data: () => ({
-      activePopups: [],
-      refs: {},
-      library: null,
-      mapIsVisible: false,
-      faQuoteRight,
-      faEnvelope,
-      faLocationArrow,
-      faAddressCard,
-      faExchangeAlt
-    }),
-    computed: {
-      someLinks() {
-        return this.library.links.filter((link) => someRegexp.test(link.url)).sort((a, b) => a.name.localeCompare(b.name))
-      },
-      serviceCategories() {
-        const groups = new Map
-
-        for (let service of this.library.services) {
-          addToMapArray(groups, service.type, service)
-        }
-
-        return [...groups]
-      },
-      consortium () {
-        return this.refs.consortium[this.library.consortium]
-      }
+export default {
+  directives: { bPopover },
+  components: { ContactInfo, ListServices, MapView, Photos, Schedules },
+  data: () => ({
+    activePopups: [],
+    refs: {},
+    library: null,
+    mapIsVisible: false,
+    faQuoteRight,
+    faEnvelope,
+    faLocationArrow,
+    faAddressCard,
+    faExchangeAlt
+  }),
+  computed: {
+    someLinks () {
+      return this.library.links.filter((link) => someRegexp.test(link.url)).sort((a, b) => a.name.localeCompare(b.name))
     },
-    filters: {
-      coords: (posObject) => {
-        return [posObject.lat, posObject.lon]
+    serviceCategories () {
+      const groups = new Map()
+
+      for (let service of this.library.services) {
+        addToMapArray(groups, service.type, service)
       }
+
+      return [...groups]
     },
-    methods: {
-      formatDistance,
-      linkIcon (link) {
-        let icon_class = faLink;
-
-        for (let [rx, icon] of iconMap) {
-          if (link.url.match(rx)) {
-            icon_class = icon;
-          }
-        }
-
-        return icon_class;
-      },
-      hasPublicTransportation () {
-        if (this.library.transit) {
-          for (let [field, info] of Object.entries(this.library.transit)) {
-            if (info && info.length) {
-              return true;
-            }
-          }
-        }
-        return false;
-      },
-      hasContactInfo () {
-        return (this.library.links.length + this.library.emailAddresses.length + this.library.phoneNumbers.length) > 0
-      },
-      hasServices () {
-        return this.library.services.length > 0
-      },
-      onChangeTab (index) {
-        this.mapIsVisible = index == 1
-        // this.mapIsVisible = true
-      }
-    },
-    async created() {
-      const params = {
-        'city.slug': this.$route.params.city,
-        slug: this.$route.params.library,
-        with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'pictures', 'phoneNumbers', 'schedules', 'services'],
-        refs: ['city', 'consortium', 'period'],
-        status: '',
-        'period.start': '0w',
-        'period.end': '8w'
-      }
-
-      try {
-        let pos = await geolocation.tryGps()
-
-        Object.assign(params, {
-          'geo.pos': coordStr(pos.coords),
-        })
-      } catch (err) {
-        // pass
-      }
-
-      let response = await kirkanta.get('library', params)
-
-      this.library = response.data
-      this.refs = response.refs
+    consortium () {
+      return this.refs.consortium[this.library.consortium]
     }
+  },
+  filters: {
+    coords: (posObject) => {
+      return [posObject.lat, posObject.lon]
+    }
+  },
+  methods: {
+    formatDistance,
+    linkIcon (link) {
+      let iconClass = faLink
+
+      for (let [rx, icon] of iconMap) {
+        if (link.url.match(rx)) {
+          iconClass = icon
+        }
+      }
+
+      return iconClass
+    },
+    hasPublicTransportation () {
+      if (this.library.transit) {
+        for (let info of Object.values(this.library.transit)) {
+          if (info && info.length) {
+            return true
+          }
+        }
+      }
+      return false
+    },
+    hasContactInfo () {
+      return (this.library.links.length + this.library.emailAddresses.length + this.library.phoneNumbers.length) > 0
+    },
+    hasServices () {
+      return this.library.services.length > 0
+    },
+    onChangeTab (index) {
+      this.mapIsVisible = index === 1
+      // this.mapIsVisible = true
+    }
+  },
+  async created () {
+    const params = {
+      'city.slug': this.$route.params.city,
+      slug: this.$route.params.library,
+      with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'pictures', 'phoneNumbers', 'schedules', 'services'],
+      refs: ['city', 'consortium', 'period'],
+      status: '',
+      'period.start': '0w',
+      'period.end': '8w'
+    }
+
+    try {
+      let pos = await geolocation.tryGps()
+
+      Object.assign(params, {
+        'geo.pos': coordStr(pos.coords)
+      })
+    } catch (err) {
+      // pass
+    }
+
+    let response = await kirkanta.get('library', params)
+
+    this.library = response.data
+    this.refs = response.refs
   }
+}
 </script>
 
 <style lang="scss" scoped>

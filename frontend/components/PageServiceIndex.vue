@@ -20,39 +20,38 @@
 </template>
 
 <script>
-  import { kirkanta } from '@/mixins'
-  import { toArray, groupBy } from '@/mixins/collections'
-  import { initial, detectLanguage } from '@/mixins'
+import { toArray, groupBy } from '@/mixins/collections'
+import { detectLanguage, kirkanta } from '@/mixins'
 
-  export default {
-    data: () => ({
-      services: [],
-      refs: {},
-      groups: [],
-    }),
-    methods: {
-      buildGroups() {
-        const groups = groupBy(this.services, (service) => this.$t(`service-type.${service.type}`))
+export default {
+  data: () => ({
+    services: [],
+    refs: {},
+    groups: []
+  }),
+  methods: {
+    buildGroups () {
+      const groups = groupBy(this.services, (service) => this.$t(`service-type.${service.type}`))
 
-        this.groups = toArray(groups).sort((a, b) => {
-          return a[0].localeCompare(b[0], detectLanguage())
-        })
-      }
-    },
-    watch: {
-      $route: 'buildGroups'
-    },
-    async created() {
-      let response = await kirkanta.search('service', {
-        limit: 9999,
+      this.groups = toArray(groups).sort((a, b) => {
+        return a[0].localeCompare(b[0], detectLanguage())
       })
+    }
+  },
+  watch: {
+    $route: 'buildGroups'
+  },
+  async created () {
+    let response = await kirkanta.search('service', {
+      limit: 9999
+    })
 
-      this.services = response.items
-      this.refs = response.refs
+    this.services = response.items
+    this.refs = response.refs
 
-      this.buildGroups()
-    },
+    this.buildGroups()
   }
+}
 </script>
 
 <style lang="scss">

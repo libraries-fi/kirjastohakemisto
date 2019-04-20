@@ -20,40 +20,39 @@
 </template>
 
 <script>
-  import { kirkanta } from '@/mixins'
-  import { toArray, groupBy } from '@/mixins/collections'
-  import { initial, detectLanguage } from '@/mixins'
-  function indexByInitial(library) {
-    return initial(library.name)
-  }
+import { toArray, groupBy } from '@/mixins/collections'
+import { kirkanta, initial, detectLanguage } from '@/mixins'
+function indexByInitial (library) {
+  return initial(library.name)
+}
 
-  export default {
-    data: () => ({
-      consortiums: [],
-      refs: {},
-      groups: [],
-    }),
-    methods: {
-      buildGroups() {
-        this.groups = toArray(groupBy(this.consortiums, indexByInitial)).sort((a, b) => {
-          return a[0].localeCompare(b[0], detectLanguage())
-        })
-      }
-    },
-    watch: {
-      $route: 'buildGroups'
-    },
-    async created() {
-      let response = await kirkanta.search('consortium', {
-        limit: 9999,
+export default {
+  data: () => ({
+    consortiums: [],
+    refs: {},
+    groups: []
+  }),
+  methods: {
+    buildGroups () {
+      this.groups = toArray(groupBy(this.consortiums, indexByInitial)).sort((a, b) => {
+        return a[0].localeCompare(b[0], detectLanguage())
       })
+    }
+  },
+  watch: {
+    $route: 'buildGroups'
+  },
+  async created () {
+    let response = await kirkanta.search('consortium', {
+      limit: 9999
+    })
 
-      this.consortiums = response.items
-      this.refs = response.refs
+    this.consortiums = response.items
+    this.refs = response.refs
 
-      this.buildGroups()
-    },
+    this.buildGroups()
   }
+}
 </script>
 
 <style lang="scss">

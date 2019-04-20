@@ -41,58 +41,58 @@
 </template>
 
 <script>
-  import { coordStr, detectLanguage, formatDistance, geolocation, kirkanta } from '@/mixins'
-  import { faMap, faSmile, faMeh } from '@fortawesome/free-regular-svg-icons'
+import { coordStr, formatDistance, geolocation, kirkanta } from '@/mixins'
+import { faMap, faSmile, faMeh } from '@fortawesome/free-regular-svg-icons'
 
-  const PROXIMITY_THRESHOLD = 20000
+const PROXIMITY_THRESHOLD = 20000
 
-  export default {
-    data: () => ({
-      service: null,
-      closeLibraries: [],
-      otherLibraries: [],
-      faMap,
-      faSmile,
-      faMeh,
-    }),
-    methods: {
-      formatDistance
-    },
-    async created() {
-      this.service = (await kirkanta.get('service', {
-        slug: this.$route.params.service
-      })).data
+export default {
+  data: () => ({
+    service: null,
+    closeLibraries: [],
+    otherLibraries: [],
+    faMap,
+    faSmile,
+    faMeh
+  }),
+  methods: {
+    formatDistance
+  },
+  async created () {
+    this.service = (await kirkanta.get('service', {
+      slug: this.$route.params.service
+    })).data
 
-      const params = {
-        with: ['services'],
-        sort: ['name'],
-        service: this.service.id,
-        limit: 9999
-      }
-
-      try {
-        let pos = await geolocation.tryGps()
-
-        Object.assign(params, {
-          'geo.pos': coordStr(pos.coords),
-        })
-      } catch (err) {
-        // pass
-      }
-
-      const libraries = (await kirkanta.search('library', params)).items
-
-      for (let library of libraries) {
-        if (library.distance < PROXIMITY_THRESHOLD) {
-          this.closeLibraries.push(library)
-        } else {
-          this.otherLibraries.push(library)
-        }
-      }
-
-      this.closeLibraries.sort((a, b) => a.distance - b.distance)
+    const params = {
+      with: ['services'],
+      sort: ['name'],
+      service: this.service.id,
+      limit: 9999
     }
+
+    try {
+      let pos = await geolocation.tryGps()
+
+      Object.assign(params, {
+        'geo.pos': coordStr(pos.coords)
+      })
+    } catch (err) {
+      // pass
+    }
+
+    const libraries = (await kirkanta.search('library', params)).items
+
+    for (let library of libraries) {
+      if (library.distance < PROXIMITY_THRESHOLD) {
+        this.closeLibraries.push(library)
+      } else {
+        this.otherLibraries.push(library)
+      }
+    }
+
+    this.closeLibraries.sort((a, b) => a.distance - b.distance)
   }
+}
 </script>
 
 <style lang="scss" scoped>

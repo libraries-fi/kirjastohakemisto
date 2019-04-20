@@ -40,94 +40,94 @@
 </template>
 
 <script>
-  import { filtered, toArray, groupBy } from '@/mixins/collections'
-  import { detectLanguage, initial, kirkanta } from '@/mixins'
-  import { faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons'
+import { filtered, toArray, groupBy } from '@/mixins/collections'
+import { detectLanguage, initial, kirkanta } from '@/mixins'
+import { faArrowAltCircleRight } from '@fortawesome/free-regular-svg-icons'
 
-  function indexByMunicipality(library, refs) {
-    return library.address.city
-  }
+function indexByMunicipality (library, refs) {
+  return library.address.city
+}
 
-  function indexByConsortium(library, refs) {
-    let consortium = refs[library.consortium]
-    return consortium ? consortium.name : ''
-  }
+function indexByConsortium (library, refs) {
+  let consortium = refs[library.consortium]
+  return consortium ? consortium.name : ''
+}
 
-  function indexByInitial(library) {
-    return initial(library.name)
-  }
+function indexByInitial (library) {
+  return initial(library.name)
+}
 
-  const libraryTypeMap = new Map([
-    ['_all', 'index.all-libraries'],
-    ['municipal', 'index.municipal-libraries'],
-    ['mobile', 'index.mobile-libraries'],
-  ])
+const libraryTypeMap = new Map([
+  ['_all', 'index.all-libraries'],
+  ['municipal', 'index.municipal-libraries'],
+  ['mobile', 'index.mobile-libraries']
+])
 
-  export default {
-    data: () => ({
-      libraries: [],
-      refs: {},
-      groups: [],
-      visibleCount: 0,
-      libraryTypeOptions: {},
-      form: {
-        type: '_all',
-      },
-      faArrowAltCircleRight
-    }),
-    methods: {
-      buildGroups() {
-        this.visibleCount = 0
+export default {
+  data: () => ({
+    libraries: [],
+    refs: {},
+    groups: [],
+    visibleCount: 0,
+    libraryTypeOptions: {},
+    form: {
+      type: '_all'
+    },
+    faArrowAltCircleRight
+  }),
+  methods: {
+    buildGroups () {
+      this.visibleCount = 0
 
-        const libraries = filtered(this.libraries, (library) => {
-          if (this.form.type == '_all' || this.form.type == library.type) {
-            this.visibleCount++
-            return true
-          } else {
-            return false
-          }
-        })
-
-        const groups = (mode) => {
-          switch (mode) {
-            case 'municipality':
-              return groupBy(libraries, (library) => indexByMunicipality(library, this.refs.city))
-
-            case 'consortium':
-              let groups = groupBy(libraries, (library) => indexByConsortium(library, this.refs.consortium))
-              groups.delete('')
-              return groups
-
-            default:
-              return groupBy(libraries, (library) => indexByInitial(library))
-          }
+      const libraries = filtered(this.libraries, (library) => {
+        if (this.form.type === '_all' || this.form.type === library.type) {
+          this.visibleCount++
+          return true
+        } else {
+          return false
         }
-
-        this.groups = toArray(groups(this.$route.meta.indexBy)).sort((a, b) => {
-          return a[0].localeCompare(b[0], detectLanguage())
-        })
-      }
-    },
-    watch: {
-      $route: 'buildGroups',
-      'form.type': 'buildGroups',
-    },
-    async created() {
-      for (let [value, label] of libraryTypeMap) {
-        this.libraryTypeOptions[value] = this.$t(label)
-      }
-
-      let response = await kirkanta.search('library', {
-        limit: 9999,
-        refs: ['consortium']
       })
 
-      this.libraries = response.items
-      this.refs = response.refs
+      const groups = (mode) => {
+        switch (mode) {
+          case 'municipality':
+            return groupBy(libraries, (library) => indexByMunicipality(library, this.refs.city))
 
-      this.buildGroups()
-    },
+          case 'consortium':
+            let groups = groupBy(libraries, (library) => indexByConsortium(library, this.refs.consortium))
+            groups.delete('')
+            return groups
+
+          default:
+            return groupBy(libraries, (library) => indexByInitial(library))
+        }
+      }
+
+      this.groups = toArray(groups(this.$route.meta.indexBy)).sort((a, b) => {
+        return a[0].localeCompare(b[0], detectLanguage())
+      })
+    }
+  },
+  watch: {
+    $route: 'buildGroups',
+    'form.type': 'buildGroups'
+  },
+  async created () {
+    for (let [value, label] of libraryTypeMap) {
+      this.libraryTypeOptions[value] = this.$t(label)
+    }
+
+    let response = await kirkanta.search('library', {
+      limit: 9999,
+      refs: ['consortium']
+    })
+
+    this.libraries = response.items
+    this.refs = response.refs
+
+    this.buildGroups()
   }
+}
 </script>
 
 <style lang="scss">
