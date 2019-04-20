@@ -1,6 +1,6 @@
 import config from '@/config'
 
-export function useBetaKirkantaDomain(url) {
+export function useBetaKirkantaDomain (url) {
   if (!config.demo || !config.demo.enabled) {
     return url
   }

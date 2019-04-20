@@ -7,7 +7,7 @@ const LOCATION_CACHE_TIME = 1000 * 120
 const DEMO_MODE_ENABLED = (config.demo && config.demo.enabled && config.demo.position)
 
 export class GeoLocation {
-  constructor() {
+  constructor () {
     this.__enabled = false
 
     this.test()
@@ -19,28 +19,28 @@ export class GeoLocation {
       })
   }
 
-  get enabled() {
+  get enabled () {
     return this.__enabled
   }
 
-  disable() {
+  disable () {
     this.__enabled = false
   }
 
   /**
    * Tests whether location services have been allowed by the user.
    */
-  async test() {
+  async test () {
     if (DEMO_MODE_ENABLED) {
       return true
     }
 
-    return navigator.permissions.query({name: 'geolocation'})
+    return navigator.permissions.query({ name: 'geolocation' })
       .then((permission) => {
-        if (permission.state == 'granted') {
+        if (permission.state === 'granted') {
           return true
         } else {
-          throw 'Geolocation is disabled'
+          throw new Error('Geolocation is disabled')
         }
       })
   }
@@ -48,9 +48,9 @@ export class GeoLocation {
   /**
    * Query client location services.
    */
-  gps() {
+  gps () {
     if (DEMO_MODE_ENABLED) {
-      return demo.position
+      return config.demo.position
     }
 
     return new Promise((resolve, reject) => {
@@ -65,14 +65,14 @@ export class GeoLocation {
     })
   }
 
-  ip() {
+  ip () {
     return axios.get(IP_LOCATION_URL).then((response) => response.data)
   }
 
   /**
    * Utility function that calls test() and then gps()
    */
-  async tryGps() {
+  async tryGps () {
     await this.test()
     return this.gps()
   }
@@ -80,8 +80,8 @@ export class GeoLocation {
   /**
    *
    */
-  async getPosition(try_gps = false) {
-    if (try_gps) {
+  async getPosition (tryGps = false) {
+    if (tryGps) {
       return this.gps()
     }
 
@@ -98,7 +98,7 @@ const distanceFormatter = new Intl.NumberFormat(detectLanguage(), {
   maximumFractionDigits: 1
 })
 
-export function formatDistance(distance) {
+export function formatDistance (distance) {
   if (distance < 1.0) {
     let meters = Math.ceil(distance)
     return `${meters} m`
@@ -112,4 +112,4 @@ export function formatDistance(distance) {
   }
 }
 
-export const geolocation = new GeoLocation;
+export const geolocation = new GeoLocation()
