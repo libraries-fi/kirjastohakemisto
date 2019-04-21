@@ -1,38 +1,42 @@
-front:
-  path: /
-  controller: App\Controller\StaticController::frontpage
 ip2location:
   path: /backend/ip-location
   controller: App\Controller\LocationController::ipToLocation
 map-regions:
   path: /backend/regions
   controller: App\Controller\BoundariesController::regions
+front:
+  path: /mini
+  controller: App\Controller\StaticController::frontpage
 search:
   path:
-    en: /search
-    fi: /haku
+    en: /mini/search
+    fi: /mini/haku
   controller: App\Controller\StaticController::search
 libraries:
   path:
-    en: /libraries
-    fi: /kirjastot
+    en: /mini/libraries
+    fi: /mini/kirjastot
   controller: App\Controller\StaticController::libraries
 consortiums:
   path:
-    en: /consortiums
-    fi: /kimpat
+    en: /mini/consortiums
+    fi: /mini/kimpat
   controller: App\Controller\StaticController::consortiums
 
 # Place last because the route matches almost anything.
 library:
-  path: /{city}/{library}
+  path: /mini/{city}/{library}
   controller: App\Controller\StaticController::library
   requirements:
     city: '[a-z][\w\-]+'
     library: '[a-z][\w\-]+'
 
+webapp:
+  path: /
+  controller: App\Controller\StaticController::webApp
+
 fallback:
   path: /{anything}
-  controller: App\Controller\StaticController::fallback
+  controller: App\Controller\StaticController::webApp
   requirements:
     anything: '.+'

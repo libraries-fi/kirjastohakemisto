@@ -32,9 +32,9 @@ class StaticController extends Controller
     }
 
     /**
-     * @Template("base.html.twig")
+     * @Template("webapp.html.twig")
      */
-    public function fallback()
+    public function webApp()
     {
         return [];
     }

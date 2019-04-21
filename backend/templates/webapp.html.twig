@@ -1,0 +1,23 @@
+{% extends "base.html.twig" %}
+
+{% block body %}
+  <div id="app"></div>
+
+  <noscript>
+    <p>{% trans %}Welcome to the Finnish Library Directory. Unfortunately your browser does not support this web application. Instead you can browse the simplified mini version!{% endtrans %}</p>
+
+    <p>
+      <a href="{{ url('front') }}">{% trans %}Compact version{% endtrans %}</a>
+    </p>
+
+    <footer>
+      <small>{% trans %}Service provided by Libraries.fi{% endtrans %}</small>
+    </footer>
+  </noscript>
+
+  {% if app.environment == "dev" %}
+    <script src="/dev/main.js"></script>
+  {% else %}
+    <script src="/dist/main.js"></script>
+  {% endif %}
+{% endblock %}
