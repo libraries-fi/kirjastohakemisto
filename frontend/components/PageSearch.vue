@@ -20,7 +20,13 @@
       </div>
       <div class="row">
         <div class="col-lg-3 order-lg-3" id="sidebar">
-          <b-form-group id="advanced-search" :label="$t('search.advanced')" label-class="h1" >
+          <button type="button" class="d-block d-lg-none btn btn-link toggle-form-advanced" @click="options.expandFormMobile = !options.expandFormMobile">
+            {{ $t('search.advanced') }}
+            <fa :icon="options.expandFormMobile ? faPlusSquare : faPlusSquareReg" class="ml-1"/>
+          </button>
+
+          <fieldset id="advanced-search" :data-expanded="options.expandFormMobile">
+            <legend class="h1 d-none d-lg-block">{{ $t('search.advanced') }}</legend>
             <b-form-group :label="$t('search.options')">
               <b-form-checkbox id="toggle-gps-1" v-model="options.locationChecked">{{ $t('search.use-location') }}</b-form-checkbox>
               <b-form-checkbox id="only-open-libraries" v-model="form.status" value="open" unchecked-value="">{{ $t('search.only-open') }}</b-form-checkbox>
@@ -28,7 +34,7 @@
             <b-form-group id="library-type" :label="$t('search.library-type')">
               <b-form-checkbox-group id="library-type-options" v-model="form.type" :options="libraryTypes"/>
             </b-form-group>
-          </b-form-group>
+          </fieldset>
         </div>
         <div class="col-lg-9" id="search-results">
           <b-list-group>
@@ -75,13 +81,16 @@
 
 <script>
 import { kirkanta, formatDistance, first, last } from '@/mixins'
-import { faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faPlusSquare, faSearch } from '@fortawesome/free-solid-svg-icons'
+import { faPlusSquare as faPlusSquareReg } from '@fortawesome/free-regular-svg-icons'
 import DateTime from './DateTime'
 import ScrollGuard from './ScrollGuard'
 
 export default {
   components: { DateTime, ScrollGuard },
   data: () => ({
+    faPlusSquare,
+    faPlusSquareReg,
     faSearch,
     searchOptions: {
       skip: 0,
@@ -102,7 +111,8 @@ export default {
     },
     options: {
       locationChecked: false,
-      onlyOpen: false
+      onlyOpen: false,
+      expandFormMobile: false
     },
     userLoadedMore: false,
     libraryTypes: [],
@@ -346,6 +356,26 @@ export default {
       > .col-form-label {
         font-size: x-large;
       }
+    }
+  }
+
+  @include media-breakpoint-down("md") {
+    #sidebar {
+      padding-bottom: spacing(3);
+    }
+
+    #advanced-search {
+      display: none;
+      padding-left: spacing(1);
+      margin-bottom: -1 * spacing(3);
+
+      &[data-expanded] {
+        display: block;
+      }
+    }
+
+    .toggle-form-advanced {
+      margin-left: -1 * spacing(2);
     }
   }
 </style>
