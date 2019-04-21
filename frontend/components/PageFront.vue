@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import { constants, geolocation, kirkanta, randomElement } from '@/mixins'
+import { geolocation, kirkanta } from '@/mixins'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 export default {
