@@ -29,7 +29,7 @@
 </template>
 
 <script>
-import kirkanta from '@/mixins/kirkanta'
+import { constants, geolocation, kirkanta, randomElement } from '@/mixins'
 import { faSearch } from '@fortawesome/free-solid-svg-icons'
 
 export default {
@@ -39,7 +39,7 @@ export default {
     faSearch
   }),
   async created () {
-    let pos = await this.$location.query()
+    let pos = await geolocation.getPosition()
     let response = await kirkanta.search('library', {
       'geo.pos': `${pos.coords.latitude},${pos.coords.longitude}`,
       limit: 10

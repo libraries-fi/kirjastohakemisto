@@ -62,8 +62,6 @@ class LocationService {
     if (!('$session' in Vue.prototype)) {
       throw new Error('LocationService must be registered after VueSession')
     }
-
-    console.log(Vue.prototype)
     Vue.prototype.$location = new LocationService(Vue.prototype.$session, new Vue())
   }
 }

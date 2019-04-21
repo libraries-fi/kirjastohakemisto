@@ -62,3 +62,10 @@ export function addToMap (map, key, value) {
     map.set(key, value)
   }
 }
+
+export function randomElement (elements) {
+  if (Array.isArray(elements)) {
+    let i = Math.floor(Math.random() * elements.length)
+    return elements[i]
+  }
+}

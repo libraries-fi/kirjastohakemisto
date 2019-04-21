@@ -47,6 +47,12 @@ class Kirkanta {
     for (let key in params) {
       let value = params[key]
 
+      // if (typeof value === 'object') {
+      //   console.log('OBJ', value)
+      // }
+
+      console.log(key, typeof value)
+
       if (typeof value === 'boolean' && !value) {
         // VueBootstrap components might return FALSE when e.g. no checkbox is selected.
         continue
@@ -54,6 +60,9 @@ class Kirkanta {
 
       if (Array.isArray(value)) {
         value = value.length ? value.join(' ') : null
+      } else if (typeof value === 'object' && 'id' in value) {
+        console.log('EXTRACT ID', value)
+        value = value.id
       }
 
       processed[key] = value
