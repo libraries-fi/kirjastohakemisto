@@ -44,13 +44,13 @@
               <div class="library-card-aside">
                 <span class="library-card-live">
                   <!-- Always render container to push rest of the content down -->
-                  <!-- <template v-if="library.liveStatus !== null">
-                    <date-time :time="first(library.schedules) | opens" format="p"/>
+                  <template v-if="hasOpeningTime(first(library.schedules))">
+                    <date-time :time="first(library.schedules) | opens" format="p" formal/>
                       –
-                    <date-time :time="first(library.schedules) | closes" format="p"/>
-                  </template> -->
+                    <date-time :time="first(library.schedules) | closes" format="p" formal/>
+                  </template>
                 </span>
-                <div class="text-right">
+                <div class="library-card-status">
                   <b-badge v-if="library.liveStatus == 0" variant="danger">closed</b-badge>
                   <b-badge v-if="library.liveStatus == 1" variant="success">open</b-badge>
                   <b-badge v-if="library.liveStatus == 2" variant="info">self-service</b-badge>
@@ -111,21 +111,10 @@ export default {
     busy: true
   }),
   computed: {
-    useLocation: {
-      get () {
-        // let formState = this.$session.get('search_page.location')
-        let formState = this.options.locationChecked
-        let globalState = this.$location.enabled
-
-        if (formState === undefined) {
-          return globalState
-        } else {
-          return formState && globalState
-        }
-      },
-      set (state) {
-        this.$session.set('search_page.location', !!state)
-      }
+    useLocation () {
+      let formState = this.options.locationChecked
+      let globalState = this.$location.enabled
+      return formState && globalState
     }
   },
   methods: {
@@ -187,6 +176,9 @@ export default {
       }
 
       this.busy = false
+    },
+    hasOpeningTime (day) {
+      return day && day.times.length > 0
     }
   },
   filters: {
@@ -219,8 +211,9 @@ export default {
       }
     },
     'options.locationChecked': {
-      handler () {
+      handler (state) {
         this.submit()
+        this.$session.set('search_page.location', !!state)
       }
     }
   },
@@ -233,7 +226,15 @@ export default {
       { text: this.$t('library.type.other'), value: 'home_service institutional children other' }
     ]
 
-    this.options.locationChecked = this.$session.get('search_page.location')
+    let formLocationStatus = this.$session.get('search_page.location')
+
+    console.log('location', formLocationStatus)
+
+    if (formLocationStatus === undefined) {
+      this.options.locationChecked = this.$location.enabled
+    } else {
+      this.options.locationChecked = !!formLocationStatus
+    }
     this.submit()
 
     this.$location.$on('enabled', () => {
@@ -319,7 +320,16 @@ export default {
   }
 
   .library-card-live {
-    // font-size: $font-size-lg;
+    font-size: $font-size-lg;
+    text-align: center;
+    position: relative;
+    bottom: -0.5rem;
+  }
+
+  .library-card-status {
+    text-align: right;
+    position: relative;
+    top: -0.5rem;
   }
 
   @include media-breakpoint-up("lg") {

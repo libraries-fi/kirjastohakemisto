@@ -20,6 +20,7 @@ class LocationService {
       return pos
     } catch (error) {
       this.session.set(CONFIG_KEY, false)
+      throw error
     }
   }
 

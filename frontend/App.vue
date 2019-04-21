@@ -13,7 +13,7 @@
             <b-nav-item :to="{ name: 'info' }">{{ $t('nav.info') }}</b-nav-item>
           </b-navbar-nav>
         </b-collapse>
-        <toggle-button v-model="locationDataAllowed" :sync="true" @change="toggleGeolocation" labels :title="locationPosition"/>
+        <toggle-button v-model="locationDataAllowed" :sync="true" labels :title="locationPosition"/>
       </div>
     </b-navbar>
     <div class="alert alert-warning mb-0" id="l-alert-box">
@@ -28,6 +28,7 @@
       </div>
     </div>
     <div class="container main-content">
+      <!-- <b-breadcrumb :items="breadcrumb" class="mb-0"/> -->
       <router-view></router-view>
     </div>
     <footer id="l-footer">
@@ -60,13 +61,19 @@ export default {
             let pos = await this.$location.tryEnable()
             this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
           } catch (error) {
-            console.log(error)
+            console.error(error)
+            this.locationDataAllowed = false
           }
         } else {
-          console.log('TURN OFF')
           this.$location.turnOff()
         }
       }
+    },
+    breadcrumb () {
+      return [
+        { text: 'Frontpage', href: '/' },
+        { text: 'Search', href: '/search' }
+      ]
     }
   },
   methods: {
@@ -80,6 +87,11 @@ export default {
     },
     setGeolocationEnabled (state) {
       this.$session.set('location.enabled', !!state)
+    }
+  },
+  watch: {
+    $route: async (to, from) => {
+      console.log('ROUTE', to, from)
     }
   }
 }
