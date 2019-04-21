@@ -72,7 +72,7 @@
 </template>
 
 <script>
-import { format, isSameDay, toDate } from 'date-fns'
+import { format, isSameDay, parseISO } from 'date-fns'
 import { first, last } from '@/mixins'
 
 import { faAngleDoubleLeft, faAngleDoubleRight, faMinusSquare } from '@fortawesome/free-solid-svg-icons'
@@ -97,7 +97,7 @@ export default {
     week () {
       if (this.schedules.length > 0) {
         let day = this.schedules[this.i * 7]
-        return day ? format(toDate(day.date), 'I') : null
+        return day ? format(parseISO(day.date), 'I') : null
       }
     },
     periodInfo () {
@@ -127,7 +127,7 @@ export default {
       this.i = Math.min(this.i + 1, (this.schedules.length / 7) - 1)
     },
     isToday (day) {
-      return isSameDay(day.date, new Date())
+      return isSameDay(parseISO(day.date), new Date())
     }
   },
   filters: {

@@ -20,15 +20,15 @@
       </div>
       <div class="row">
         <div class="col-lg-3 order-lg-3" id="sidebar">
-          <button type="button" class="d-block d-lg-none btn btn-link toggle-form-advanced" @click="options.expandFormMobile = !options.expandFormMobile">
+          <button type="button" class="d-block d-lg-none btn btn-link toggle-form-advanced" @click="expandFormMobile = !expandFormMobile">
             {{ $t('search.advanced') }}
-            <fa :icon="options.expandFormMobile ? faPlusSquare : faPlusSquareReg" class="ml-1"/>
+            <fa :icon="expandFormMobile ? faPlusSquare : faPlusSquareReg" class="ml-1"/>
           </button>
 
-          <fieldset id="advanced-search" :data-expanded="options.expandFormMobile">
+          <fieldset id="advanced-search" :data-expanded="expandFormMobile">
             <legend class="h1 d-none d-lg-block">{{ $t('search.advanced') }}</legend>
             <b-form-group :label="$t('search.options')">
-              <b-form-checkbox id="toggle-gps-1" v-model="options.locationChecked">{{ $t('search.use-location') }}</b-form-checkbox>
+              <b-form-checkbox id="toggle-gps-1" v-model="locationChecked">{{ $t('search.use-location') }}</b-form-checkbox>
               <b-form-checkbox id="only-open-libraries" v-model="form.status" value="open" unchecked-value="">{{ $t('search.only-open') }}</b-form-checkbox>
             </b-form-group>
             <b-form-group id="library-type" :label="$t('search.library-type')">
@@ -55,6 +55,9 @@
                       –
                     <date-time :time="first(library.schedules) | closes" format="p" formal/>
                   </template>
+                  <span v-if="library.schedules.length && !hasOpeningTime(first(library.schedules))" class="text-muted">
+                    <i>Tarkista aukiolot</i>
+                  </span>
                 </span>
                 <div class="library-card-status">
                   <b-badge v-if="library.liveStatus == 0" variant="danger">closed</b-badge>
@@ -66,9 +69,9 @@
             </b-list-group-item>
           </b-list-group>
           <div class="text-center">
-            <scroll-guard @scroll="loadMore" :enabled="userLoadedMore && !busy"/>
+            <scroll-guard @scroll="loadMore" :enabled="canLoadMore && userLoadedMore && !busy"/>
 
-            <button type="button" class="btn btn-lg btn-link my-3" id="btn-load-more" @click="loadMore()">
+            <button type="button" class="btn btn-lg btn-link my-3" id="btn-load-more" @click="loadMore()" v-if="canLoadMore">
               {{ $t('search.load-more') }}
               <span v-if="busy" class="loader" id="form-submit-throbber" aria-hidden="true">Loading</span>
             </button>
@@ -109,12 +112,10 @@ export default {
     timers: {
       submit: null
     },
-    options: {
-      locationChecked: false,
-      onlyOpen: false,
-      expandFormMobile: false
-    },
+    expandFormMobile: false,
+    locationChecked: false,
     userLoadedMore: false,
+    canLoadMore: true,
     libraryTypes: [],
     libraries: [],
     cities: {},
@@ -122,7 +123,7 @@ export default {
   }),
   computed: {
     useLocation () {
-      let formState = this.options.locationChecked
+      let formState = this.locationChecked
       let globalState = this.$location.enabled
       return formState && globalState
     }
@@ -177,9 +178,12 @@ export default {
       let response = await kirkanta.search('library', query)
 
       if (append) {
+        this.canLoadMore = response.items.length > 0
         this.libraries.push(...response.items)
         Object.assign(this.cities, response.refs.city)
       } else {
+        this.canLoadMore = true
+        this.userLoadedMore = false
         this.searchOptions.skip = 0
         this.libraries = response.items
         this.cities = response.refs.city
@@ -220,7 +224,7 @@ export default {
         this.timers.submit = setTimeout(this.submit, 500)
       }
     },
-    'options.locationChecked': {
+    'locationChecked': {
       handler (state) {
         this.submit()
         this.$session.set('search_page.location', !!state)
@@ -241,18 +245,18 @@ export default {
     console.log('location', formLocationStatus)
 
     if (formLocationStatus === undefined) {
-      this.options.locationChecked = this.$location.enabled
+      this.locationChecked = this.$location.enabled
     } else {
-      this.options.locationChecked = !!formLocationStatus
+      this.locationChecked = !!formLocationStatus
     }
     this.submit()
 
     this.$location.$on('enabled', () => {
-      this.options.locationChecked = true
+      this.locationChecked = true
     })
 
     this.$location.$on('disabled', () => {
-      this.options.locationChecked = false
+      this.locationChecked = false
     })
   }
 }
