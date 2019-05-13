@@ -12,7 +12,66 @@ import RedirectLibrary from '@/components/RedirectLibrary'
 import RedirectConsortium from '@/components/RedirectConsortium'
 import RedirectService from '@/components/RedirectService'
 
-export default new Router({
+const langcode = document.documentElement.lang
+
+function translateRoutes (routes) {
+  console.log('R', langcode, routes)
+  routes.forEach((route) => {
+    if (route.path && route.name) {
+      let translations = pathMap.get(route.name)
+
+      if (translations) {
+        route.path = translations.get(langcode)
+      }
+    }
+
+    if (route.children) {
+      translateRoutes(route.children)
+    }
+  })
+
+  return routes
+}
+
+const pathMap = new Map([
+  ['search', new Map([
+    ['fi', '/haku'],
+    ['en', '/search'],
+    ['sv', '/sokning']
+  ])],
+  ['library.collection', new Map([
+    ['fi', '/kirjastot'],
+    ['en', '/libraries'],
+    ['sv', '/biblioteken']
+  ])],
+  ['library.collection.by-municipality', new Map([
+    ['fi', 'kunnittain'],
+    ['en', 'by-municipality'],
+    ['sv', 'sv--kunnittain--sv']
+  ])],
+  ['library.collection.by-consortium', new Map([
+    ['fi', 'kimpoittain'],
+    ['en', 'by-consortium'],
+    ['sv', 'sv--kimpoittain--sv']
+  ])],
+  ['consortium.collection', new Map([
+    ['fi', '/kimpat'],
+    ['en', '/consortiums'],
+    ['sv', '/sv--kimpat--sv']
+  ])],
+  ['service.collection', new Map([
+    ['fi', '/palvelut'],
+    ['en', '/services'],
+    ['sv', '/tjanster']
+  ])],
+  ['info', new Map([
+    ['fi', '/tietoa'],
+    ['en', '/info'],
+    ['sv', '/sv--tietoa--sv']
+  ])]
+])
+
+const routerConfig = {
   mode: 'history',
   routes: [
     {
@@ -27,8 +86,8 @@ export default new Router({
     },
     {
       path: '/libraries',
-      component: PageLibraryIndex,
       name: 'library.collection',
+      component: PageLibraryIndex,
       meta: {
         indexBy: 'initial'
       },
@@ -52,13 +111,20 @@ export default new Router({
     {
       path: '/consortiums',
       name: 'consortium.collection',
-      component: PageConsortiumIndex
+      component: PageConsortiumIndex,
+      children: [
+        {
+          path: ':consortium',
+          name: 'consortium.show',
+          component: PageConsortium
+        }
+      ]
     },
-    {
-      path: '/consortiums/:consortium',
-      name: 'consortium.show',
-      component: PageConsortium
-    },
+    // {
+    //   path: '/consortiums/:consortium',
+    //   name: 'consortium.show',
+    //   component: PageConsortium
+    // },
     {
       path: '/services',
       name: 'service.collection',
@@ -94,4 +160,8 @@ export default new Router({
       component: PageLibrary
     }
   ]
-})
+}
+
+translateRoutes(routerConfig.routes)
+
+export default new Router(routerConfig)
