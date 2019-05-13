@@ -11,6 +11,8 @@ import PageServiceIndex from '@/components/PageServiceIndex'
 import RedirectLibrary from '@/components/RedirectLibrary'
 import RedirectConsortium from '@/components/RedirectConsortium'
 import RedirectService from '@/components/RedirectService'
+import EmptyRouterPage from '@/components/EmptyRouterPage'
+
 import { detectLanguage } from '@/mixins'
 
 const langcode = detectLanguage()
@@ -62,10 +64,20 @@ const pathMap = new Map([
     ['en', '/consortiums'],
     ['sv', '/sv--kimpat--sv']
   ])],
+  ['consortium.show', new Map([
+    ['fi', '/kimpat/:consortium'],
+    ['en', '/consortiums/:consortium'],
+    ['sv', '/sv--kimpat--sv/:consortium']
+  ])],
   ['service.collection', new Map([
     ['fi', '/palvelut'],
     ['en', '/services'],
     ['sv', '/tjanster']
+  ])],
+  ['service.show', new Map([
+    ['fi', '/palvelut/:service'],
+    ['en', '/services/:service'],
+    ['sv', '/tjanster/:service']
   ])],
   ['info', new Map([
     ['fi', '/tietoa'],
@@ -81,7 +93,7 @@ const pathMap = new Map([
  * added after setting up the initial configuration so I did not bother removing them. Might be
  * a potential source of bugs or confusion.
  */
-const routerConfig = {
+export const routerConfig = {
   mode: 'history',
   routes: [
     {
@@ -120,11 +132,15 @@ const routerConfig = {
     },
     {
       path: '/consortiums',
-      name: 'consortium.collection',
-      component: PageConsortiumIndex,
+      component: EmptyRouterPage,
       children: [
         {
-          path: ':consortium',
+          path: '/consortiums',
+          name: 'consortium.collection',
+          component: PageConsortiumIndex
+        },
+        {
+          path: '/consortiums/:consortium',
           name: 'consortium.show',
           component: PageConsortium
         }
@@ -132,13 +148,19 @@ const routerConfig = {
     },
     {
       path: '/services',
-      name: 'service.collection',
-      component: PageServiceIndex
-    },
-    {
-      path: '/services/:service',
-      name: 'service.show',
-      component: PageService
+      component: EmptyRouterPage,
+      children: [
+        {
+          path: '/services',
+          name: 'service.collection',
+          component: PageServiceIndex
+        },
+        {
+          path: '/services/:service',
+          name: 'service.show',
+          component: PageService
+        }
+      ]
     },
     {
       path: '/info',
