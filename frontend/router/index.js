@@ -11,11 +11,11 @@ import PageServiceIndex from '@/components/PageServiceIndex'
 import RedirectLibrary from '@/components/RedirectLibrary'
 import RedirectConsortium from '@/components/RedirectConsortium'
 import RedirectService from '@/components/RedirectService'
+import { detectLanguage } from '@/mixins'
 
-const langcode = document.documentElement.lang
+const langcode = detectLanguage()
 
 function translateRoutes (routes) {
-  console.log('R', langcode, routes)
   routes.forEach((route) => {
     if (route.path && route.name) {
       let translations = pathMap.get(route.name)
@@ -33,6 +33,9 @@ function translateRoutes (routes) {
   return routes
 }
 
+/**
+ * Maps route names to translated paths.
+ */
 const pathMap = new Map([
   ['search', new Map([
     ['fi', '/haku'],
@@ -71,6 +74,13 @@ const pathMap = new Map([
   ])]
 ])
 
+/**
+ * Standard Vue router configuration.
+ *
+ * NOTE: Paths are here too for fallback / consistency purposes. Also because translations were
+ * added after setting up the initial configuration so I did not bother removing them. Might be
+ * a potential source of bugs or confusion.
+ */
 const routerConfig = {
   mode: 'history',
   routes: [
@@ -120,11 +130,6 @@ const routerConfig = {
         }
       ]
     },
-    // {
-    //   path: '/consortiums/:consortium',
-    //   name: 'consortium.show',
-    //   component: PageConsortium
-    // },
     {
       path: '/services',
       name: 'service.collection',
