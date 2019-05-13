@@ -82,11 +82,31 @@ export default {
     },
     setGeolocationEnabled (state) {
       this.$session.set('location.enabled', !!state)
+    },
+    async updatePageTitle () {
+      let titleElement = document.querySelector('title')
+      let titleSuffix = titleElement.innerText.substr(titleElement.innerText.indexOf(' –'))
+      let route = this.$route
+      let meta = route.meta
+
+      if (meta) {
+        if (meta.title) {
+          titleElement.innerText = this.$t(meta.title)
+        } else if (meta.titleCallback) {
+          let titleText = await meta.titleCallback({ route, $t: this.$t })
+          titleElement.innerText = titleText
+        }
+      }
+
+      titleElement.innerText += titleSuffix
     }
   },
+  mounted () {
+    this.updatePageTitle()
+  },
   watch: {
-    $route: async (to, from) => {
-      // console.log('ROUTE', to, from)
+    async $route (to, from) {
+      this.updatePageTitle()
     }
   }
 }

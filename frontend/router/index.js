@@ -13,7 +13,7 @@ import RedirectConsortium from '@/components/RedirectConsortium'
 import RedirectService from '@/components/RedirectService'
 import EmptyRouterPage from '@/components/EmptyRouterPage'
 
-import { detectLanguage } from '@/mixins'
+import { detectLanguage, kirkanta } from '@/mixins'
 
 const langcode = detectLanguage()
 
@@ -156,7 +156,9 @@ export const routerConfig = {
           name: 'consortium.show',
           component: PageConsortium,
           meta: {
-            title: 'nav.consortiums'
+            async titleCallback (context) {
+              return (await kirkanta.get('consortium', context.route.params.consortium)).data.name
+            }
           }
         }
       ]
@@ -176,7 +178,12 @@ export const routerConfig = {
         {
           path: '/services/:service',
           name: 'service.show',
-          component: PageService
+          component: PageService,
+          meta: {
+            async titleCallback (context) {
+              return (await kirkanta.get('service', context.route.params.service)).data.name
+            }
+          }
         }
       ]
     },
@@ -205,7 +212,12 @@ export const routerConfig = {
     {
       path: '/:city/:library',
       name: 'library.show',
-      component: PageLibrary
+      component: PageLibrary,
+      meta: {
+        async titleCallback (context) {
+          return (await kirkanta.get('library', context.route.params.library)).data.name
+        }
+      }
     }
   ]
 }
