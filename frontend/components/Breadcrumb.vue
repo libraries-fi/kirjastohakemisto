@@ -38,7 +38,7 @@ export default {
         let path = '/' + parts.slice(0, i + 1).join('/')
         let route = pathMap.get(path)
 
-        if (!route) {
+        if (!route || level === ':slug') {
           // E.g. proxy search pages have no match.
           break
         }
