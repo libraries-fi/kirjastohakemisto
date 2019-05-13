@@ -29,6 +29,7 @@
         <h3>
           {{ library.name }},
           <span class="text-uppercase">{{ library.address.city }}</span>
+          <b-badge class="float-right badge-distance">{{ formatDistance(library.distance) }}</b-badge>
         </h3>
         <ul v-for="instance of library.services">
           <li v-if="instance.id == service.id">
@@ -44,7 +45,7 @@
 import { coordStr, formatDistance, kirkanta } from '@/mixins'
 import { faMap, faSmile, faMeh } from '@fortawesome/free-regular-svg-icons'
 
-const PROXIMITY_THRESHOLD = 20000
+const PROXIMITY_THRESHOLD = 200
 
 export default {
   data: () => ({
@@ -83,7 +84,7 @@ export default {
     const libraries = (await kirkanta.search('library', params)).items
 
     for (let library of libraries) {
-      if (library.distance < PROXIMITY_THRESHOLD) {
+      if (library.distance && library.distance < PROXIMITY_THRESHOLD) {
         this.closeLibraries.push(library)
       } else {
         this.otherLibraries.push(library)
@@ -117,6 +118,6 @@ export default {
   }
 
   .badge-distance {
-    width: 3.5rem;
+    min-width: 3.5rem;
   }
 </style>
