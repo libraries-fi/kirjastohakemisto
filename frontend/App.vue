@@ -28,7 +28,7 @@
       </div>
     </div>
     <div class="container main-content">
-      <!-- <b-breadcrumb :items="breadcrumb" class="mb-0"/> -->
+      <breadcrumb/>
       <router-view></router-view>
     </div>
     <footer id="l-footer">
@@ -40,11 +40,12 @@
 <script>
 import { faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 
+import Breadcrumb from '@/components/Breadcrumb'
 import KifiFooter from '@/components/KifiFooter'
 
 export default {
   name: 'app',
-  components: { KifiFooter },
+  components: { Breadcrumb, KifiFooter },
   data: () => ({
     locationPosition: null,
     faExclamationTriangle
@@ -68,12 +69,6 @@ export default {
           this.$location.turnOff()
         }
       }
-    },
-    breadcrumb () {
-      return [
-        { text: 'Frontpage', href: '/' },
-        { text: 'Search', href: '/search' }
-      ]
     }
   },
   methods: {

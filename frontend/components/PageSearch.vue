@@ -56,7 +56,7 @@
                     <date-time :time="first(library.schedules) | closes" format="p" formal/>
                   </template>
                   <span v-if="library.schedules.length && !hasOpeningTime(first(library.schedules))" class="text-muted">
-                    <i>Tarkista aukiolot</i>
+                    Tarkista aukiolot
                   </span>
                 </span>
                 <div class="library-card-status">

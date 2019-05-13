@@ -99,33 +99,42 @@ export const routerConfig = {
     {
       path: '/',
       name: 'front',
-      component: PageFront
+      component: PageFront,
+      meta: {
+        title: 'app.name'
+      }
     },
     {
       path: '/search',
       name: 'search',
-      component: PageSearch
+      component: PageSearch,
+      meta: {
+        title: 'search.placeholder'
+      }
     },
     {
       path: '/libraries',
       name: 'library.collection',
       component: PageLibraryIndex,
       meta: {
-        indexBy: 'initial'
+        indexBy: 'initial',
+        title: 'nav.libraries'
       },
       children: [
         {
           path: 'by-municipality',
           name: 'library.collection.by-municipality',
           meta: {
-            indexBy: 'municipality'
+            indexBy: 'municipality',
+            title: 'nav.libraries'
           }
         },
         {
           path: 'by-consortium',
           name: 'library.collection.by-consortium',
           meta: {
-            indexBy: 'consortium'
+            indexBy: 'consortium',
+            title: 'nav.libraries'
           }
         }
       ]
@@ -137,12 +146,18 @@ export const routerConfig = {
         {
           path: '/consortiums',
           name: 'consortium.collection',
-          component: PageConsortiumIndex
+          component: PageConsortiumIndex,
+          meta: {
+            title: 'nav.consortiums'
+          }
         },
         {
           path: '/consortiums/:consortium',
           name: 'consortium.show',
-          component: PageConsortium
+          component: PageConsortium,
+          meta: {
+            title: 'nav.consortiums'
+          }
         }
       ]
     },
@@ -153,7 +168,10 @@ export const routerConfig = {
         {
           path: '/services',
           name: 'service.collection',
-          component: PageServiceIndex
+          component: PageServiceIndex,
+          meta: {
+            title: 'nav.services'
+          }
         },
         {
           path: '/services/:service',
@@ -164,7 +182,10 @@ export const routerConfig = {
     },
     {
       path: '/info',
-      name: 'info'
+      name: 'info',
+      meta: {
+        title: 'nav.info'
+      }
     },
     {
       path: '/:slug',

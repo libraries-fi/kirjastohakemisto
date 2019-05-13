@@ -8,7 +8,7 @@
         {{ $t('service.offered-nearby') }}
       </h2>
       <ul v-for="library of closeLibraries" class="list-unstyled border p-3 m-3 close-library">
-        <h3>{{ library.name }} <b-badge class="float-right badge-distance">{{ formatDistance(library.distance) }}</b-badge></h3>
+        <h3>{{ library.name }} <b-badge class="float-right badge-distance" v-if="library.distance">{{ formatDistance(library.distance) }}</b-badge></h3>
         <ul v-for="instance of library.services">
           <li v-if="instance.id == service.id" class="mb-1">
             <router-link :to="{name: 're', params: {slug: library.slug}}">{{ instance.name || instance.standardName }}</router-link>
@@ -29,7 +29,7 @@
         <h3>
           {{ library.name }},
           <span class="text-uppercase">{{ library.address.city }}</span>
-          <b-badge class="float-right badge-distance">{{ formatDistance(library.distance) }}</b-badge>
+          <b-badge class="float-right badge-distance" v-if="library.distance">{{ formatDistance(library.distance) }}</b-badge>
         </h3>
         <ul v-for="instance of library.services">
           <li v-if="instance.id == service.id">

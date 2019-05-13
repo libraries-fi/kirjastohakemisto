@@ -143,6 +143,7 @@
 
 <script>
 import Popper from 'popper.js'
+
 import bPopover from 'bootstrap-vue/es/directives/popover/popover'
 
 import ListServices from './ListServices'
@@ -250,7 +251,7 @@ export default {
     const params = {
       'city.slug': this.$route.params.city,
       slug: this.$route.params.library,
-      with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'pictures', 'phoneNumbers', 'schedules', 'services'],
+      with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'pictures', 'phoneNumbers', 'primaryContactInfo', 'schedules', 'services'],
       refs: ['city', 'consortium', 'period'],
       status: '',
       'period.start': '0w',
@@ -302,6 +303,10 @@ export default {
   .info-link {
     display: inline-block;
     margin-right: spacing(3);
+  }
+
+  .photos {
+    max-height: 100%;
   }
 
   .visual-section {

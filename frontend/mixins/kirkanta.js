@@ -19,7 +19,7 @@ class Kirkanta {
     if (typeof id === 'object') {
       params = id
     } else {
-      params.id = id
+      params[parseInt(id) ? 'id' : 'slug'] = id
     }
 
     params.limit = 1
