@@ -91,7 +91,7 @@ export default {
   },
   watch: {
     $route: async (to, from) => {
-      console.log('ROUTE', to, from)
+      // console.log('ROUTE', to, from)
     }
   }
 }
