@@ -116,6 +116,10 @@ class Organisation extends Entity
 
     public function services()
     {
+        foreach ($this->raw->services as $key => $service) {
+            $this->raw->services[$key]->description = 
+                \HTMLPurifier::getInstance()->purify($service->description);
+        }
         return new Services($this->raw->services);
     }
 

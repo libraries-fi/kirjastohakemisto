@@ -53,7 +53,7 @@
                         {% endif %}
 
                         {% if s.description %}
-                          <dd>{{ s.description }}</dd>
+                          <dd>{{ s.description | raw }}</dd>
                         {% endif %}
                       </dl>
                     </li>

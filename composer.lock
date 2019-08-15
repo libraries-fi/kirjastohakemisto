@@ -1,11 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "hash": "61ea619974b39386080fe0823ed7348c",
-    "content-hash": "9d3911b542b7836ac91682e27b6159f2",
+    "content-hash": "cad69e32d0adf70b8db43ecd9c7e3c09",
     "packages": [
         {
             "name": "aiken/i18next",
@@ -49,7 +48,7 @@
                 "i18n",
                 "i18next"
             ],
-            "time": "2017-06-24 09:58:17"
+            "time": "2017-06-24T09:58:17+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -117,7 +116,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2017-12-06 07:11:42"
+            "time": "2017-12-06T07:11:42+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -191,7 +190,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2017-08-25 07:02:50"
+            "time": "2017-08-25T07:02:50+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -258,7 +257,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2017-07-22 10:37:32"
+            "time": "2017-07-22T10:37:32+00:00"
         },
         {
             "name": "doctrine/common",
@@ -331,7 +330,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2017-08-31 08:43:38"
+            "time": "2017-08-31T08:43:38+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -398,7 +397,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2018-01-09 20:05:19"
+            "time": "2018-01-09T20:05:19+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -452,7 +451,54 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-09-09 13:34:57"
+            "time": "2014-09-09T13:34:57+00:00"
+        },
+        {
+            "name": "ezyang/htmlpurifier",
+            "version": "v4.11.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ezyang/htmlpurifier.git",
+                "reference": "83ab08bc1af7d808a9e0fbf024f1c24bfd73c0a7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/83ab08bc1af7d808a9e0fbf024f1c24bfd73c0a7",
+                "reference": "83ab08bc1af7d808a9e0fbf024f1c24bfd73c0a7",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.2"
+            },
+            "require-dev": {
+                "simpletest/simpletest": "dev-master#72de02a7b80c6bb8864ef9bf66d41d2f58f826bd"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "HTMLPurifier": "library/"
+                },
+                "files": [
+                    "library/HTMLPurifier.composer.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "LGPL-2.1-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Edward Z. Yang",
+                    "email": "admin@htmlpurifier.org",
+                    "homepage": "http://ezyang.com"
+                }
+            ],
+            "description": "Standards compliant HTML filter written in PHP",
+            "homepage": "http://htmlpurifier.org/",
+            "keywords": [
+                "html"
+            ],
+            "time": "2019-07-14T18:58:38+00:00"
         },
         {
             "name": "psr/cache",
@@ -498,7 +544,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/container",
@@ -547,7 +593,7 @@
                 "container-interop",
                 "psr"
             ],
-            "time": "2017-02-14 16:28:37"
+            "time": "2017-02-14T16:28:37+00:00"
         },
         {
             "name": "psr/log",
@@ -594,7 +640,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "psr/simple-cache",
@@ -642,7 +688,7 @@
                 "psr-16",
                 "simple-cache"
             ],
-            "time": "2017-10-23 01:57:42"
+            "time": "2017-10-23T01:57:42+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
@@ -711,7 +757,7 @@
                 "annotations",
                 "controllers"
             ],
-            "time": "2018-02-14 08:40:54"
+            "time": "2018-02-14T08:40:54+00:00"
         },
         {
             "name": "symfony/asset",
@@ -767,7 +813,7 @@
             ],
             "description": "Symfony Asset Component",
             "homepage": "https://symfony.com",
-            "time": "2018-01-03 07:38:00"
+            "time": "2018-01-03T07:38:00+00:00"
         },
         {
             "name": "symfony/cache",
@@ -836,7 +882,7 @@
                 "caching",
                 "psr6"
             ],
-            "time": "2018-05-16 09:05:32"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "symfony/config",
@@ -899,7 +945,7 @@
             ],
             "description": "Symfony Config Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-16 09:05:32"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "symfony/console",
@@ -967,7 +1013,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-16 09:05:32"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "symfony/debug",
@@ -1023,7 +1069,7 @@
             ],
             "description": "Symfony Debug Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-16 09:05:32"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "symfony/dependency-injection",
@@ -1094,7 +1140,7 @@
             ],
             "description": "Symfony DependencyInjection Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-21 10:09:47"
+            "time": "2018-05-21T10:09:47+00:00"
         },
         {
             "name": "symfony/event-dispatcher",
@@ -1157,7 +1203,7 @@
             ],
             "description": "Symfony EventDispatcher Component",
             "homepage": "https://symfony.com",
-            "time": "2018-04-06 07:35:43"
+            "time": "2018-04-06T07:35:43+00:00"
         },
         {
             "name": "symfony/filesystem",
@@ -1207,7 +1253,7 @@
             ],
             "description": "Symfony Filesystem Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-16 09:05:32"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "symfony/finder",
@@ -1256,7 +1302,7 @@
             ],
             "description": "Symfony Finder Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-16 09:05:32"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "symfony/flex",
@@ -1302,7 +1348,7 @@
                     "email": "fabien.potencier@gmail.com"
                 }
             ],
-            "time": "2018-05-02 19:08:56"
+            "time": "2018-05-02T19:08:56+00:00"
         },
         {
             "name": "symfony/form",
@@ -1383,7 +1429,7 @@
             ],
             "description": "Symfony Form Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-21 10:09:47"
+            "time": "2018-05-21T10:09:47+00:00"
         },
         {
             "name": "symfony/framework-bundle",
@@ -1497,7 +1543,7 @@
             ],
             "description": "Symfony FrameworkBundle",
             "homepage": "https://symfony.com",
-            "time": "2018-05-21 10:58:57"
+            "time": "2018-05-21T10:58:57+00:00"
         },
         {
             "name": "symfony/http-foundation",
@@ -1550,7 +1596,7 @@
             ],
             "description": "Symfony HttpFoundation Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-16 09:05:32"
+            "time": "2018-05-16T09:05:32+00:00"
         },
         {
             "name": "symfony/http-kernel",
@@ -1637,7 +1683,7 @@
             ],
             "description": "Symfony HttpKernel Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-21 14:02:31"
+            "time": "2018-05-21T14:02:31+00:00"
         },
         {
             "name": "symfony/inflector",
@@ -1695,7 +1741,7 @@
                 "symfony",
                 "words"
             ],
-            "time": "2018-05-01 23:00:51"
+            "time": "2018-05-01T23:00:51+00:00"
         },
         {
             "name": "symfony/intl",
@@ -1770,7 +1816,7 @@
                 "l10n",
                 "localization"
             ],
-            "time": "2018-05-21 10:09:47"
+            "time": "2018-05-21T10:09:47+00:00"
         },
         {
             "name": "symfony/lts",
@@ -1863,7 +1909,8 @@
             ],
             "description": "Enforces Long Term Supported versions of Symfony components",
             "homepage": "https://symfony.com",
-            "time": "2018-04-03 05:04:16"
+            "abandoned": "symfony/flex",
+            "time": "2018-04-03T05:04:16+00:00"
         },
         {
             "name": "symfony/options-resolver",
@@ -1917,7 +1964,7 @@
                 "configuration",
                 "options"
             ],
-            "time": "2018-05-11 15:58:37"
+            "time": "2018-05-11T15:58:37+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1972,7 +2019,7 @@
                 "polyfill",
                 "portable"
             ],
-            "time": "2018-04-30 19:57:29"
+            "time": "2018-04-30T19:57:29+00:00"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -2030,7 +2077,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-25 14:53:50"
+            "time": "2018-04-25T14:53:50+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2089,7 +2136,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2018-04-26 10:06:28"
+            "time": "2018-04-26T10:06:28+00:00"
         },
         {
             "name": "symfony/property-access",
@@ -2156,7 +2203,7 @@
                 "property path",
                 "reflection"
             ],
-            "time": "2018-05-11 15:58:37"
+            "time": "2018-05-11T15:58:37+00:00"
         },
         {
             "name": "symfony/routing",
@@ -2234,7 +2281,7 @@
                 "uri",
                 "url"
             ],
-            "time": "2018-05-16 14:21:07"
+            "time": "2018-05-16T14:21:07+00:00"
         },
         {
             "name": "symfony/serializer",
@@ -2313,7 +2360,7 @@
             ],
             "description": "Symfony Serializer Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-11 15:58:37"
+            "time": "2018-05-11T15:58:37+00:00"
         },
         {
             "name": "symfony/templating",
@@ -2369,7 +2416,7 @@
             ],
             "description": "Symfony Templating Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-01 23:00:51"
+            "time": "2018-05-01T23:00:51+00:00"
         },
         {
             "name": "symfony/translation",
@@ -2437,7 +2484,7 @@
             ],
             "description": "Symfony Translation Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-21 10:09:47"
+            "time": "2018-05-21T10:09:47+00:00"
         },
         {
             "name": "symfony/twig-bridge",
@@ -2527,7 +2574,7 @@
             ],
             "description": "Symfony Twig Bridge",
             "homepage": "https://symfony.com",
-            "time": "2018-05-11 15:58:37"
+            "time": "2018-05-11T15:58:37+00:00"
         },
         {
             "name": "symfony/twig-bundle",
@@ -2601,7 +2648,7 @@
             ],
             "description": "Symfony TwigBundle",
             "homepage": "https://symfony.com",
-            "time": "2018-05-01 23:00:51"
+            "time": "2018-05-01T23:00:51+00:00"
         },
         {
             "name": "symfony/yaml",
@@ -2660,7 +2707,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2018-05-07 07:12:24"
+            "time": "2018-05-07T07:12:24+00:00"
         },
         {
             "name": "twig/extensions",
@@ -2716,7 +2763,7 @@
                 "i18n",
                 "text"
             ],
-            "time": "2017-06-08 18:19:53"
+            "time": "2017-06-08T18:19:53+00:00"
         },
         {
             "name": "twig/twig",
@@ -2782,7 +2829,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2018-04-02 09:24:19"
+            "time": "2018-04-02T09:24:19+00:00"
         }
     ],
     "packages-dev": [
@@ -2841,7 +2888,7 @@
                 "env",
                 "environment"
             ],
-            "time": "2018-01-03 17:15:19"
+            "time": "2018-01-03T17:15:19+00:00"
         }
     ],
     "aliases": [],
