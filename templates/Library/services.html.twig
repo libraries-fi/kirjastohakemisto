@@ -47,7 +47,7 @@
 
               <div class="content-popup" data-content-popup id="sp-{{ service.unique_id }}">
                 {% if service.short_description %}
-                  <p>{{ service.short_description }}</p>
+                  <p>{% autoescape false %}{{ service.short_description }}{% endautoescape %}</p>
                 {% endif %}
 
                 {% if service.description %}
