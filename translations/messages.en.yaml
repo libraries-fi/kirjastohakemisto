@@ -17,3 +17,6 @@ open_data:
     legacy: Our new widgets are available! Old widgets will also remain supported until further notice.
     link_label: Build your widget
     legacy_link_label: Legacy embed builder
+
+# Temporary notice
+temporary_epdemic_notice: The Finnish government has decided to close all library spaces and library buses from 18 March 2020 until further notice, due to coronavirus epidemic.
