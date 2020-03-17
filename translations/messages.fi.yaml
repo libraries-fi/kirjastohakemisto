@@ -131,3 +131,6 @@ open_data:
     legacy: Uudet upokkeemme ovat nyt kokeiltavissa. Myös vanhat upokkeet palvelevat toistaiseksi!
     link_label: Siirry upoketyökaluun
     legacy_link_label: Käytä vanhoja upokkeita
+
+# Temporary notice
+temporary_epidemic_notice: Valtioneuvoston päätöksellä kirjastotilat ja kirjastoautot ovat suljettuja 18.3.2020 alkaen toistaiseksi koronavirustilanteen vuoksi.
