@@ -110,4 +110,4 @@ service: Tjänst
 web_service: Nättjänst
 
 # Temporary notice
-temporary_epidemic_notice: Enligt statsrådets beslut får bibliotekslokalerna öppna gradvis fr.om. 1.6. Utlåning är redan nu möjlig på vissa platser, men tillgången till utrymmena är begränsad.
+temporary_epidemic_notice: Enligt statsrådets beslut får bibliotekslokalerna öppna fr.om. 1.6.2020. Servicen kan vara begränsad.
