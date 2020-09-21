@@ -192,4 +192,13 @@ class FrontController extends Controller
     {
 
     }
+
+    /**
+     * @Route("/info/accessibility", name="accessibility-statement")
+     * @Template("accessibility-statement.html.twig")
+     */
+    public function accessibilityStatement()
+    {
+
+    }
 }

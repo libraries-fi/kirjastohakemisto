@@ -1,0 +1,12 @@
+{% extends "base.html.twig" %}
+
+{% if page_title is not defined %}
+  {% set page_title = "accessibility_statement.title"|trans %}
+{% endif %}
+
+{% block main %}
+<main class="container main">
+  <h1>{% trans %}accessibility_statement.title{% endtrans %}</h1>
+  {% trans %}accessibility_statement.content{% endtrans %}
+</main>
+{% endblock %}
