@@ -71,6 +71,7 @@
   {% endblock %}
 </head>
 <body {% if page_identifier is defined %}id="page--{{ page_identifier }}"{% endif %}>
+  <a href="#maincontent" class="sr-only skip-link">{% trans %}skip_to_main_content{% endtrans %}</a>
   {% block layout_header %}
 
     <div class="kifibar" id="l-nav-kifi">
@@ -140,7 +141,7 @@
   </div>
 
   {% block main %}
-    <main class="container main">
+    <main id="maincontent" class="container main">
       <div class="row">
         <div class="col-12">
           <p>Lorem ipsum dolor sit amet.</p>

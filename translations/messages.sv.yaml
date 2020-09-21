@@ -111,3 +111,6 @@ web_service: Nättjänst
 
 # Temporary notice
 temporary_epidemic_notice: Enligt statsrådets beslut får bibliotekslokalerna öppna fr.om. 1.6.2020. Servicen kan vara begränsad.
+
+# Skip to main content
+skip_to_main_content: Hoppa till huvudinnehåll
