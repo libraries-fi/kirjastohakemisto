@@ -12,6 +12,22 @@ html {
   // outline: 3px solid purple;
 }
 
+a.skip-link {
+  z-index: 100;
+  background: transparent none repeat scroll 0 0;
+}
+
+a.skip-link:active, a.skip-link:focus {
+  position: absolute !important;
+  clip: auto;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  background: $blue;
+  color: #fff;
+  padding: map-get($spacers, 2);
+}
+
 nav {
   padding-bottom: $headings-margin-bottom;
 }

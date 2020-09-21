@@ -8869,6 +8869,20 @@ html {
 /*
  * NOTE: Helps with tracking tab-cycle.
  */
+a.skip-link {
+  z-index: 100;
+  background: transparent none repeat scroll 0 0; }
+
+a.skip-link:active, a.skip-link:focus {
+  position: absolute !important;
+  clip: auto;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  background: #026fcf;
+  color: #fff;
+  padding: 0.5rem; }
+
 nav {
   padding-bottom: 0.5rem; }
 
@@ -9017,14 +9031,16 @@ body {
       position: relative; }
       #kifi-footer .link-group ul {
         display: none; }
+      #kifi-footer .link-group h3 {
+        display: none; }
       #kifi-footer .link-group button {
         border-width: 0;
-        position: absolute;
         width: 100%;
         display: block;
         left: 0;
         top: 0;
-        opacity: 0; }
+        background-color: transparent;
+        text-transform: uppercase; }
     #kifi-footer .link-group:hover h3 {
       opacity: .7; }
     #kifi-footer [data-kfoot-open] {
