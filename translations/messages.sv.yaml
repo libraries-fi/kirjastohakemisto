@@ -114,3 +114,30 @@ temporary_epidemic_notice: Enligt statsrådets beslut får bibliotekslokalerna �
 
 # Skip to main content
 skip_to_main_content: Hoppa till huvudinnehåll
+
+accessibility_statement:
+    title: Tillgänglighetsutlåtande
+    content: |
+        <p>Välkommen, det här är tillgänglighetsutlåtandet för enheten för nationella utvecklingstjänster vid Helsingfors stadsbibliotek.
+        Den här webbplatsen omfattas av <a href="https://www.finlex.fi/sv/laki/alkup/2019/20190306">lagen om tillhandahållande av digitala tjänster</a> och dess krav på att offentliga webbplatser måste vara tillgängliga.</p>
+        
+        <p>
+        Det här tillgänglighetsutlåtandet gäller webbplatsen registret.biblioteken.fi och har upprättats 18.9.2020. Annanpura Oy har utvärderat denna digitala tjänsts tillgänglighet (29.3.2019).</p>
+        
+        <h2>Tillgänglighetsstatus för den digitala tjänsten</h2>
+        
+        <p>Uppfyller de kritiska A & AA-kraven.</p>
+        
+        <h2>Hittade du brister i tillgängligheten i vår digitala tjänst? Berätta det för oss, så gör vi vårt bästa för att reparera bristerna</h2>
+        
+        <p>Du kan skicka respons om tillgängligheten via Biblioteken.fi:s gemensamma responsformulär, som finns utanför den här webbplatsen: ge din respons om tillgängligheten via det här webbformuläret: <a href="https://www.biblioteken.fi/feedback/kirjastohakemisto?accessibility">ge din respons om tillgängligheten via det här webbformuläret</a>.</p>
+        
+        <p>Du kan också skicka respons till e-postadressen <a href="mailto:redaktionen@biblioteken.fi">redaktionen@biblioteken.fi</a>.</p>
+        
+        <h2>Tillsynsmyndigheten</h2>
+        
+        <p>Kontakta först oss, webbplatsens upprätthållare om du vill påtala brister i tillgängligheten på vår webbplats. Det kan ta 14 dagar innan du får ett svar. Om du inte är nöjd med det svar du har fått eller inte får något svar alls inom två veckor&nbsp;<a href="https://www.tillgänglighetskrav.fi/dina-rattigheter/anmal-bristande-tillganglighet/">kan du lämna in en anmälan om bristande tillgänglighet</a>&nbsp;till Regionförvaltningsverket i Södra Finland. På regionförvaltningsverkets webbplats finns det beskrivet hur du kan lämna in en anmälan och hur ärendet behandlas.</p>
+        
+        <h3><strong>Tillsynsmyndighetens kontaktuppgifter:</strong></h3>
+        
+        <p>Regionförvaltningsverket i Södra Finland<br>Enheten för tillgänglighetstillsyn<br><a href="http://www.tillgänglighetskrav.fi">http://www.tillgänglighetskrav.fi</a><br> <a href="mailto:webbtillganglighet@rfv.fi">webbtillganglighet@rfv.fi</a><br>telefonnummer: 0295 016 000 (växeln)</p>

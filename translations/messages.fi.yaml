@@ -137,3 +137,33 @@ temporary_epidemic_notice: Valtioneuvoston päätöksellä kirjastotilat saa ava
 
 # Skip to main content
 skip_to_main_content: Hyppää pääsisältöön
+
+accessibility_statement:
+  title: Saavutettavuusseloste
+  content: |
+    <p>Tervetuloa, tämä on Helsingin kaupunginkirjaston Valtakunnalliset kehittämispalvelut -yksikön saavutettavuusseloste. Tätä sivustoa koskee <a href="https://www.finlex.fi/fi/laki/alkup/2019/20190306">laki digitaalisten palvelujen tarjoamisesta</a>, jossa edellytetään, että julkisten verkkopalvelujen on oltava saavutettavia.</p>
+    
+    <p>Tämä saavutettavuusseloste koskee sivustoa hakemisto.kirjastot.fi ja on laadittu 18.9.2020. Sivuston saavutettavuuden on arvioinut Annanpura Oy (29.3.2019).</p>
+    
+    <h2>Digipalvelun saavutettavuuden tila</h2>
+    
+    <p>Täyttää kriittiset A &amp; AA-vaatimukset.</p>
+    
+    <h2>Huomasitko saavutettavuuspuutteen digipalvelussamme? Kerro se meille ja teemme parhaamme puutteen korjaamiseksi</h2>
+    
+    <p> Saavutettavuuspalautetta voi jättää Kirjastot.fi:n yhteisellä palautelomakkeella, joka sijaitsee tämän sivuston ulkopuolella.  <strong><a href="https://www.kirjastot.fi/feedback/kirjastohakemisto?accessibility">Anna saavutettavuuspalautetta tällä verkkolomakkeella</a></strong>.</p>
+    
+    <p>Voit myös lähettää palautteesi sähköpostitse osoitteeseen <a href="mailto:toimitus@kirjastot.fi">toimitus@kirjastot.fi</a>. </p>
+    
+    <h2>Valvontaviranomainen</h2>
+    
+    <p>Jos huomaat sivustolla saavutettavuusongelmia, anna ensin palautetta meille eli sivuston ylläpitäjälle. Vastauksessa voi mennä 14 päivää. Jos et ole tyytyväinen saamaasi vastaukseen tai et saa vastausta lainkaan kahden viikon aikana, <a href="https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/">voit tehdä ilmoituksen</a> Etelä-Suomen aluehallintovirastoon. Etelä-Suomen aluehallintoviraston sivulla kerrotaan tarkasti, miten ilmoituksen voi tehdä ja miten asia käsitellään.</p>
+    
+    <h3><strong>Valvontaviranomaisen yhteystiedot:</strong></h3>
+    
+    <p>Etelä-Suomen aluehallintovirasto<br>
+    Saavutettavuuden valvonnan yksikkö<br>
+    www.saavutettavuusvaatimukset.fi<br>
+    saavutettavuus(at)avi.fi<br>
+    puhelinnumero: 0295 016 000 (vaihde)
+    </p>
