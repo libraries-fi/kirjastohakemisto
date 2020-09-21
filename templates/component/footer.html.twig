@@ -12,7 +12,7 @@
         <div class="col-lg link-group pb-1 mx-2" data-kfoot-group>
           <h3 class="h5 py-1 mb-0 text-uppercase">{{ group.title }}</h3>
 
-          <button type="button" class="h5 py-1 mb-0" data-kfoot-toggle aria-controls="kfoot-{{ loop.index }}" aria-expanded="false">{{ menu_button.label }}</button>
+          <button type="button" class="h5 py-1 mb-0" data-kfoot-toggle aria-controls="kfoot-{{ loop.index }}" aria-expanded="false" aria-haspopup="true">{{ group.title }}</button>
 
           <ul class="list-unstyled" id="kfoot-{{ loop.index }}">
             {% for link in group.links %}
