@@ -32,16 +32,18 @@ $group-bg: rgba(255, 255, 255, 0.3);
         display: none;
       }
 
+      h3 {
+        display: none;
+      }
+
       button {
         border-width: 0;
-        position: absolute;
         width: 100%;
         display: block;
         left: 0;
         top: 0;
-        opacity: 0;
-
-        // background: red;
+        background-color: transparent;
+        text-transform: uppercase;
       }
     }
 
