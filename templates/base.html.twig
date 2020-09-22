@@ -140,15 +140,17 @@
     </div>
   </div>
 
-  {% block main %}
-    <main id="maincontent" class="container main">
-      <div class="row">
-        <div class="col-12">
-          <p>Lorem ipsum dolor sit amet.</p>
+  <div id="maincontent">
+    {% block main %}
+      <main class="container main">
+        <div class="row">
+          <div class="col-12">
+            <p>Lorem ipsum dolor sit amet.</p>
+          </div>
         </div>
-      </div>
-    </main>
-  {% endblock %}
+      </main>
+    {% endblock %}
+  </div>
 
   {% block footer %}
     <footer class="footer">
