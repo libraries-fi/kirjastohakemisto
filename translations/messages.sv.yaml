@@ -110,7 +110,7 @@ service: Tjänst
 web_service: Nättjänst
 
 # Temporary notice
-temporary_epidemic_notice: Enligt statsrådets beslut får bibliotekslokalerna öppna fr.om. 1.6.2020. Servicen kan vara begränsad.
+temporary_epidemic_notice: P.g.a. Coronaepidemin kan det förekomma begränsningar i bibliotekstjänsterna. <a href="https://www.biblioteken.fi/uutiset/aktuellt-i-biblioteksbranschen/biblioteken-och-corona">Mer information på Biblioteken.fi</a>
 
 # Skip to main content
 skip_to_main_content: Hoppa till huvudinnehåll
