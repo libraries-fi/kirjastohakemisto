@@ -19,7 +19,7 @@ open_data:
     legacy_link_label: Legacy embed builder
 
 # Temporary notice
-temporary_epidemic_notice: The Government has allowed access to library facilities from 1.6.2020. Services may be restricted.
+temporary_epidemic_notice: Due to covid-19 pandemic some library services may be restricted.
 
 # Skip to main content
 skip_to_main_content: Skip to main content

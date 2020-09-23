@@ -133,7 +133,7 @@ open_data:
     legacy_link_label: Käytä vanhoja upokkeita
 
 # Temporary notice
-temporary_epidemic_notice: Valtioneuvoston päätöksellä kirjastotilat saa avata 1.6.2020 alkaen. Palveluissa saattaa olla rajoituksia.
+temporary_epidemic_notice: Koronaepidemian vuoksi kirjastopalveluissa saattaa olla rajoituksia. <a href="https://www.kirjastot.fi/kirjastot-ja-korona">Lisätietoja Kirjastot ja korona -sivulla</a>
 
 # Skip to main content
 skip_to_main_content: Hyppää pääsisältöön
