@@ -133,7 +133,7 @@ open_data:
     legacy_link_label: Käytä vanhoja upokkeita
 
 # Temporary notice
-temporary_epidemic_notice: Koronaepidemian vuoksi kirjastopalveluissa saattaa olla rajoituksia. <a href="https://www.kirjastot.fi/kirjastot-ja-korona">Lisätietoja Kirjastot ja korona -sivulla</a>
+temporary_notice: Kunta-alan lakko voi vaikuttaa kirjastopalveluihin Helsingissä, Espoossa, Vantaalla, Kauniaisissa, Kuopiossa, Turussa, Tampereella, Jyväskylässä, Oulussa ja Rovaniemellä 3.–9.5.2022.
 
 # Skip to main content
 skip_to_main_content: Hyppää pääsisältöön
