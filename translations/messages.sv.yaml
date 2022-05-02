@@ -110,7 +110,7 @@ service: Tjänst
 web_service: Nättjänst
 
 # Temporary notice
-temporary_epidemic_notice: P.g.a. Coronaepidemin kan det förekomma begränsningar i bibliotekstjänsterna. <a href="https://www.biblioteken.fi/uutiset/aktuellt-i-biblioteksbranschen/biblioteken-och-corona">Mer information på Biblioteken.fi</a>
+temporary_notice: Strejken inom kommunsektorn kan påverka bibliotekstjänsterna i Helsingfors, Esbo, Vanda, Grankulla, Kuopio, Åbo, Tammerfors, Jyväskylä, Uleåborg och Rovaniemi den 3–9.5.2022.
 
 # Skip to main content
 skip_to_main_content: Hoppa till huvudinnehåll
