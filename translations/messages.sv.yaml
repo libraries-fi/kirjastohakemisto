@@ -109,9 +109,6 @@ room: Rum
 service: Tjänst
 web_service: Nättjänst
 
-# Temporary notice
-temporary_notice: Strejken inom kommunsektorn kan påverka bibliotekstjänsterna i Helsingfors, Esbo, Vanda, Grankulla, Kuopio, Åbo, Tammerfors, Jyväskylä, Uleåborg och Rovaniemi den 3–9.5.2022.
-
 # Skip to main content
 skip_to_main_content: Hoppa till huvudinnehåll
 

@@ -132,9 +132,6 @@ open_data:
     link_label: Siirry upoketyökaluun
     legacy_link_label: Käytä vanhoja upokkeita
 
-# Temporary notice
-temporary_notice: Kunta-alan lakko voi vaikuttaa kirjastopalveluihin Helsingissä, Espoossa, Vantaalla, Kauniaisissa, Kuopiossa, Turussa, Tampereella, Jyväskylässä, Oulussa ja Rovaniemellä 3.–9.5.2022.
-
 # Skip to main content
 skip_to_main_content: Hyppää pääsisältöön
 
