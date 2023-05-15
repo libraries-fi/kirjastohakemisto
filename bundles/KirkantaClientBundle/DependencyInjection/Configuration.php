@@ -12,7 +12,7 @@ class Configuration implements ConfigurationInterface
         $builder = new TreeBuilder;
         $root = $builder->root('kirjastot_fi_api');
         $root->children()
-            ->scalarNode('url')->defaultValue('https://api.kirjastot.fi')->end()
+            ->scalarNode('url')->defaultValue(getenv('KIRKANTA_URL'))->end()
             ->scalarNode('agent')->defaultValue('Kirjastohakemisto/1.0')->end()
             ->end();
 

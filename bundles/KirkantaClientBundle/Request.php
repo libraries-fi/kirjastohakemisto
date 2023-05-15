@@ -8,7 +8,7 @@ namespace KirjastotFi\KirkantaClientBundle;
 class Request
 {
     private $agent = 'Kirjastohakemisto/1.0';
-    private $domain = 'api.kirjastot.fi';
+    private $domain;
     private $version = 'v3';
     private $resource;
     private $query;
@@ -20,6 +20,7 @@ class Request
     {
         exit(__CLASS__ . ' is deprecated');
 
+        $this->domain = getenv('API_DOMAIN');
         $this->resource = $resource;
         $this->query = $query;
         $this->limit = max((int)$limit, 1);
