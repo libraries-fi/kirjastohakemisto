@@ -3,7 +3,7 @@
 parameters:
     locale: 'fi'
     kirkanta_api_agent: Kirjastohakemisto/1.0
-    kirkanta_api_url: 'https://api.kirjastot.fi'
+    kirkanta_api_url: '%env(KIRKANTA_URL)%'
     kirkanta_result_size: 10
 
 services:

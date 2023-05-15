@@ -1,6 +1,8 @@
 twig:
     globals:
         widget_builder_url: '%widget_builder_url%'
+        api_domain: '%env(API_DOMAIN)%'
+        kirkanta_url: '%env(KIRKANTA_URL)%'
     paths:
         '%kernel.project_dir%/templates': 'app'
         '%kernel.project_dir%/bundles/BootstrapFourBundle/Resources/views': 'BootstrapFourBundle'

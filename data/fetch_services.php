@@ -1,6 +1,6 @@
 <?php
 
-$data = file_get_contents('https://api.kirjastot.fi/v3/service?limit=1000&sort=name&lang=fi');
+$data = file_get_contents(getenv('KIRKANTA_URL') . '/v3/service?limit=1000&sort=name&lang=fi');
 $services = [];
 
 foreach (json_decode($data)->items as $row) {
