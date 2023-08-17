@@ -9691,6 +9691,10 @@ form[data-loading] .loader {
 
 .schedules-period {
   font-size: small; }
+  .schedules-period .period-description {
+    display: none; }
+    .schedules-period .period-description.active {
+      display: block; }
 
 .some-links {
   margin-bottom: 1.25rem;

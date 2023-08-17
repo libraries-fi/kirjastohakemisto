@@ -51,6 +51,7 @@ const PagedTable = (($) => {
         this._setPageState(current, false);
         this._setPageState(current.previousElementSibling, true);
       }
+      this._element.dispatchEvent(new Event('changed'));
     }
 
     nextPage() {
@@ -60,6 +61,7 @@ const PagedTable = (($) => {
         this._setPageState(current, false);
         this._setPageState(current.nextElementSibling, true);
       }
+      this._element.dispatchEvent(new Event('changed'));
     }
   }
 

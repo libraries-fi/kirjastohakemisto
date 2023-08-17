@@ -4,7 +4,7 @@
 
 #}
 {% if library.schedules is not empty %}
-  <section class="library-schedules schedules-weekly" data-paged-table>
+  <section class="library-schedules schedules-weekly" data-paged-table data->
     <h3 class="sr-only">{{ "Opening hours"|trans }}</h3>
 
     <button type="button" class="btn btn-sm btn-light btn-back" data-previous-page aria-hidden="true">
@@ -27,6 +27,7 @@
         {% set current_date = "now"|date("Y-m-d") %}
         {% set statuses = ["closed", "open", "self-service"] %}
         {% set week = schedules|first.date|date("W") %}
+        {% set year_week = schedules|first.date|date("oW") %}
 
         {% set highlight_base_rows = false %}
 
@@ -36,7 +37,7 @@
           {% endif %}
         {% endfor %}
 
-        <tbody {% if schedules|keys|first == 0 %}data-current-page{% endif %}>
+        <tbody {% if schedules|keys|first == 0 %}data-current-page{% endif %} data-year-week-number="{{ year_week }}">
           <tr class="thead-light">
             <th colspan="3">{{ "Week"|trans }} {{ week }}</th>
           </tr>
@@ -129,7 +130,11 @@
 
     <div class="schedules-period pl-1 pb-2">
       {% for period in periods %}
-        <div class="pb-1">
+
+        {% set from_week = period.valid_from|date("oW") %}
+        {% set to_week = period.valid_until|date("oW") %}
+
+        <div class="period-description pb-1" data-from-week="{{ from_week }}" data-to-week="{{ to_week }}">
           {% if period.valid_until %}
             {% if period.valid_from == period.valid_until %}
               <b>{{ period.valid_from|dateloc }}:</b>
