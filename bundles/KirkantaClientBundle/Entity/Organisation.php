@@ -130,6 +130,13 @@ class Organisation extends Entity
 
     public function phoneNumbers()
     {
+        foreach ($this->raw->phone_numbers as $key => $phone_number) {
+            if(empty($phone_number->description) === FALSE)
+            {
+                $this->raw->phone_numbers[$key]->description = 
+                    \HTMLPurifier::getInstance()->purify($phone_number->description);
+            }
+        }
         return new ArrayIterator($this->raw->phone_numbers);
     }
 

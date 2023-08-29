@@ -91,7 +91,7 @@
                 </tr>
                 {% if number.description %}
                   <tr>
-                    <td colspan="2">{{ number.description }}</td>
+                    <td colspan="2">{{ number.description | raw }}</td>
                   </tr>
                 {% endif %}
               {% endfor %}
