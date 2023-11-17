@@ -1,19 +1,32 @@
 <template>
   <div>
-    <div v-if="library" v-for="department in departments" class="contact-info-group">
-      <h3 class="contact-info-label">{{ department.name || $t('contact-info.common') }}</h3>
+    <div v-if="library" v-for="contactType in contactInfos" class="contact-info-group">
+      <h3 class="contact-info-label mt-3">{{ contactTypeLabel(contactType) }}</h3>
 
-      <div class="contact-info-body">
-        <div v-for="entries in department.groups" class="contact-info-item">
-          <h4 class="contact-info-entry-label h6">{{ first(entries).name }}<template v-if="first(entries).info">, {{ first(entries).info }}</template></h4>
-          <ul>
-            <li v-for="entry in entries">
-              <span class="sr-only">{{ entryTypeLabel(entry) }}</span>
-              <a :href="entryLinkValue(entry)">{{ entry.number || entry.email || entry.url }}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
+      <table class="table table-sm table-border contact-info-item">
+        <thead>
+          <tr>
+            <th class="w-50">{{ $t('contact-info.contact-detail') }}</th>
+            <th class="w-50">{{ $t('contact-info.number-address') }}</th>
+          </tr>
+        </thead>
+        <tbody v-for="entries in contactType.groups">
+          <tr>
+            <td class="w-50">
+              {{ first(entries).name }}<template v-if="first(entries).info">: {{ first(entries).info }}</template>
+            </td>
+            <td class="w-50">
+              <ul class="list-group list-group-flush">
+                <li v-for="entry in entries" class="list-group-item p-0 border-0">
+                  <span class="sr-only">{{ entryTypeLabel(entry) }}</span>
+                  <a :href="entryLinkValue(entry)">{{ entry.number || entry.email || entry.url }}</a>
+                </li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+
     </div>
   </div>
 </template>
@@ -21,93 +34,82 @@
 <script>
 import { addToMap, addToMapArray, first, last } from '@/mixins'
 
-function departmentContactInfo (library) {
-  const departments = new Map([
-    [null, {
-      name: '',
-      phones: [],
-      emails: [],
-      links: [],
-      namedGroups: new Map()
-    }]
-  ])
+function libraryContactInfo (library) {
+  const contactInfos = new Map()
 
-  const nameMap = new Map([[null, departments.get(null)]])
+  const contactTypes = [
+    {name: "phones"},
+    {name: "emails"},
+    {name: "links"},
+    {name: "personnel"}
+  ]
 
-  function makeDepartmentEntry (name, id, description) {
-    return { name, id, description, phones: [], emails: [], links: [], namedGroups: new Map() }
+  function makeContactTypeEntry (name) {
+    return { name, namedGroups: new Map() }
   }
 
-  for (let department of library.departments) {
-    let { name, id, description } = department
-    departments.set(id, makeDepartmentEntry(name, id, description))
-    nameMap.set(name, departments.get(id))
+  for (let contactType of contactTypes) {
+    let { name } = contactType
+    contactInfos.set(name, makeContactTypeEntry(name))
   }
 
   for (let entry of library.phoneNumbers) {
     entry.type = 'phone'
-    departments.get(entry.department).phones.push(entry)
-    addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
+    let contactType = 'phones'
+    addToMapArray(contactInfos.get(contactType).namedGroups, entry.name, entry)
   }
 
   for (let entry of library.emailAddresses) {
     entry.type = 'email'
-    departments.get(entry.department).emails.push(entry)
-    addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
+    let contactType = 'emails'
+    addToMapArray(contactInfos.get(contactType).namedGroups, entry.name, entry)
   }
 
   for (let entry of library.links) {
     entry.type = 'link'
-    departments.get(entry.department).links.push(entry)
-    addToMapArray(departments.get(entry.department).namedGroups, entry.name, entry)
+    let contactType = 'links'
+    addToMapArray(contactInfos.get(contactType).namedGroups, entry.name, entry)
   }
 
   for (let person of library.persons) {
-    let department = nameMap.get(person.responsibility || null)
-
-    if (!department) {
-      department = makeDepartmentEntry(person.responsibility)
-      addToMap(departments, person.responsibility, department)
-    }
-
-    const name = `${person.firstName} ${person.lastName}`
-
-    if (person.phone) {
-      addToMapArray(department.namedGroups, name, {
-        name,
-        info: (person.jobTitle || '').toLowerCase(),
-        number: person.phone,
-        type: 'phone'
-      })
-    }
+    let contactType = 'personnel'
+    const name = `${person.lastName}, ${person.firstName}`
 
     if (person.email) {
-      addToMapArray(department.namedGroups, name, {
+      addToMapArray(contactInfos.get(contactType).namedGroups, name, {
         name,
-        info: (person.jobTitle || '').toLowerCase(),
+        info: ((person.jobTitle, person.responsibility) || '').toLowerCase(),
         email: person.email,
-        type: 'email'
+        type: 'email',
+        grouptype: 'person'
       })
     }
+
+    if (person.phone) {
+      addToMapArray(contactInfos.get(contactType).namedGroups, name, {
+        name,
+        info: ((person.jobTitle, person.responsibility) || '').toLowerCase(),
+        number: person.phone,
+        type: 'phone',
+        grouptype: 'person'
+      })
+    }
+
   }
 
-  for (let department of departments.values()) {
-    department.groups = [...department.namedGroups.values()]
+  contactInfos.get('personnel').namedGroups = new Map([
+    ...contactInfos.get('personnel').namedGroups.entries()].sort((a, b) => {
+    return a[0].localeCompare(b[0]);
+  }));
 
-    if (!department.groups.length) {
-      departments.delete(department.id)
+  for (let contactType of contactInfos.values()) {
+    contactType.groups = [...contactType.namedGroups.values()]
+
+    if (contactType.groups.length < 1) {
+      contactInfos.delete(contactType.name)
     }
   }
-
-  return [...departments.values()].sort((a, b) => {
-    if (!a.name.length) {
-      return -1000
-    }
-    if (!b.name.length) {
-      return 1000
-    }
-    return a.name.localeCompare(b.name)
-  })
+  return [...contactInfos.values()]
 }
 
 export default {
@@ -118,8 +120,8 @@ export default {
     }
   },
   computed: {
-    departments () {
-      return departmentContactInfo(this.library)
+    contactInfos () {
+      return libraryContactInfo(this.library)
     }
   },
   methods: {
@@ -135,6 +137,21 @@ export default {
 
         case 'link':
           return entry.url
+      }
+    },
+    contactTypeLabel (contactType) {
+      switch (contactType.name) {
+        case 'phones':
+          return this.$t('contact-info.phones')
+
+        case 'emails':
+          return this.$t('contact-info.emails')
+
+        case 'links':
+          return this.$t('contact-info.links')
+
+        case 'personnel':
+          return this.$t('contact-info.personnel')
       }
     },
     entryTypeLabel (entry) {
@@ -159,10 +176,6 @@ export default {
   .contact-info-group {
     margin-bottom: spacing(3);
     border-bottom: $table-border-width solid $table-border-color;
-
-    @include media-breakpoint-up("sm") {
-      display: flex;
-    }
   }
 
   .contact-info-group:last-of-type {
@@ -180,6 +193,4 @@ export default {
   .contact-info-entry-label {
     line-height: 1.6;
   }
-
-
 </style>

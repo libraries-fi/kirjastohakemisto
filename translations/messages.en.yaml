@@ -1,2 +1,146 @@
+accessibility-statement:
+  page-title: Accessibility Statement
 app:
+  beta-link-back: You can find updated information about the libraries <a href="{url}">in the old Library Directory.
+  beta-warning: This is the Beta-version of the new Library Directory. The information about the libraries is not necessarily up to date.
   name: Library Directory
+  location: Location
+  searching: Searching for information Haetaan tietoja
+  info: Library Directory brings all Finnish libraries together. You can easily check your local library's opening hours, locate the libraries near you, or renew your loans by using the link to the online library provided by the Library directory.
+  skip-link: Skip to main content
+calendar:
+  closed: Closed
+  date: Date
+  schedules: Opening hours
+  week-day: Day
+  week: Week {week}
+consortium:
+  city-count: The consortium consists of {count} municipalities
+  homepage: Homepages
+  library-count: The consortium consists of {count} libraries
+contact-info:
+  common: General 
+  phones: General phone numbers
+  emails: General e-mail addresses
+  links: Websites
+  personnel: Staff
+  contact-details: Contact details
+  email: Email
+  link: Website
+  phone: Phone number
+  transit-directions: Transportation connections
+  buses: Buses
+  trams: Trams
+  trains: Trains
+  parking-instructions: Parking
+  contact-detail: Contact detail
+  number-address: 'Address / phone number'
+front:
+  hello: Library Directory brings all Finnish libraries together. You can easily check your local library's opening hours or locate the libraries near you.
+  open-search: Find your library
+index:
+  all-libraries: All libraries 
+  by-consortium: By consortium
+  by-initial: Alphabetical index
+  by-municipality: By municipality
+  consortiums: 'Directory: Consortiums'
+  libraries: 'Directory: Libraries' 
+  library-count: Showing {count} libraries
+  mobile-libraries: Mobile libraries 
+  municipal-libraries: Municipal libraries
+  services: 'Directory: Services'
+  type-filter: Filter by library type
+info:
+  page-title: Information about the service
+kifi:
+  footer-title: Links to other services provided by Libraries.fi 
+  name: Libraries.fi
+  public-library-logo: Public libraries service
+library:
+  tab-presentation: Introduction
+  tab-contact: Contact
+  tab-services: Services
+  tab-schedules: Opening hours
+  consortium: Consortium
+  address: Address
+  location-mail: Mail address
+  location: Location 
+  nearby: Suggestions near {city}
+  other-links: Links to other websites provided by the library
+  photos: Photos
+  schedules: Opening hours
+  services: Services
+  no-presentation: There is no introduction for this library
+  no-services: No specifically mentioned services
+  web-library: Go to the web library
+  web-library-tip: On the web library you can manage your library account, renewals, etc.
+  established-year: Established year
+  building: Building
+  built: Built
+  architect: Architect
+  interior: Interior
+  type:
+    municipal: Municipal libraries
+    mobile: Mobile libraries
+    other: Other libraries
+    polytechnic: University of Applied Sciences libraries
+    special: Special libraries
+    university: University libraries
+nav:
+  accessibility-statement: Accessibility Statement
+  consortiums: Consortiums
+  feedback: Contact
+  info: Info
+  libraries: Libraries
+  search: Search
+  services: Services
+photos:
+  prev-photo: Previous photo
+  next-photo: Next photo
+  expand-photo: Expand photo
+schedules:
+  open: Open
+  closed: Closed
+  date: Date
+  day: Day
+  self-service: Self-service
+  staffed: Staff present
+  times: Opening hours
+  week: Week
+  previous-week: Previous week
+  next-week: Next week
+  period-from: From
+  opens-at: Opens at
+  check-schedules: Check opening hours
+search:
+  search-button: Search
+  advanced: Advanced search
+  library-type: Library type
+  load-more: Load more results
+  only-open: Only open libraries
+  options: Options
+  placeholder: Search for a library or a service
+  use-location: Use location
+service:
+  common-availability: Availability elsewhere
+  offered-at: Available in these libraries
+  offered-elsewhere: In other libraries
+  offered-nearby: Availability in your local library
+  service-tip: Click on the links for additional information
+  website: Additional information
+  max-distance: Maximum distance
+service-type:
+  collection: Collections
+  hardware: Devices
+  room: Rooms
+  service: Services
+  web_service: Web services
+404:
+  page-title: The page cannot be found (404)
+  page-text: The page you are requesting can not be found
+  from-page: page.
+  libraries-tip: You can search libraries using the search tool or by browsing the 
+  libraries-continued-tip: Under the Libraries page, you also find libraries categorised by municipalities, as well as all the mobile libraries.
+  consortium-tip: Are you searching for a specific library consortium? You can find all library consortiums under the 
+  services-tip: Are you searching for libraries’ services? You can find them under the 
+  location-tip: Did you know that by allowing the website to use your location, the search offers you the libraries and services nearest to you.

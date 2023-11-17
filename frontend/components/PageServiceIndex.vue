@@ -5,7 +5,7 @@
     <div class="index">
       <div v-for="group of groups" class="index-section">
         <a :id="group[0]" class="anchor"/>
-        <h2 class="index-section-title">
+        <h2 class="index-section-title border-top pt-2 mt-4">
           <a :href="`#${group[0]}`">{{ group[0] }}</a>
         </h2>
 
@@ -53,7 +53,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>

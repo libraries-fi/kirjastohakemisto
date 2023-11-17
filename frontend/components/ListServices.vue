@@ -1,15 +1,13 @@
 <template>
   <div @click="closeAll">
-    <h2>
-      <fa :icon="faStreetView"/>
-      {{ $t('library.services') }}
-    </h2>
+
+    <p>{{ $t('service.service-tip') }}.</p>
 
     <div v-for="group of categories">
       <h3>{{ $t(`service-type.${first(group)}`) }}</h3>
       <ul class="list-unstyled services-list">
         <li v-for="(service, i) of last(group)" :id="service.uniqueId + '--item'">
-          <a :id="service.uniqueId" class="link" tabindex="0" @keyup.enter="doClick">
+          <a :id="service.uniqueId" tabindex="0" @keyup.enter="doClick">
             {{ service.name || service.standardName }}
           </a>
           <b-popover title="Test Popover" :container="service.uniqueId + '--item'" :target="service.uniqueId" :data-source="service.uniqueId" placement="bottom">
@@ -37,7 +35,7 @@
 
 <script>
 import Popper from 'popper.js'
-import bPopover from 'bootstrap-vue/es/directives/popover/popover'
+import bPopover from 'bootstrap-vue'
 import { faStreetView } from '@fortawesome/free-solid-svg-icons'
 import { addToMapArray, first, last } from '@/mixins'
 
@@ -120,15 +118,23 @@ export default {
   }
 
   .services-list {
+    a {
+      cursor: pointer;
+      color: $kifilink !important;
+    }
+  }
+
+  .services-list {
     @include media-breakpoint-up("sm") {
       columns: 2;
     }
 
     @include media-breakpoint-up("md") {
-      columns: 4;
+      columns: 3;
     }
   }
 
+  .popover-body ul,
   .service-links {
     list-style-position: inside;
     padding-left: spacing(2);

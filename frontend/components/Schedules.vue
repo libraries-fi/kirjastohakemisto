@@ -1,11 +1,11 @@
 <template>
   <div class="weekly-schedules" :data-expand-mode="expandMode" v-if="schedules">
-    <div class="toolbar">
-      <button type="button" @click="previousWeek" class="btn btn-link btn-sm">
+    <div class="toolbar border">
+      <button type="button" @click="previousWeek" class="btn btn-link btn-sm px-3" :aria-label="$t('schedules.previous-week')">
         <fa :icon="faWeekPrev"/>
       </button>
-      <h3 class="week-label">{{ $t('schedules.week') }} {{ week }}</h3>
-      <button type="button" @click="nextWeek" class="btn btn-link btn-sm">
+      <h3 class="week-label bg-light">{{ $t('schedules.week') }} {{ week }}</h3>
+      <button type="button" @click="nextWeek" class="btn btn-link btn-sm px-3" :aria-label="$t('schedules.next-week')">
         <fa :icon="faWeekNext"/>
       </button>
     </div>
@@ -18,56 +18,35 @@
           <th class="col-time">{{ $t('schedules.times') }}</th>
         </tr>
       </thead>
-
-      <tbody v-for="(day, index) of schedules.slice(this.i * 7, (this.i + 1) * 7)" :class="isToday(day) ? 'current-day' : null" :data-expanded="index == expandedRow">
-        <tr class="day-entry">
-          <th :rowspan="(day.times ? day.times.length : 0 ) + 1 + (day.info ? 1 : 0)" scope="row" class="col-date">
+      <tbody v-for="(day, index) of schedules.slice(this.i * 7, (this.i + 1) * 7)" :class="isToday(day) ? 'current-day' : null">
+        <tr class="day-entry font-weight-bolder">
+          <th :rowspan="(day.times ? day.times.length : 0 ) + 1 + (day.info ? 1 : 0)" scope="row" class="col-date pt-2">
             <date-time :date="day.date" format="P" formal short/>
           </th>
-          <td class="col-weekday">
+          <td class="col-weekday pt-2">
             <date-time :date="day.date" format="cccc"/>
-
-            <button class="btn btn-link" @click="expandedRow = index" v-if="expandMode == 'current' && !day.closed">
-              <fa :icon="faCollapse" v-if="index == expandedRow"/>
-              <fa :icon="faExpand" v-else/>
-            </button>
           </td>
-          <td v-if="day.closed" class="col-time closed">{{ $t('schedules.closed') }}</td>
-          <td v-else class="col-time">
+          <td v-if="day.closed" class="col-time closed pt-2">{{ $t('schedules.closed') }}</td>
+          <td v-else class="col-time pt-2">
             <date-time :time="day | opens" format="p" formal/>
             <date-time :time="day | closes" format="p" formal/>
           </td>
         </tr>
+        <tr v-if="day.info" class="day-info">
+          <td colspan="2" class="pt-0">{{ day.info }}</td>
+        </tr>
         <tr v-for="time of day.times" class="time-entry" :class="['closed', 'regular', 'self-service'][time.status]">
-          <td v-if="time.status == 0" class="col-status">{{ $t("schedules.closed") }}</td>
-          <td v-if="time.status == 1" class="col-status">{{ $t("schedules.staffed") }}</td>
-          <td v-if="time.status == 2" class="col-status">{{ $t("schedules.self-service") }}</td>
-
-          <td class="col-time">
+          <td v-if="time.status == 0" class="col-status pt-0">{{ $t("schedules.closed") }}</td>
+          <td v-if="time.status == 1" class="col-status pt-0">{{ $t("schedules.staffed") }}</td>
+          <td v-if="time.status == 2" class="col-status pt-0">{{ $t("schedules.self-service") }}</td>
+          <td class="col-time pt-0">
             <date-time :time="time.from" format="p"/>
             <date-time :time="time.to" format="p"/>
           </td>
         </tr>
-        <tr v-if="day.info" class="day-info text-muted">
-          <td colspan="2">{{ day.info }}</td>
-        </tr>
       </tbody>
     </table>
 
-    <div class="period-info" v-if="periodInfo.length">
-      <template v-for="period of periodInfo">
-        <p v-if="period.description">
-          <b v-if="period.valid_until">
-            <date-time :date="period.valid_from" format="P" formal short/> –
-            <date-time :date="period.valid_until" format="P" formal short/>:
-          </b>
-          <b v-else>
-            From <date-time :date="period.valid_from" format="P" formal short/>:
-          </b>
-          <span>{{ period.description }}</span>
-        </p>
-      </template>
-    </div>
   </div>
 </template>
 
@@ -75,8 +54,7 @@
 import { format, isSameDay, parseISO } from 'date-fns'
 import { first, last } from '@/mixins'
 
-import { faAngleDoubleLeft, faAngleDoubleRight, faMinusSquare } from '@fortawesome/free-solid-svg-icons'
-import { faPlusSquare } from '@fortawesome/free-regular-svg-icons'
+import { faAngleLeft, faAngleRight } from '@fortawesome/free-solid-svg-icons'
 
 import DateTime from './DateTime.vue'
 
@@ -84,7 +62,6 @@ export default {
   components: { DateTime },
   props: {
     schedules: {},
-    periods: {},
     expandMode: {
       default: 'current'
     }
@@ -100,19 +77,8 @@ export default {
         return day ? format(parseISO(day.date), 'I') : null
       }
     },
-    periodInfo () {
-      let filtered = []
-      for (let pid in this.periods) {
-        if (this.periods[pid].description) {
-          filtered.push(this.periods[pid])
-        }
-      }
-      return filtered
-    },
-    faWeekPrev: () => faAngleDoubleLeft,
-    faWeekNext: () => faAngleDoubleRight,
-    faExpand: () => faPlusSquare,
-    faCollapse: () => faMinusSquare
+    faWeekPrev: () => faAngleLeft,
+    faWeekNext: () => faAngleRight
   },
   methods: {
     first,
@@ -142,7 +108,7 @@ export default {
     this.schedules.forEach((day) => {
       if (day.times) {
         day.times.forEach((time) => {
-          time.status = time.staff ? 1 : 2
+          time.status == time.staff ? 1 : 2
         })
       }
     })
@@ -167,6 +133,14 @@ export default {
     h2 {
       line-height: 1.8;
     }
+  }
+
+  .schedules tbody {
+    border-top: 1px solid $border-color !important;
+  }
+
+  .schedules tbody:first-of-type {
+    border-top: none !important;
   }
 
   .week-label {
@@ -204,7 +178,6 @@ export default {
   }
 
   .time-entry {
-    color: $text-muted;
     font-size: smaller;
 
     &.closed {
@@ -219,22 +192,11 @@ export default {
   }
 
   .current-day {
-    background-color: theme-color("light");
-    // border-top: 1px solid $border-light !important;
-    // border-bottom: 1px solid $border-light !important;
+    background-color: $green-light;
   }
 
   .day-info {
     font-size: smaller;
-  }
-
-  .period-info {
-    border-top: 3px dashed $table-border-color;
-    padding: spacing(1);
-
-    span {
-      white-space: pre-line;
-    }
   }
 
   .weekly-schedules[data-expand-mode="current"] {
@@ -249,10 +211,6 @@ export default {
         padding-top: spacing(1);
         padding-bottom: spacing(1);
       }
-    }
-
-    .time-entry {
-      display: none;
     }
 
     tbody[data-expanded] {

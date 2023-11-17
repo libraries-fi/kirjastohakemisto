@@ -82,7 +82,6 @@ export default {
   },
   async mounted () {
     this.buildBreadcrumb(this.$router.options.routes, this.$route)
-    // this.items = await this.buildBreadcrumb(this.$router.options.routes, this.$route)
   },
   watch: {
     $route (to, from) {

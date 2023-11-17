@@ -3,12 +3,7 @@ const autoprefixer = require('autoprefixer')
 const path = require('path')
 
 module.exports = {
-  mode: 'development',
   entry: ['./frontend/main.js'],
-  output: {
-    path: path.resolve(__dirname, 'public', 'dev'),
-    filename: '[name].js'
-  },
   module: {
     rules: [
       {
@@ -43,17 +38,6 @@ module.exports = {
       {
         test: /\.svg$/,
         use: ['svg-inline-loader']
-      },
-      {
-        test: /\.(png|jpg|gif|eot|woff|woff2|ttf)$/,
-        use: [
-          {
-            loader: 'url-loader',
-            options: {
-              limit: 200
-            }
-          }
-        ]
       }
     ]
   },
@@ -68,7 +52,9 @@ module.exports = {
       'bootstrap-vue$': 'bootstrap-vue/dist/bootstrap-vue.esm.js',
       '@': path.resolve('./frontend'),
       'messages.fi.yaml': path.resolve('translations/messages.fi.yaml'),
+      'messages.sv.yaml': path.resolve('translations/messages.sv.yaml'),
       'messages.en.yaml': path.resolve('translations/messages.en.yaml')
     }
   }
 }
+

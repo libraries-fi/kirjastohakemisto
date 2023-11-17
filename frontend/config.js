@@ -4,15 +4,17 @@ const config = (() => {
   switch (BUILD_MODE) {
     case 'production':
       return {
-        apiUrl: 'https://api.kirjastot.fi'
+        apiUrl: 'https://api.kirjastot.fi',
+        widgetBuilderUrl: 'https://beta-hakemisto.hakemisto.ahitofel.eu/embed/v1'
       }
 
     default:
       return {
-        apiUrl: 'https://api.kirjastot.fi.local',
+        apiUrl: 'https://api.kirjastot.fi',
+        widgetBuilderUrl: 'https://beta-hakemisto.hakemisto.ahitofel.eu/embed/v1',
         demo: {
           enabled: false,
-          assetUrl: 'https://kirkanta.kirjastot.fi.local',
+          assetUrl: 'https://kirkanta.kirjastot.fi',
           position: {
             coords: {
               latitude: 60.225672,

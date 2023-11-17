@@ -1,7 +1,13 @@
+accessibility-statement:
+  page-title: Saavutettavuusseloste
 app:
   beta-link-back: Näet kirjastojen ajantasaiset tiedot <a href="{url}">vanhasta Kirjastohakemistosta.
   beta-warning: Tämä on uuden Kirjastohakemiston beta-versio! Kirjastojen tiedot eivät välttämättä ole ajan tasalla.
   name: Kirjastohakemisto
+  location: Paikannus
+  searching: Haetaan tietoja
+  info: kokoaa yhteen kaikki Suomen kirjastot. Voit helposti tarkistaa oman kirjastosi aukioloajat, paikantaa lähelläsi sijaitsevat kirjastot sekä hoitaa esim. lainaustesi uusimiset Kirjastohakemistosta löytyvän verkkokirjaston linkkiosoitteen kautta.
+  skip-link: Hyppää pääsisältöön
 calendar:
   closed: Kiinni
   date: Päivämäärä
@@ -14,13 +20,23 @@ consortium:
   library-count: Kimppaan kuuluu {count} kirjastoa
 contact-info:
   common: Yleiset
+  phones: Yleiset puhelinnumerot
+  emails: Yleiset sähköpostiosoitteet
+  links: Verkkosivut
+  personnel: Henkilökunta
   contact-details: Yhteystiedot
-  department: Osasto
   email: Sähköpostiosoite
   link: Verkkosivu
   phone: Puhelinnumero
+  transit-directions: Liikenneyhteydet
+  buses: Bussit
+  trams: Raitiovaunut
+  trains: Junat
+  parking-instructions: Pysäköinti
+  contact-detail: Yhteystieto
+  number-address: 'Osoite / puhelinnumero'
 front:
-  hello: Kir­jas­to­ha­ke­mis­to ko­ko­aa yh­teen kaik­ki Suo­men kir­jas­tot. Vo­it hel­pos­ti tar­kis­taa oman kir­jas­to­si au­ki­o­lo­a­jat tai pai­kan­taa lä­hel­lä­si si­jait­se­vat kir­jas­tot.
+  hello: Kir­jas­to­ha­ke­mis­to ko­ko­aa yh­teen kaik­ki Suo­men kir­jas­tot. Voit hel­pos­ti tar­kis­taa oman kir­jas­to­si au­ki­o­lo­a­jat tai pai­kan­taa lä­hel­lä­si si­jait­se­vat kir­jas­tot.
   open-search: Löydä kirjastosi
 index:
   all-libraries: Kaikki kirjastot
@@ -34,12 +50,19 @@ index:
   municipal-libraries: Kunnankirjastot
   services: 'Hakemisto: Palvelut'
   type-filter: Suodata kirjaston tyypin perusteella
+info:
+  page-title: Tietoa palvelusta
 kifi:
   footer-title: Linkkejä Kirjastot.fi'n muihin palveluihin
   name: Kirjastot.fi
   public-library-logo: Yleisten kirjastojen tunnus
 library:
+  tab-presentation: Esittely
+  tab-contact: Yhteystiedot
+  tab-services: Palvelut
+  tab-schedules: Aukioloajat
   consortium: Kirjastokimppa
+  address: Osoite
   location-mail: Postiosoite
   location: Sijainti
   nearby: Poimintoja kaupungin {city} lähistöltä
@@ -47,20 +70,36 @@ library:
   photos: Kuvagalleria
   schedules: Aukioloajat
   services: Palvelut
-  web-library: Verkkokirjasto
+  no-presentation: Kirjastosta ei ole laadittu esittelyä
+  no-services: Ei erikseen mainittuja palveluita
+  web-library: Siirry verkkokirjastoon
+  web-library-tip: Verkkokirjastossa hoidat asiakkuuteesi liittyviä asioita, uusimiset ym
+  established-year: Perustamisvuosi
+  building: Rakennus
+  built: Rakennettu
+  architect: Arkkitehti
+  interior: Sisustus
   type:
     municipal: Kunnankirjastot
+    mobile: Kirjastoautot
     other: Muut kirjastot
     polytechnic: AMK-kirjastot
     special: Erikoiskirjastot
     university: Yliopistokirjastot
 nav:
+  accessibility-statement: Saavutettavuusseloste
   consortiums: Kimpat
+  feedback: Ota yhteyttä
   info: Tietoa
   libraries: Kirjastot
   search: Haku
   services: Palvelut
+photos:
+  prev-photo: Edellinen kuva
+  next-photo: Seuraava kuva
+  expand-photo: Laajenna kuva
 schedules:
+  open: Auki
   closed: Kiinni
   date: Päivämäärä
   day: Päivä
@@ -68,11 +107,17 @@ schedules:
   staffed: Henkilökunta paikalla
   times: Aukiolot
   week: Viikko
+  previous-week: Edellinen viikko
+  next-week: Seuraava viikko
+  period-from: Alkaen
+  opens-at: Aukeaa klo
+  check-schedules: Tarkista aukioloajat
 search:
+  search-button: Hae
   advanced: Tarkennettu haku
   library-type: Kirjaston tyyppi
   load-more: Lataa lisää tuloksia
-  only-open: Vain avoimet kirjastot
+  only-open: Vain avoinna olevat kirjastot
   options: Asetukset
   placeholder: Hae kirjastoa tai palvelua
   use-location: Käytä paikannusta
@@ -81,10 +126,21 @@ service:
   offered-at: Saatavilla näissä kirjastoissa
   offered-elsewhere: Muissa kirjastoissa
   offered-nearby: Saatavuus lähikirjastoissasi
+  service-tip: Palvelun lisätiedot avautuvat linkkiä klikkaamalla
   website: Lisätiedot
+  max-distance: etäisyys korkeintaan
 service-type:
   collection: Kokoelmat
   hardware: Laitteet
   room: Tilat
   service: Palvelut
   web_service: Verkkopalvelut
+404:
+  page-title: Sivua ei löydy (404)
+  page-text: Hakemaasi sivua ei löytynyt.
+  from-page: -sivulta.
+  libraries-tip: Kirjastoja voit etsiä haulla tai selata
+  libraries-continued-tip: Sieltä löydät kirjastot myös eriteltynä kunnittain sekä kirjastoautot.
+  consortium-tip: Etsitkö tietyn kirjastokimpan tietoja? Löydät ne 
+  services-tip: Etsitkö kirjastojen palveluja? Löydät ne 
+  location-tip: Huomasithan, että sallimalla paikannuksen, haku sekä palvelut tarjoavat sinulle lähimpiä kirjastoja.

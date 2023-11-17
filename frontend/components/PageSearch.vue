@@ -5,12 +5,14 @@
         <div class="col-lg-9" id="quick-search">
           <b-form-group id="query-field" breakpoint="lg" :label="$t('search.placeholder')" label-class="sr-only" class="pt-3">
             <b-input-group>
-              <b-form-input size="lg" :placeholder="$t('search.placeholder')" v-model="form.q" v-focus/>
+              <label for="searchinput" class="sr-only">{{ $t('search.placeholder') }}</label>
+              <b-form-input size="lg" :placeholder="$t('search.placeholder')" id="searchinput" v-model="form.q"/>
 
               <b-input-group-append>
-                <div v-if="busy" class="loader" id="form-input-throbber" aria-hidden="true">Loading</div>
+                <div v-if="busy" class="loader" id="form-input-throbber" aria-hidden="true">{{ $t('app.searching') }}...</div>
 
                 <b-btn variant="primary" type="submit">
+                  <span class="sr-only">{{ $t('search.search-button') }}</span>
                   <fa :icon="faSearch"/>
                 </b-btn>
               </b-input-group-append>
@@ -36,35 +38,36 @@
             </b-form-group>
           </fieldset>
         </div>
-        <div class="col-lg-9" id="search-results">
+        <div class="col-lg-9 pt-3" id="search-results">
           <b-list-group>
-            <b-list-group-item v-for="library in libraries" :key="library.id" class="library-card border-0 px-0 my-2">
+            <b-list-group-item v-for="library in libraries" :key="library.id" class="library-card border-top-0 border-left-0 border-right-0 border-bottom px-0 pb-4 mb-2">
               <div class="library-card-photo-frame">
                 <api-image :file="library.coverPhoto" alt="" class="library-card-photo"/>
               </div>
               <div class="library-card-body">
-                <router-link :to="routeToLibrary(library)">{{ library.name }}</router-link>
+                <router-link :to="routeToLibrary(library)" :class="'h4 font-weight-bold'">{{ library.name }}</router-link>
                 <div class="text-uppercase">{{ cityName(library) }}</div>
                 <div>{{ libraryAddress(library) }}</div>
               </div>
               <div class="library-card-aside">
-                <span class="library-card-live">
+                <div class="library-card-status">
+                  <b-badge v-if="library.liveStatus == 0" variant="danger">{{ $t('schedules.closed') }}</b-badge>
+                  <b-badge v-if="library.liveStatus == 1" variant="success">{{ $t('schedules.open') }}</b-badge>
+                  <b-badge v-if="library.liveStatus == 2" variant="info">{{ $t('schedules.self-service') }}</b-badge>
+                  <b-badge v-if="library.distance" variant="light">{{ formatDistance(library.distance) }}</b-badge>
+                </div>
+                <span class="library-card-live mt-1">
                   <!-- Always render container to push rest of the content down -->
-                  <template v-if="hasOpeningTime(first(library.schedules))">
-                    <date-time :time="first(library.schedules) | opens" format="p" formal/>
-                      –
-                    <date-time :time="first(library.schedules) | closes" format="p" formal/>
+                  <template v-if="hasOpeningTime(first(library.schedules)) && hasNotYetOpened(first(library.schedules))">
+                    {{ $t('schedules.opens-at') }} <date-time :time="first(library.schedules) | opens" format="p" formal/>
+                  </template>
+                  <template v-else-if="hasOpeningTime(first(library.schedules))">
+                    <date-time :time="first(library.schedules) | opens" format="p" formal/>–<date-time :time="first(library.schedules) | closes" format="p" formal/>
                   </template>
                   <span v-if="library.schedules.length && !hasOpeningTime(first(library.schedules))" class="text-muted">
-                    Tarkista aukiolot
+                    {{ $t('schedules.check-schedules') }}
                   </span>
                 </span>
-                <div class="library-card-status">
-                  <b-badge v-if="library.liveStatus == 0" variant="danger">closed</b-badge>
-                  <b-badge v-if="library.liveStatus == 1" variant="success">open</b-badge>
-                  <b-badge v-if="library.liveStatus == 2" variant="info">self-service</b-badge>
-                  <b-badge v-if="library.distance" variant="primary">{{ formatDistance(library.distance) }}</b-badge>
-                </div>
               </div>
             </b-list-group-item>
           </b-list-group>
@@ -73,7 +76,7 @@
 
             <button type="button" class="btn btn-lg btn-link my-3" id="btn-load-more" @click="loadMore()" v-if="canLoadMore">
               {{ $t('search.load-more') }}
-              <span v-if="busy" class="loader" id="form-submit-throbber" aria-hidden="true">Loading</span>
+              <span v-if="busy" class="loader" id="form-submit-throbber" aria-hidden="true">{{ $t('app.searching') }}...</span>
             </button>
           </div>
         </div>
@@ -88,6 +91,10 @@ import { faPlusSquare, faSearch } from '@fortawesome/free-solid-svg-icons'
 import { faPlusSquare as faPlusSquareReg } from '@fortawesome/free-regular-svg-icons'
 import DateTime from './DateTime'
 import ScrollGuard from './ScrollGuard'
+
+const dateNow = new Date()
+const hoursNow = dateNow.getHours()
+const minutesNow = dateNow.getMinutes()
 
 export default {
   components: { DateTime, ScrollGuard },
@@ -193,6 +200,13 @@ export default {
     },
     hasOpeningTime (day) {
       return day && day.times.length > 0
+    },
+    hasNotYetOpened (day) {
+      if (day.times.length) {
+        if (first(day.times).from.substring(0, 2) > hoursNow || (first(day.times).from.substring(0, 2) == hoursNow && first(day.times).from.substring(3, 5) > minutesNow) ) {
+          return true
+        }
+      }
     }
   },
   filters: {
@@ -207,8 +221,6 @@ export default {
       }
     },
     closed (day) {
-      // console.log("DAY", day)
-      // return true
       return day.closed === true
     }
   },
@@ -233,16 +245,15 @@ export default {
   },
   async created () {
     this.libraryTypes = [
-      { text: this.$t('library.type.municipal'), value: 'library main_library mobile regional' },
+      { text: this.$t('library.type.municipal'), value: 'municipal children music' },
+      { text: this.$t('library.type.mobile'), value: 'mobile' },
       { text: this.$t('library.type.polytechnic'), value: 'polytechnic' },
       { text: this.$t('library.type.university'), value: 'university' },
       { text: this.$t('library.type.special'), value: 'special' },
-      { text: this.$t('library.type.other'), value: 'home_service institutional children other' }
+      { text: this.$t('library.type.other'), value: 'home_service institutional vocational_college school' }
     ]
 
     let formLocationStatus = this.$session.get('search_page.location')
-
-    console.log('location', formLocationStatus)
 
     if (formLocationStatus === undefined) {
       this.locationChecked = this.$location.enabled
@@ -325,25 +336,26 @@ export default {
     flex: 1 1;
     white-space: nowrap;
     overflow: hidden;
+
+    a {
+
+      @include media-breakpoint-down("sm") {
+        font-size: 1rem;
+      }
+    }
   }
 
   .library-card-aside {
     display: flex;
     flex-flow: column;
-    justify-content: space-between;
   }
 
   .library-card-live {
-    font-size: $font-size-lg;
-    text-align: center;
-    position: relative;
-    bottom: -0.5rem;
+    text-align: right;
   }
 
   .library-card-status {
     text-align: right;
-    position: relative;
-    top: -0.5rem;
   }
 
   @include media-breakpoint-up("lg") {

@@ -51,7 +51,6 @@ export default {
   }),
   mounted () {
     function center (...points) {
-      // return [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]
       let [x, y] = [0, 0]
 
       for (let p of points) {

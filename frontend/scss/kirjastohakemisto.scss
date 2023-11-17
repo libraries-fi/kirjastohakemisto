@@ -1,4 +1,5 @@
 @import "~leaflet/dist/leaflet.css";
+@import "fonts";
 @import "bootstrap/bootstrap";
 @import "page.search";
 @import "index";
@@ -10,6 +11,19 @@ html {
   margin-left: calc(100vw - 100%);
 }
 
+[v-cloak] {
+  display: none;
+}
+
+*:focus {
+  outline: 2px dotted #0073E6 !important;
+  box-shadow: none !important;
+}
+
+footer *:focus {
+  outline: 2px dotted white !important;
+}
+
 .navbar.sticky-top {
   // Countermeasure to content shift fix in html{}
   margin-left: calc(100% - 100vw);
@@ -19,7 +33,6 @@ html {
 #l-footer,
 #l-alert-box {
   margin-left: calc(100% - 100vw);
-  padding-left: calc(#{spacing(3)} + 100vw - 100%);
 }
 
 .anchor {
@@ -47,7 +60,6 @@ html {
 .page-title {
   @extend .my-3;
 
-  font-size: xx-large;
   font-weight: bold;
 }
 
@@ -66,5 +78,144 @@ h3 > .svg-inline--fa:first-child {
 @include media-breakpoint-down("md") {
   .container {
     max-width: none;
+  }
+}
+
+.font-family-base {
+  font-family: $font-family-base;
+}
+
+.btn {
+  font-size: $h4-font-size;
+  font-weight: 700;
+}
+
+.btn-link {
+  font-weight: $font-weight-bolder !important;
+}
+
+.font-weight-bolder,
+a {
+  font-weight: $font-weight-bolder;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  a {
+    font-weight: $headings-font-weight;
+  }
+}
+
+@include media-breakpoint-down("sm") {
+  .tabs-library-content {
+    .nav-tabs {
+      display: block;
+      border-bottom: none;
+
+      .nav-item {
+        margin: .125rem;
+
+        a {
+          font-size: 1.25rem;
+          font-weight: 700;
+          background-color: $gray-100;
+          color: $gray-900;
+          border-radius: .25rem;
+
+          &.active {
+            background-color: #e2f2f2;
+            border: 1px solid $gray-400;
+          }
+
+          &:after {
+            position: absolute;
+            right: 1.5rem;
+            padding: 0 .5rem;
+            content: "\25ce";
+            font-weight: 400;
+          }
+
+          &.active:after {
+            content: "\25c9";
+          }
+        }
+      }
+    }
+  }
+}
+
+@include media-breakpoint-up("md") {
+  .tabs-library-content {
+    .nav-item:last-child {
+      display: none;
+    }
+  }
+}
+
+/* External links */
+
+html[lang="fi"] {
+  .main-content,
+  #kifi-footer, {
+    a[href^="http://"]:not([href*="www.kirjastot"]):before,
+    a[href^="https://"]:not([href*="www.kirjastot"]):before,
+    a[href^="http://"]:not([href*="192.168.77.112"]):before,
+    a[href^="https://"]:not([href*="192.168.77.112"]):before {
+      content: 'Ulkoinen linkki ';
+      position: absolute !important;
+      overflow: hidden;
+      clip: rect(1px,1px,1px,1px);
+      width: 1px;
+      height: 1px;
+      word-wrap: normal;
+    }
+
+    a[href^="http://"]:not([href*="hakemisto.kirjastot.fi"]):after,
+    a[href^="https://"]:not([href*="hakemisto.kirjastot.fi"]):after,
+    a[href^="http://"]:not([href*="192.168.77.112"]):after,
+    a[href^="https://"]:not([href*="192.168.77.112"]):after {
+      content: " "  url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAgLS0+DQo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiIFsNCgk8IUVOVElUWSBuc19mbG93cyAiaHR0cDovL25zLmFkb2JlLmNvbS9GbG93cy8xLjAvIj4NCl0+DQo8c3ZnIHZlcnNpb249IjEuMSINCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyINCgkgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMHB4IiBoZWlnaHQ9IjEycHgiIHZpZXdCb3g9IjAgMCAxMCAxMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAgMTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGRlZnM+DQo8L2RlZnM+DQo8cG9seWdvbiBmaWxsPSIjMjEyNTI5IiBwb2ludHM9IjQuOTk1LDUuODk0IDcuNzU5LDMuMTI5IDguOTYzLDQuMzMzIDEwLjEyNSwwIDUuNzksMS4xNiA2Ljk5MywyLjM2MyA0LjIyOSw1LjEyOCAiLz4NCjxwb2x5Z29uIGZpbGw9IiMyMTI1MjkiIHBvaW50cz0iNyw1LjEyOSA3LDkgMSw5IDEsMyA0Ljk5NywzIDMuOTk2LDIgMCwyIDAsMTAgOCwxMCA4LDYuMTI5ICIvPg0KPC9zdmc+DQo=');
+    }
+  }
+}
+
+html[lang="en"] {
+  .main-content,
+  #kifi-footer {
+    a[href^="http://"]:not([href*="directory.libraries.fi"]):before,
+    a[href^="https://"]:not([href*="directory.libraries.fi"]):before {
+      content: "External link ";
+      position: absolute !important;
+      overflow: hidden;
+      clip: rect(1px,1px,1px,1px);
+      width: 1px;
+      height: 1px;
+      word-wrap: normal;
+    }
+
+    a[href^="http://"]:not([href*="directory.libraries.fi"]):after,
+    a[href^="https://"]:not([href*="directory.libraries.fi"]):after {
+      content: " "  url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAgLS0+DQo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiIFsNCgk8IUVOVElUWSBuc19mbG93cyAiaHR0cDovL25zLmFkb2JlLmNvbS9GbG93cy8xLjAvIj4NCl0+DQo8c3ZnIHZlcnNpb249IjEuMSINCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyINCgkgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMHB4IiBoZWlnaHQ9IjEycHgiIHZpZXdCb3g9IjAgMCAxMCAxMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAgMTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGRlZnM+DQo8L2RlZnM+DQo8cG9seWdvbiBmaWxsPSIjMjEyNTI5IiBwb2ludHM9IjQuOTk1LDUuODk0IDcuNzU5LDMuMTI5IDguOTYzLDQuMzMzIDEwLjEyNSwwIDUuNzksMS4xNiA2Ljk5MywyLjM2MyA0LjIyOSw1LjEyOCAiLz4NCjxwb2x5Z29uIGZpbGw9IiMyMTI1MjkiIHBvaW50cz0iNyw1LjEyOSA3LDkgMSw5IDEsMyA0Ljk5NywzIDMuOTk2LDIgMCwyIDAsMTAgOCwxMCA4LDYuMTI5ICIvPg0KPC9zdmc+DQo=');
+    }
+  }
+}
+
+html[lang="sv"] {
+  .main-content,
+  #kifi-footer {
+    a[href^="http://"]:not([href*="registret.biblioteken.fi"]):before,
+    a[href^="https://"]:not([href*="registret.biblioteken.fi"]):before {
+      content: "Extern l\00E4nk ";
+      position: absolute !important;
+      overflow: hidden;
+      clip: rect(1px,1px,1px,1px);
+      width: 1px;
+      height: 1px;
+      word-wrap: normal;
+    }
+
+    a[href^="http://"]:not([href*="registret.biblioteken.fi"]):after,
+    a[href^="https://"]:not([href*="registret.biblioteken.fi"]):after {
+      content: " "  url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz4NCjwhLS0gR2VuZXJhdG9yOiBBZG9iZSBJbGx1c3RyYXRvciAxNS4xLjAsIFNWRyBFeHBvcnQgUGx1Zy1JbiAgLS0+DQo8IURPQ1RZUEUgc3ZnIFBVQkxJQyAiLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4iICJodHRwOi8vd3d3LnczLm9yZy9HcmFwaGljcy9TVkcvMS4xL0RURC9zdmcxMS5kdGQiIFsNCgk8IUVOVElUWSBuc19mbG93cyAiaHR0cDovL25zLmFkb2JlLmNvbS9GbG93cy8xLjAvIj4NCl0+DQo8c3ZnIHZlcnNpb249IjEuMSINCgkgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgeG1sbnM6YT0iaHR0cDovL25zLmFkb2JlLmNvbS9BZG9iZVNWR1ZpZXdlckV4dGVuc2lvbnMvMy4wLyINCgkgeD0iMHB4IiB5PSIwcHgiIHdpZHRoPSIxMHB4IiBoZWlnaHQ9IjEycHgiIHZpZXdCb3g9IjAgMCAxMCAxMiIgZW5hYmxlLWJhY2tncm91bmQ9Im5ldyAwIDAgMTAgMTIiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGRlZnM+DQo8L2RlZnM+DQo8cG9seWdvbiBmaWxsPSIjMjEyNTI5IiBwb2ludHM9IjQuOTk1LDUuODk0IDcuNzU5LDMuMTI5IDguOTYzLDQuMzMzIDEwLjEyNSwwIDUuNzksMS4xNiA2Ljk5MywyLjM2MyA0LjIyOSw1LjEyOCAiLz4NCjxwb2x5Z29uIGZpbGw9IiMyMTI1MjkiIHBvaW50cz0iNyw1LjEyOSA3LDkgMSw5IDEsMyA0Ljk5NywzIDMuOTk2LDIgMCwyIDAsMTAgOCwxMCA4LDYuMTI5ICIvPg0KPC9zdmc+DQo=');
+    }
   }
 }

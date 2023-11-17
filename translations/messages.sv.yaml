@@ -1,0 +1,146 @@
+accessibility-statement:
+  page-title: Tillgänglighetsutlåtande
+app:
+  beta-link-back: Du hittar bibliotekens aktuella uppgifter <a href="{url}">i det gamla Biblioteksregistret.
+  beta-warning: Det här är en beta-version av det nya Biblioteksregistret! Bibliotekens uppgifter är inte nödvändigtvis uppdaterade.
+  name: Biblioteksregistret
+  location: Lokalisering
+  searching: Informationen hämtas
+  info: för samman alla bibliotek i Finland. Här kan du enkelt kontrollera ditt eget biblioteks öppettider eller hitta bibliotek belägna nära dig. I Biblioteksregistret hittar du också länkadressen till ditt webbibliotek, där du t.ex. kan förnya dina lån.
+  skip-link: Hoppa till huvudinnehåll
+calendar:
+  closed: Stängt
+  date: Datum
+  schedules: Öppettider
+  week-day: Dag
+  week: Vecka {week}
+consortium:
+  city-count: Till nätverket hör {count} kommuner
+  homepage: Hemsidor
+  library-count: Till nätverket hör {count} bibliotek
+contact-info:
+  common: Allmänna 
+  phones: Allmänna telefonnummer
+  emails: Allmänna e-postadresser
+  links: Webbsidor
+  personnel: Personal
+  contact-details: Kontaktinformation
+  email: E-postadress
+  link: Webbsida
+  phone: Telefonummer
+  transit-directions: Trafikförbindelser
+  buses: Bussar
+  trams: Spårvagnar
+  trains: Tåg
+  parking-instructions: Parkering
+  contact-detail: Kontaktuppgifter
+  number-address: 'Adress / telefonnummer'
+front:
+  hello: Biblio­teks­registret för sam­man alla Fin­lands bib­lio­tek. Här kan du en­kelt kont­roll­era ditt eget biblio­teks öppet­tider eller hitta biblio­tek be­lägna nära dig.
+  open-search: Hitta ditt bibliotek
+index:
+  all-libraries: Alla bibliotek
+  by-consortium: Enligt nätverk
+  by-initial: Alfabetiskt register
+  by-municipality: Enligt kommun"
+  consortiums: 'Register: Biblioteksnätverk'
+  libraries: 'Register: Bibliotek'
+  library-count: Visas {count} bibliotek.
+  mobile-libraries: Biblioteksbussar
+  municipal-libraries: Kommunbibliotek
+  services: 'Register: Tjänster'
+  type-filter: Filtrera enligt bibliotekstyp
+info:
+  page-title: Information om tjänsten
+kifi:
+  footer-title: Länkar till Biblioteken.fi:s andra tjänster
+  name: Biblioteken.fi
+  public-library-logo: Symbolen för de allmänna biblioteken
+library:
+  tab-presentation: Presentation
+  tab-contact: Kontaktuppgifter
+  tab-services: Tjänster
+  tab-schedules: Öppettider
+  consortium: Biblioteksnätverk
+  address: Adress
+  location-mail: Postadress
+  location: Läge
+  nearby: I närheten av {city} 
+  other-links: Länkar till bibliotekets övriga nätsidor
+  photos: Bildgalleria
+  schedules: Öppettider
+  services: Tjänster
+  no-presentation: Det finns ingen presentation av biblioteket
+  no-services: Inga specifikt nämnda tjänster
+  web-library: Gå till webbiblioteket
+  web-library-tip: I webbiblioteket sköter du dina kundärenden, så som omlån m.m.
+  established-year: Grundat år
+  building: Byggnad
+  built: Byggt
+  architect: Arkitekt
+  interior: Inredning
+  type:
+    municipal: Kommunbibliotek
+    mobile: Biblioteksbussar
+    other: Andra bibliotek
+    polytechnic: Yrkeshögskolebibliotek
+    special: Specialbibliotek
+    university: Universitetsbibliotek
+nav:
+  accessibility-statement: Tillgänglighetsutlåtande
+  consortiums: Nätverk
+  feedback: Ta kontakt
+  info: Info
+  libraries: Bibliotek
+  search: Sökning
+  services: Tjänster
+photos:
+  prev-photo: Föregående bild
+  next-photo: Nästa bild
+  expand-photo: Expandera bilden
+schedules:
+  open: Öppet
+  closed: Stängt
+  date: Datum
+  day: Dag
+  self-service: Meröppettid
+  staffed: Personal på plats
+  times: Öppettider
+  week: Vecka
+  previous-week: Föregående vecka
+  next-week: Följande vecka
+  period-from: Fr.o.m.
+  opens-at: Öppnar kl.
+  check-schedules: Kontrollera öppettiderna
+search:
+  search-button: Sök
+  advanced: Avancerad sökning
+  library-type: Bibliotekstyp
+  load-more: Ladda fler resultat
+  only-open: Bara just nu öppna bibliotek
+  options: Inställningar
+  placeholder: Sök bibliotek eller tjänst
+  use-location: Använd geolokalisering
+service:
+  common-availability: Tillgång i andra bibliotek
+  offered-at: Finns i de här biblioteken
+  offered-elsewhere: i andra bibliotek
+  offered-nearby: Finns i ditt näribibliotek
+  service-tip: Mer information om tjänsten får du genom att klicka på länken
+  website: Mer information
+  max-distance: Maximalt avstånd
+service-type:
+  collection: Samlingar
+  hardware: Apparat
+  room: Rum
+  service: Tjänster
+  web_service: Webbtjänster
+404:
+  page-title: Sidan hittas inte (404)
+  page-text: Sidan du sökte hittas inte.
+  from-page: .
+  libraries-tip: Du kan söka bibliotek med sökningen eller bläddra bland dem på sidan
+  libraries-continued-tip: Där hittar du också biblioteken ordnade kommunvis, samt biblioteksbussarna.
+  consortium-tip: Söker du information om ett visst biblioteksnätverk? Du hittar nätverken på sidan
+  services-tip: Söker du efter bibliotekens tjänster? Du hittar dem på sidan
+  location-tip: Du har väl märkt att genom att tillåta lokalisering visas de närmaste biblioteken när du söker bibliotek eller väljer tjänster.

@@ -5,7 +5,7 @@
     <div class="index">
       <div v-for="group of groups" class="index-section">
         <a :id="group[0]" class="anchor"/>
-        <h2 class="index-section-title">
+        <h2 class="index-section-title border-top pt-2 mt-4">
           <a :href="`#${group[0]}`">{{ group[0] }}</a>
         </h2>
 
@@ -34,9 +34,7 @@ export default {
   }),
   methods: {
     buildGroups () {
-      this.groups = toArray(groupBy(this.consortiums, indexByInitial)).sort((a, b) => {
-        return a[0].localeCompare(b[0], detectLanguage())
-      })
+      this.groups = toArray(groupBy(this.consortiums.sort((a, b) => {return a.name.localeCompare(b.name, detectLanguage())}), indexByInitial))
     }
   },
   watch: {
@@ -54,7 +52,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>

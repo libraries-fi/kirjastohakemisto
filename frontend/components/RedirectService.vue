@@ -1,5 +1,5 @@
 <template>
-  <p>searching...</p>
+  <p>{{ $t('app.searching') }}...</p>
 </template>
 
 <script>

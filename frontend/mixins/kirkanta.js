@@ -15,7 +15,7 @@ class Kirkanta {
     return this.query(type, params).then(response => response.data)
   }
 
-  async get (type, id, params = {}) {
+  async get (type, id, params = {}, tryAlsoWithoutLocalization = false) {
     if (typeof id === 'object') {
       params = id
     } else {
@@ -24,7 +24,7 @@ class Kirkanta {
 
     params.limit = 1
 
-    let response = await this.query(type, params)
+    let response = await this.query(type, params, tryAlsoWithoutLocalization)
 
     if (response.data.items.length) {
       return {
@@ -37,7 +37,7 @@ class Kirkanta {
     }
   }
 
-  query (path, params = {}) {
+  async query (path, params = {}, tryAlsoWithoutLocalization = false) {
     /**
      * Convert arrays to strings because the API doesn't handle array notation.
      */
@@ -65,7 +65,13 @@ class Kirkanta {
       processed.lang = detectLanguage()
     }
 
-    return axios.get(`${this.__url}/${path}`, { params: processed })
+    let result = await axios.get(`${this.__url}/${path}`, { params: processed });
+    if (tryAlsoWithoutLocalization && !result.data.items.length) {
+      delete processed.lang;
+      // Try again without localization.
+      result = await axios.get(`${this.__url}/${path}`, { params: processed });
+    }
+    return result;
   }
 }
 

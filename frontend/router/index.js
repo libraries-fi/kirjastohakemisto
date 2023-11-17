@@ -1,8 +1,11 @@
 import Router from 'vue-router'
 
+import PageAccessibilityStatement from '@/components/PageAccessibilityStatement'
 import PageConsortium from '@/components/PageConsortium'
 import PageConsortiumIndex from '@/components/PageConsortiumIndex'
 import PageFront from '@/components/PageFront'
+import PageInfo from '@/components/PageInfo'
+import PageWidgetBuilder from '@/components/PageWidgetBuilder'
 import PageLibrary from '@/components/PageLibrary'
 import PageLibraryIndex from '@/components/PageLibraryIndex'
 import PageSearch from '@/components/PageSearch'
@@ -47,27 +50,27 @@ const pathMap = new Map([
   ['library.collection', new Map([
     ['fi', '/kirjastot'],
     ['en', '/libraries'],
-    ['sv', '/biblioteken']
+    ['sv', '/bibliotek']
   ])],
   ['library.collection.by-municipality', new Map([
     ['fi', 'kunnittain'],
     ['en', 'by-municipality'],
-    ['sv', 'sv--kunnittain--sv']
+    ['sv', 'enligt-kommun']
   ])],
   ['library.collection.by-consortium', new Map([
     ['fi', 'kimpoittain'],
     ['en', 'by-consortium'],
-    ['sv', 'sv--kimpoittain--sv']
+    ['sv', 'enligt-natverk']
   ])],
   ['consortium.collection', new Map([
     ['fi', '/kimpat'],
     ['en', '/consortiums'],
-    ['sv', '/sv--kimpat--sv']
+    ['sv', '/natverk']
   ])],
   ['consortium.show', new Map([
     ['fi', '/kimpat/:consortium'],
     ['en', '/consortiums/:consortium'],
-    ['sv', '/sv--kimpat--sv/:consortium']
+    ['sv', '/natverk/:consortium']
   ])],
   ['service.collection', new Map([
     ['fi', '/palvelut'],
@@ -79,10 +82,15 @@ const pathMap = new Map([
     ['en', '/services/:service'],
     ['sv', '/tjanster/:service']
   ])],
+  ['accessibility', new Map([
+    ['fi', '/saavutettavuusseloste'],
+    ['en', '/accessibility-statement'],
+    ['sv', '/tillganglighetsutlatande']
+  ])],
   ['info', new Map([
-    ['fi', '/tietoa'],
+    ['fi', '/tietoa-palvelusta'],
     ['en', '/info'],
-    ['sv', '/sv--tietoa--sv']
+    ['sv', '/info-om-tjansten']
   ])]
 ])
 
@@ -157,7 +165,7 @@ export const routerConfig = {
           component: PageConsortium,
           meta: {
             async titleCallback (context) {
-              return (await kirkanta.get('consortium', context.route.params.consortium)).data.name
+              return (await kirkanta.get('consortium', context.route.params.consortium, {}, true)).data.name
             }
           }
         }
@@ -188,10 +196,27 @@ export const routerConfig = {
       ]
     },
     {
+      path: '/accessibility-statement',
+      name: 'accessibility',
+      component: PageAccessibilityStatement,
+      meta: {
+        title: 'nav.accessibility-statement'
+      }
+    },
+    {
       path: '/info',
       name: 'info',
+      component: PageInfo,
       meta: {
         title: 'nav.info'
+      }
+    },
+    {
+      path: '/info/widgets',
+      name: 'info-widget',
+      component: PageWidgetBuilder,
+      meta: {
+        title: 'nav.widget-builder'
       }
     },
     {
@@ -215,7 +240,7 @@ export const routerConfig = {
       component: PageLibrary,
       meta: {
         async titleCallback (context) {
-          return (await kirkanta.get('library', context.route.params.library)).data.name
+          return (await kirkanta.get('library', context.route.params.library, {}, true)).data.name
         }
       }
     }

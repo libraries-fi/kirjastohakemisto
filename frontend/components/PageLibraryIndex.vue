@@ -16,7 +16,7 @@
         <b-form-radio-group id="type" v-model="form.type" :options="libraryTypeOptions"/>
       </b-form>
 
-      <p class="d-block mb-3 text-muted">{{ $t('index.library-count', {count: visibleCount}) }}</p>
+      <p class="d-block mb-3">{{ $t('index.library-count', {count: visibleCount}) }}</p>
 
       <div class="index">
         <div v-for="group of groups" class="index-section">
@@ -29,7 +29,7 @@
           </h2>
 
           <ul class="list-unstyled index-section-content">
-            <li v-for="library of group[1]">
+            <li class="" v-for="library of group[1]">
               <router-link :to="{name: 're', params: {slug: library.slug}}">{{ library.name }}</router-link>
             </li>
           </ul>
@@ -129,7 +129,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss">
-
-</style>

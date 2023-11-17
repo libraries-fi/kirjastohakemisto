@@ -17,6 +17,7 @@ import ApiImage from '@/components/api-image'
 
 import fi from 'messages.fi.yaml'
 import en from 'messages.en.yaml'
+import sv from 'messages.sv.yaml'
 import { detectLanguage } from '@/mixins'
 
 Vue.config.productionTip = false
@@ -45,7 +46,7 @@ function setPageId (id) {
 
 const i18n = new VueI18n({
   locale: detectLanguage(),
-  messages: { fi, en }
+  messages: { fi, en, sv }
 })
 
 const app = new Vue({

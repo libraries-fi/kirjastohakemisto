@@ -1,13 +1,13 @@
- <template>
-   <div class="pt-3">
-     <header class="mb-4">
-       <h1 class="sr-only">{{ $t('app.name') }}</h1>
-       <p class="h1 text-justify mb-4">{{ $t('front.hello') }}</p>
-       <router-link :to="{name: 'search'}" class="btn btn-primary">
-         <fa :icon="faSearch" class="mr-2"/>
-         {{ $t('front.open-search') }}
-       </router-link>
-     </header>
+<template>
+  <div class="pt-3">
+    <header class="mb-4">
+      <h1 class="sr-only">{{ $t('app.name') }}</h1>
+      <p class="h2 text-justify mb-4">{{ $t('front.hello') }}</p>
+      <router-link :to="{name: 'search'}" class="btn btn-primary">
+        <fa :icon="faSearch" class="mr-2"/>
+        {{ $t('front.open-search') }}
+      </router-link>
+    </header>
     <main v-if="this.currentCity">
       <p class="mb-1">{{ $t('library.nearby', {city: this.currentCity}) }}</p>
       <div class="showcase">
@@ -55,6 +55,12 @@ export default {
   @import "../scss/bootstrap/init";
 
   @include media-breakpoint-down("sm") {
+    .card {
+      flex-basis: 98%;
+    }
+  }
+
+  @include media-breakpoint-up("sm") {
     .card {
       flex-basis: 48%;
     }

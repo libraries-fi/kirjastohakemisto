@@ -1,156 +1,221 @@
 <template>
   <main v-if="library" class="pt-3">
-    <div class="visual-section">
+    <div v-b-visible="visibleHandler" class="d-block d-md-none" v-bind:style="{ 'height': '1px', 'background-color': 'transparent', 'position': 'fixed' }"></div>
+    <div class="">
       <h1>
         {{ library.name }}
-        <b-badge v-if="library.distance" variant="primary" class="float-right">{{ formatDistance(library.distance) }}</b-badge>
+        <b-badge v-if="library.distance" variant="light" class="float-right">{{ formatDistance(library.distance) }}</b-badge>
       </h1>
-      <blockquote v-if="library.slogan">
-        <fa :icon="faQuoteRight" aria-hidden="true"/>
-        {{ library.slogan }}
-      </blockquote>
-    </div>
-
-    <div class="visual-section">
-      <div class="row">
-        <div class="col-md-6 col-xl-7">
-          <b-tabs class="tabs-photos-map" @input="onChangeTab">
-            <b-tab title="Photos" v-if="library.pictures.length" active>
-              <section class="cover-photo-frame">
-                <h2 class="sr-only">{{ $t('library.photos') }}</h2>
-                <!-- <api-image :file="library.coverPhoto" size="medium" alt="" class="cover-photo"/> -->
-
-                <photos :source="library.pictures"/>
-              </section>
-            </b-tab>
-            <b-tab title="Map">
-              <map-view v-if="mapIsVisible" class="library-location" :pos="library.coordinates | coords"
-                :markers="[[library.name, [library.coordinates.lat, library.coordinates.lon]]]"/>
-            </b-tab>
-          </b-tabs>
+      <div class="d-block d-md-flex justify-content-between my-3">
+        <div class="col-md-6 col-xl-7 mt-md-3 mb-md-0">
+          <blockquote v-if="library.slogan">
+            <fa :icon="faQuoteRight" aria-hidden="true"/>
+            {{ library.slogan }}
+          </blockquote>
         </div>
-
-        <section v-if="library.schedules.length > 0" class="col-md-6 col-xl-5">
-          <h2 class="sr-only">{{ $t('library.schedules') }}</h2>
-          <schedules :schedules="library.schedules"/>
-        </section>
-      </div>
-    </div>
-
-    <section v-if="library.address" class="visual-section">
-      <div class="row">
-        <h2 class="sr-only">{{ $t("contact-info.contact-details") }}</h2>
-
-        <div class="col-md-4">
-          <h3 class="h2">
-            <fa :icon="faLocationArrow"/>
-            {{ $t('library.location') }}
+        <div v-if="consortium" class="col-md-6 col-xl-5 text-center mt-md-n2 consortium">
+          <h3 class="h5 text-uppercase mb-md-1">
+            {{ $t('library.consortium') }}: <span class="font-family-base font-weight-normal">{{ consortium.name }}</span>
           </h3>
-          <address>
-            <p>
-              {{ library.address.street }}, {{ library.address.zipcode }} {{ library.address.city }} <template v-if="library.address.area">({{ library.address.area }})</template><br/>
-              <span v-if="library.address.info" class="text-muted">{{ library.address.info }}</span>
-            </p>
-
-            <p v-if="library.email">
-              <b>{{ library.email.name }}</b><br/>
-              <a :href="'mailto:' + library.email.email">{{ library.email.email }}</a><br/>
-            </p>
-
-            <p v-if="library.phone">
-              <b>{{ library.phone.name }}</b><br/>
-              <a :href="'tel:+358' + library.phone.number.replace(/\D/g, '').substr(1)">{{ library.phone.number }}</a>
-            </p>
-          </address>
-        </div>
-
-        <div class="col-md-4">
-          <div v-if="library.mailAddress">
-            <h3 class="h2">
-              <fa :icon="faEnvelope"/>
-              {{ $t('library.location-mail') }}
-            </h3>
-            <p>
-              {{ library.name }}<br/>
-              <template v-if="library.mailAddress.street">{{ library.mailAddress.street }}<br/></template>
-              <template v-if="library.mailAddress.box_number">P.O. Box {{ library.mailAddress.box_number}}<br/></template>
-              <template>{{ library.mailAddress.zipcode }} {{ library.mailAddress.area.toUpperCase() }}<br/></template>
-            </p>
-          </div>
-        </div>
-
-        <div v-if="consortium" class="col-md-4">
-          <h3>
-            <fa :icon="faExchangeAlt"/>
-            {{ $t('library.consortium') }}
-          </h3>
-          <p>
-            {{ consortium.name }}</br>
-            <a :href="consortium.homepage" class="external-link">{{ $t('library.web-library') }}</a>
+          <p class="mb-md-0">
+            <a :href="consortium.homepage" class="d-block h4 font-family-base font-weight-bolder external-link mb-1">{{ $t('library.web-library') }}</a>
+            <small>{{ $t('library.web-library-tip') }}.</small>
           </p>
         </div>
       </div>
-    </section>
+    </div>
 
-    <section v-if="library.links" class="info-links visual-section">
-      <h2 class="sr-only">{{ $t("library.other-links") }}</h2>
-      <a v-for="link in someLinks" :href="link.url" class="info-link">
-        <fa v-if="linkIcon(link)" :icon="linkIcon(link)"/>
-        {{ link.name }}
-      </a>
-    </section>
-
-    <div v-html="library.description" class="text-justify visual-section"/>
-
-    <section v-if="hasPublicTransportation()">
-      <h2 class="sr-only">{{ $t("Transit directions") }}</h2>
-      <h3>{{ $t("Public transportation") }}</h3>
-
+    <div>
       <div class="row">
-        <div v-if="library.transit.buses" class="col-md-2">
-          <h4>{{ $t("Buses") }}</h4>
-          <p>{{ library.transit.buses }}</p>
-        </div>
-        <div v-if="library.transit.trams" class="col-md-2">
-          <h4>{{ $t("Trams") }}</h4>
-          <p>{{ library.transit.trams }}</p>
-        </div>
-        <div v-if="library.transit.trains" class="col-md-2">
-          <h4>{{ $t("Trains") }}</h4>
-          <p>{{ library.transit.trains }}</p>
-        </div>
+
+        <!-- Main column -->
+        <div class="col-md-6 col-xl-7">
+
+          <b-tabs class="tabs-library-content mb-5" @input="onChangeTab">
+            <b-tab :active="selected_tab_name === 'tab_presentation'">
+              <template #title>{{ $t('library.tab-presentation') }}</template>
+              <h2 class="mt-4">{{ $t('library.tab-presentation') }}</h2>
+              <section v-if="library.pictures.length" class="cover-photo-frame mb-3">
+                <h2 class="sr-only">{{ $t('library.photos') }}</h2>
+                <photos :source="library.pictures"/>
+              </section>
+              <section v-if="library.description" class="info-links">
+                <div v-if="library.description" v-html="library.description"/>
+              </section>
+              <section v-if="hasBuildingInfo()" class="info-links">
+                <p class="bg-light p-3">
+                <span v-if="library.founded" class="mr-3">
+                  <strong>{{ $t('library.established-year') }}:</strong> {{ library.founded }}
+                </span>
+                <span v-if="library.buildingInfo.buildingName" class="mr-3">
+                  <strong>{{ $t('library.building') }}:</strong> {{ library.buildingInfo.buildingName }}
+                </span>
+                <span v-if="library.buildingInfo.constructionYear" class="mr-3">
+                  <strong>{{ $t('library.built') }}:</strong> {{ library.buildingInfo.constructionYear }}
+                </span>
+                <span v-if="library.buildingInfo.architect" class="mr-3">
+                  <strong>{{ $t('library.architect') }}:</strong> {{ library.buildingInfo.architect }}
+                </span>
+                <span v-if="library.buildingInfo.interiorDesigner" class="">
+                  <strong>{{ $t('library.interior') }}:</strong> {{ library.buildingInfo.interiorDesigner }}
+                </span>
+                <p/>
+              </section>
+              <section v-if="!library.pictures.length && !library.description && !hasBuildingInfo()">
+                <p>{{ $t('library.no-presentation') }}.</p>
+              </section>
+            </b-tab>
+            <b-tab :active="selected_tab_name === 'tab_contact'">
+              <template #title>{{ $t('library.tab-contact') }}</template>
+              <section v-if="library.address" class="">
+                <h2 class="mt-4">{{ $t("contact-info.contact-details") }}</h2>
+                <h3 class="mt-3">{{ $t('library.address') }}</h3>
+                <table class="table table-sm table-border">
+                  <thead class="">
+                    <tr>
+                      <th class="">{{ $t('library.location') }}</th>
+                      <template v-if="library.mailAddress"><th class="">{{ $t('library.location-mail') }}</th></template>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td class="pt-2">
+                        <template v-if="library.name">{{ library.name }}<br/></template>
+                        <template v-if="library.address.street">{{ library.address.street }}<br/></template>
+                        <template v-if="library.address.zipcode">{{ library.address.zipcode }}</template>
+                        <template v-if="library.address.city">{{ library.address.city }}</template>
+                        <template v-if="library.address.area">({{ library.address.area }})</template><br/>
+                        <span v-if="library.address.info" class="text-muted">{{ library.address.info }}</span>
+                      </td>
+                      <template v-if="library.mailAddress">
+                        <td class="pt-2">
+                          <template v-if="library.name">{{ library.name }}<br/></template>
+                          <template v-if="library.mailAddress.street">{{ library.mailAddress.street }}<br/></template>
+                          <template v-if="library.mailAddress.box_number">P.O. Box {{ library.mailAddress.box_number}}<br/></template>
+                          <template v-if="library.mailAddress.zipcode">{{ library.mailAddress.zipcode }}</template>
+                          <template v-if="library.mailAddress.area">{{ library.mailAddress.area.toUpperCase() }}</template>
+                        </td>
+                      </template>
+                    </tr>
+                  </tbody>
+                </table>
+                <map-view v-if="mapIsVisible" class="library-location" :pos="library.coordinates | coords"
+                  :markers="[[library.name, [library.coordinates.lat, library.coordinates.lon]]]"/>
+              </section>
+              <section v-if="hasPublicTransportation()" class="border border-top-0 p-3 mb-4">
+                <h3>{{ $t("contact-info.transit-directions") }}</h3>
+                <p v-if="library.transitInfo.directions" class="mb-1">
+                  {{ library.transitInfo.directions }}
+                </p>
+                <p v-if="library.transitInfo.buses" class="mb-1">
+                  <strong>{{ $t("contact-info.buses") }}:</strong>
+                  {{ library.transitInfo.buses }}
+                </p>
+                <p v-if="library.transitInfo.trams" class="mb-1">
+                  <strong>{{ $t("contact-info.trams") }}:</strong>
+                  {{ library.transitInfo.trams }}
+                </p>
+                <p v-if="library.transitInfo.trains" class="mb-1">
+                  <strong>{{ $t("contact-info.trains") }}:</strong>
+                  {{ library.transitInfo.trains }}
+                </p>
+                <p v-if="library.transitInfo.parking" class="mb-1">
+                  <strong>{{ $t("contact-info.parking-instructions") }}:</strong>
+                  {{ library.transitInfo.parking }}
+                </p>
+              </section>
+              <section>
+                <contact-info :library="library"/>
+              </section>
+            </b-tab>
+            <b-tab :active="selected_tab_name === 'tab_services'">
+              <template #title>{{ $t('library.tab-services') }}</template>
+              <h2 class="mt-4">{{ $t('library.services') }}</h2>
+              <section v-if="hasServices()" class="">
+                <list-services :services="library.services"/>
+              </section>
+              <section v-else>
+                <p>{{ $t('library.no-services') }}.</p>
+              </section>
+            </b-tab>
+            <b-tab :active="selected_tab_name === 'tab_xs_schedules'">
+              <template #title>{{ $t('library.tab-schedules') }}</template>
+              </section>
+              <section v-if="library.schedules.length > 0" class="d-md-none">
+                <h2 class="mt-4">{{ $t('library.schedules') }}</h2>
+                <schedules :schedules="library.schedules"/>
+                <div v-if="periodInfo.length" class="period-info mt-3 pt-2">
+                  <template v-for="period of periodInfo">
+                    <p v-if="period.description" class="mb-1"><small>
+                      <strong v-if="period.validUntil">
+                        <date-time :date="period.validFrom" format="P" formal short/>–<date-time :date="period.validUntil" format="P" formal short/>:
+                      </strong>
+                      <strong v-else>
+                        {{ $t('schedules.period-from') }} <date-time :date="period.validFrom" format="P" formal short/>:
+                      </strong>
+                      <span>{{ period.description }}</span>
+                    </small></p>
+                  </template>
+                </div>
+              </section>
+            </b-tab>
+          </b-tabs>
+
+        </div><!-- End of col-md-6 col-xl-7 -->
+        <!-- End of main column -->
+
+        <!-- Sidebar -->
+        <section v-if="library.schedules.length > 0" class="col-md-6 col-xl-5 d-none d-md-block">
+          <h2 class="sr-only">{{ $t('library.schedules') }}</h2>
+          <schedules :schedules="library.schedules"/>
+          <div v-if="periodInfo.length" class="period-info mt-3 pt-2">
+            <template v-for="period of periodInfo">
+              <p v-if="period.description" class="mb-1"><small>
+                <strong v-if="period.validUntil">
+                  <date-time :date="period.validFrom" format="P" formal short/>–<date-time :date="period.validUntil" format="P" formal short/>:
+                </strong>
+                <strong v-else>
+                  {{ $t('schedules.period-from') }} <date-time :date="period.validFrom" format="P" formal short/>:
+                </strong>
+                <span>{{ period.description }}</span>
+              </small></p>
+            </template>
+          </div>
+        </section>
+        <!-- End of sidebar -->
+
       </div>
+    </div>
+  </main>
 
-      <div v-if="library.transit.parking">
-        <h3>{{ $t("Parking instructions") }}</h3>
-        {{ library.transit.parking }}
-      </div>
-    </section>
+  <main v-else-if="hasError">
+    <Page404/>
+  </main>
 
-    <section v-if="hasContactInfo()" class="visual-section">
-      <h2>
-        <fa :icon="faAddressCard"/>
-        {{ $t('contact-info.contact-details')}}
-      </h2>
-      <contact-info :library="library"/>
-    </section>
-
-    <section v-if="hasServices()" class="visual-section">
-      <list-services :services="library.services"/>
-    </section>
+  <main v-else>
+    <div>
+      <p class="mt-4 text-center">{{ $t('app.searching') }}...</p>
+    </div>
+    <div class="d-flex justify-content-center my-5">
+      <div id="page-load-throbber" class="loader" aria-hidden="true"></div>
+    </div>
   </main>
 </template>
 
 <script>
 import Popper from 'popper.js'
 
-import bPopover from 'bootstrap-vue/es/directives/popover/popover'
+import bPopover from 'bootstrap-vue'
+
+import { format } from 'date-fns'
+import DateTime from './DateTime.vue'
 
 import ListServices from './ListServices'
 import Schedules from './Schedules.vue'
 import MapView from './MapView'
 import Photos from './Photos'
 import ContactInfo from './ContactInfo'
+import Page404 from './Page404'
 
 import { coordStr, formatDistance, kirkanta, addToMapArray } from '@/mixins'
 import { faAddressCard, faExchangeAlt, faQuoteRight, faEnvelope, faLink, faLocationArrow } from '@fortawesome/free-solid-svg-icons'
@@ -179,17 +244,19 @@ const someRegexp = new RegExp([...iconMap.keys()].join('|').replace('.', '\\.'))
 
 export default {
   directives: { bPopover },
-  components: { ContactInfo, ListServices, MapView, Photos, Schedules },
+  components: { ContactInfo, ListServices, MapView, Photos, Schedules, DateTime, Page404 },
   data: () => ({
     activePopups: [],
     refs: {},
     library: null,
-    mapIsVisible: false,
     faQuoteRight,
     faEnvelope,
     faLocationArrow,
     faAddressCard,
-    faExchangeAlt
+    faExchangeAlt,
+    hasError: false,
+    mapIsVisible: false,
+    selected_tab_name: 'tab_xs_schedules'
   }),
   computed: {
     someLinks () {
@@ -206,6 +273,15 @@ export default {
     },
     consortium () {
       return this.refs.consortium[this.library.consortium]
+    },
+    periodInfo () {
+      let filtered = []
+      for (let pid in this.refs.period) {
+        if (this.refs.period[pid].description) {
+          filtered.push(this.refs.period[pid])
+        }
+      } 
+      return filtered
     }
   },
   filters: {
@@ -227,8 +303,20 @@ export default {
       return iconClass
     },
     hasPublicTransportation () {
-      if (this.library.transit) {
-        for (let info of Object.values(this.library.transit)) {
+      if (this.library.transitInfo) {
+        for (let info of Object.values(this.library.transitInfo)) {
+          if (info && info.length) {
+            return true
+          }
+        }
+      }
+      return false
+    },
+    hasBuildingInfo () {
+      if (this.library.founded) {
+        return true
+      } else if (this.library.buildingInfo) {
+        for (let info of Object.values(this.library.buildingInfo)) {
           if (info && info.length) {
             return true
           }
@@ -244,14 +332,20 @@ export default {
     },
     onChangeTab (index) {
       this.mapIsVisible = index === 1
-      // this.mapIsVisible = true
+    },
+    visibleHandler(isVisible) {
+      if (isVisible) {
+        this.selected_tab_name = 'tab_xs_schedules'
+      } else {
+        this.selected_tab_name = 'tab_presentation'
+      }
     }
   },
   async created () {
     const params = {
       'city.slug': this.$route.params.city,
       slug: this.$route.params.library,
-      with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'pictures', 'phoneNumbers', 'primaryContactInfo', 'schedules', 'services'],
+      with: ['departments', 'departments', 'emailAddresses', 'links', 'mailAddress', 'persons', 'pictures', 'phoneNumbers', 'primaryContactInfo', 'schedules', 'services', 'transitInfo', 'buildingInfo'],
       refs: ['city', 'consortium', 'period'],
       status: '',
       'period.start': '0w',
@@ -268,10 +362,14 @@ export default {
       // pass
     }
 
-    let response = await kirkanta.get('library', params)
+    try {
+      let response = await kirkanta.get('library', params, {}, true)
 
-    this.library = response.data
-    this.refs = response.refs
+      this.library = response.data
+      this.refs = response.refs
+    } catch (error) {
+      this.hasError = true
+    }
   }
 }
 </script>
@@ -309,37 +407,6 @@ export default {
     max-height: 100%;
   }
 
-  .visual-section {
-    padding-left: spacing(3);
-    margin-left: -1 * spacing(3);
-    border-left: 5px solid black;
-    margin-bottom: spacing(3);
-
-    &:nth-child(1) {
-      border-color: orange;
-    }
-
-    &:nth-child(2) {
-      border-color: rgb(87, 129, 238);
-    }
-
-    &:nth-child(3) {
-      border-color: rgb(195, 195, 195);
-    }
-
-    &:nth-child(4) {
-      border-color: rgb(167, 244, 135);
-    }
-
-    &:nth-child(5) {
-      border-color: rgb(219, 152, 255);
-    }
-
-    &:nth-child(6) {
-      border-color: rgb(164, 102, 112);
-    }
-  }
-
   .col-department {
     width: 250px;
   }
@@ -348,11 +415,21 @@ export default {
     height: 300px;
     overflow: hidden;
   }
+  
+  .consortium {
+    p {
+      line-height: 1
+    }
+  }
+
+  .period-info {
+    border-top: 1px dashed $table-border-color;
+    line-height: 1.25;
+  }
 </style>
 
-<style lang="scss">
-  .tabs-photos-map {
-    height: 100%;
+<style lang="scss" scoped>
+  .tabs-library-content {
     display: flex;
     flex-flow: column;
 
@@ -364,9 +441,14 @@ export default {
       }
     }
   }
-</style>
 
-<style lang="scss" scoped>
+  #page-load-throbber.loader {
+    font-size: .5rem;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0) scale(1, 1);
+  }
+
   .fa-facebook-square {
     color: #3b5998;
   }

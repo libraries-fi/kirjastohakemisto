@@ -63,7 +63,7 @@ class LocationController extends Controller
                     $location = json_decode($location);
 
                     if ($location->status == 'success' && $location->country == 'Finland') {
-                        $location->pos = $this->locate($location->city);
+                        $location->coords = $this->locate($location->city);
                     }
 
                     $this->cache->set($cache_key, $location);

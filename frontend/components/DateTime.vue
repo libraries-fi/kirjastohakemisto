@@ -9,7 +9,10 @@ import { format, parseISO } from 'date-fns'
 
 import fi from 'date-fns/esm/locale/fi'
 import sv from 'date-fns/esm/locale/sv'
-import en from 'date-fns/esm/locale/en-US'
+import en from 'date-fns/esm/locale/en-GB'
+
+import { detectLanguage } from '@/mixins'
+const langcode = detectLanguage()
 
 const locales = new Map([
   ['fi', fi],
@@ -21,13 +24,12 @@ export default {
   props: ['date', 'time', 'format', 'formal', 'short'],
   computed: {
     locale () {
-      let p = this.$parent
-      while (p.$parent) { p = p.$parent }
-
-      if (p.options && p.options.lang) {
-        return locales[p.options.lang]
-      } else {
+      if (langcode === 'fi') {
         return fi
+      } else if (langcode === 'sv') {
+        return sv
+      } else {
+        return en
       }
     },
     wrap: function () {
@@ -52,7 +54,8 @@ export default {
           let formatted = format(date, this.format, { locale: this.locale })
 
           if (short && this.format.substr(-1) === 'P' && date.getFullYear() === (new Date()).getFullYear()) {
-            formatted = formatted.substr(0, formatted.length - 4).replace(/[\s,]+$/, '')
+            let formattedfi = format(date, this.format, { locale: fi })
+            formatted = formattedfi.substr(0, formattedfi.length - 4).replace(/[\s,]+$/, '')
           }
           return formatted
         } else {
