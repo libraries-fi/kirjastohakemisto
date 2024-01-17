@@ -5,6 +5,7 @@ import PageConsortium from '@/components/PageConsortium'
 import PageConsortiumIndex from '@/components/PageConsortiumIndex'
 import PageFront from '@/components/PageFront'
 import PageInfo from '@/components/PageInfo'
+import PageOpenData from '@/components/PageOpenData'
 import PageWidgetBuilder from '@/components/PageWidgetBuilder'
 import PageLibrary from '@/components/PageLibrary'
 import PageLibraryIndex from '@/components/PageLibraryIndex'
@@ -217,6 +218,14 @@ export const routerConfig = {
       component: PageWidgetBuilder,
       meta: {
         title: 'nav.widget-builder'
+      }
+    },
+    {
+      path: '/open-data',
+      name: 'open-data',
+      component: PageOpenData,
+      meta: {
+        title: 'nav.open-data'
       }
     },
     {

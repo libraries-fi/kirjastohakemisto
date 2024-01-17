@@ -52,6 +52,15 @@ index:
   type-filter: Filtrera enligt bibliotekstyp
 info:
   page-title: Information om tjänsten
+open-data:
+  page-title: Öppen data
+  page-description: Biblioteksregistrets data är öppen. Datan erbjuds via ett öppet gränssnitt. Dessutom erbjuder Biblioteken.fi gränssnittskomponenter med vars hjälp du lätt kan bädda in bibliotekets uppgifter på bibliotekets egna sidor.
+  api-title: Gränssnitt
+  api-description: Bekanta dig med gränssnittsdokumentation för Biblioteksregistret.
+  api-link: Gränssnittsdokumentation
+  widgets-title: Gränssnittskomponenter
+  widgets-description: Med hjälp av gränssnittskomponenter kan du enkelt utnyttja informationen i Biblioteksregistret.
+  widgets-link: Använd de nya gränssnittkomponenterna
 kifi:
   footer-title: Länkar till Biblioteken.fi:s andra tjänster
   name: Biblioteken.fi
@@ -91,6 +100,8 @@ nav:
   consortiums: Nätverk
   feedback: Ta kontakt
   info: Info
+  open-data: Öppen data
+  widget-builder: Gränssnittskomponenter
   libraries: Bibliotek
   search: Sökning
   services: Tjänster

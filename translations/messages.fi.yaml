@@ -52,6 +52,15 @@ index:
   type-filter: Suodata kirjaston tyypin perusteella
 info:
   page-title: Tietoa palvelusta
+open-data:
+  page-title: Avoin data
+  page-description: Kirjastohakemiston data on avointa. Dataa tarjotaan avoimen rajapinnan kautta. Lisäksi Kirjastot.fi ylläpitää upokkeita, joilla kirjastojen tiedot voi helposti lisätä omille sivuilleen.
+  api-title: Rajapinta
+  api-description: Tutustu Kirjastohakemiston rajapinnan dokumentaatioon.
+  api-link: Rajapinnan dokumentaatio
+  widgets-title: Upokkeet
+  widgets-description: Upokkeiden avulla hyödynnät Kirjastohakemiston tietoja vaivattomasti.
+  widgets-link: Siirry upoketyökaluun
 kifi:
   footer-title: Linkkejä Kirjastot.fi'n muihin palveluihin
   name: Kirjastot.fi
@@ -91,6 +100,8 @@ nav:
   consortiums: Kimpat
   feedback: Ota yhteyttä
   info: Tietoa
+  open-data: Avoin data
+  widget-builder: Upoketyökalu
   libraries: Kirjastot
   search: Haku
   services: Palvelut

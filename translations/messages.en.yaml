@@ -52,6 +52,15 @@ index:
   type-filter: Filter by library type
 info:
   page-title: Information about the service
+open-data:
+  page-title: Open data
+  page-description: Library Database is an open data project. The data is available through our API. In addition, Libraries.fi maintains embeddable widgets with which it is easy to add your library's information on your website.
+  api-title: API
+  api-description: Read the Library Database API documentation.
+  api-link: API documentation
+  widgets-title: Embed
+  widgets-description: Easily embed library data on your webpages.
+  widgets-link: Build your widget
 kifi:
   footer-title: Links to other services provided by Libraries.fi 
   name: Libraries.fi
@@ -91,6 +100,8 @@ nav:
   consortiums: Consortiums
   feedback: Contact
   info: Info
+  open-data: Open data
+  widget-builder: Widget builder
   libraries: Libraries
   search: Search
   services: Services
