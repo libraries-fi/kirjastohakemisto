@@ -14,14 +14,14 @@
             <b-nav-item :to="{ name: 'consortium.collection' }">{{ $t('nav.consortiums') }}</b-nav-item>
             <b-nav-item :to="{ name: 'service.collection' }">{{ $t('nav.services') }}</b-nav-item>
             <li v-if="isFinnish()" class="nav-item ml-lg-4">
-              <a href="https://beta-registret.hakemisto.ahitofel.eu/" class="nav-link">Svenska</a>
+              <a href="https://registret.biblioteken.fi/" class="nav-link">Svenska</a>
             <li v-else class="nav-item ml-lg-4">
-              <a href="https://beta-hakemisto.hakemisto.ahitofel.eu/haku" class="nav-link">Suomeksi</a>
+              <a href="https://hakemisto.kirjastot.fi/haku" class="nav-link">Suomeksi</a>
             </li>
             <li v-if="isEnglish()" class="nav-item">
-              <a href="https://beta-registret.hakemisto.ahitofel.eu/" class="nav-link">Svenska</a>
+              <a href="https://registret.biblioteken.fi/" class="nav-link">Svenska</a>
             <li v-else class="nav-item">
-              <a href="https://beta-directory.hakemisto.ahitofel.eu/" class="nav-link">English</a>
+              <a href="https://directory.libraries.fi/" class="nav-link">English</a>
             </li>
           </b-navbar-nav>
         </b-collapse>

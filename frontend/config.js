@@ -5,13 +5,13 @@ const config = (() => {
     case 'production':
       return {
         apiUrl: 'https://api.kirjastot.fi',
-        widgetBuilderUrl: 'https://beta-hakemisto.hakemisto.ahitofel.eu/embed/v1'
+        widgetBuilderUrl: 'https://hakemisto.kirjastot.fi/embed/v1'
       }
 
     default:
       return {
         apiUrl: 'https://api.kirjastot.fi',
-        widgetBuilderUrl: 'https://beta-hakemisto.hakemisto.ahitofel.eu/embed/v1',
+        widgetBuilderUrl: 'https://hakemisto.kirjastot.fi/embed/v1',
         demo: {
           enabled: false,
           assetUrl: 'https://kirkanta.kirjastot.fi',
