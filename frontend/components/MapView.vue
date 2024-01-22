@@ -17,10 +17,19 @@ import { LMap, LTileLayer, LMarker, LPolygon } from 'vue2-leaflet'
  */
 L.Icon.Default.imagePath = process.env.NODE_ENV === 'production' ? '/dist/' : '/dev/'
 
+let iconRetinaUrl = require('leaflet/dist/images/marker-icon-2x.png');
+let iconUrl = require('leaflet/dist/images/marker-icon.png');
+let shadowUrl = require('leaflet/dist/images/marker-shadow.png');
+
+// Strip the extra /dist/ or /dev/ from the beginning of the image paths
+iconRetinaUrl = iconRetinaUrl.replace(L.Icon.Default.imagePath, '');
+iconUrl = iconUrl.replace(L.Icon.Default.imagePath, '');
+shadowUrl = shadowUrl.replace(L.Icon.Default.imagePath, '');
+
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: require('leaflet/dist/images/marker-icon-2x.png'),
-  iconUrl: require('leaflet/dist/images/marker-icon.png'),
-  shadowUrl: require('leaflet/dist/images/marker-shadow.png')
+  iconRetinaUrl: iconRetinaUrl,
+  iconUrl: iconUrl,
+  shadowUrl: shadowUrl
 })
 
 export default {
