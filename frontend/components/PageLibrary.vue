@@ -90,8 +90,8 @@
                       <template v-if="library.mailAddress">
                         <td class="pt-2">
                           <template v-if="library.name">{{ library.name }}<br/></template>
-                          <template v-if="library.mailAddress.street">{{ library.mailAddress.street }}<br/></template>
-                          <template v-if="library.mailAddress.box_number">P.O. Box {{ library.mailAddress.box_number}}<br/></template>
+                          <template v-if="library.mailAddress.boxNumber">{{ $t('library.pobox') }} {{ library.mailAddress.boxNumber}}<br/></template>
+                          <template v-else-if="library.mailAddress.street">{{ library.mailAddress.street }}<br/></template>
                           <template v-if="library.mailAddress.zipcode">{{ library.mailAddress.zipcode }}</template>
                           <template v-if="library.mailAddress.area">{{ library.mailAddress.area.toUpperCase() }}</template>
                         </td>

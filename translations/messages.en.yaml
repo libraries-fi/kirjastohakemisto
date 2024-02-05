@@ -88,6 +88,7 @@ library:
   built: Built
   architect: Architect
   interior: Interior
+  pobox: P.O Box
   type:
     municipal: Municipal libraries
     mobile: Mobile libraries

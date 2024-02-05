@@ -88,6 +88,7 @@ library:
   built: Byggt
   architect: Arkitekt
   interior: Inredning
+  pobox: PB
   type:
     municipal: Kommunbibliotek
     mobile: Biblioteksbussar
