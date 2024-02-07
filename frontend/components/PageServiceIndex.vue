@@ -10,7 +10,7 @@
         </h2>
 
         <ul class="list-unstyled index-section-content">
-          <li v-for="service of group[1]">
+          <li class="pb-2" v-for="service of group[1]">
             <router-link :to="{name: 'rs', params: {slug: service.slug}}">{{ service.name }}</router-link>
           </li>
         </ul>
@@ -53,3 +53,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .index-section-content li
+  {
+    line-height: 1.25;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+</style>

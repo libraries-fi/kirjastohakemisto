@@ -29,7 +29,7 @@
           </h2>
 
           <ul class="list-unstyled index-section-content">
-            <li class="" v-for="library of group[1]">
+            <li class="pb-2" v-for="library of group[1]">
               <router-link :to="{name: 're', params: {slug: library.slug}}">{{ library.name }}</router-link>
             </li>
           </ul>
@@ -129,3 +129,13 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .index-section-content li
+  {
+    line-height: 1.25;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+  }
+</style>

@@ -6,7 +6,7 @@
     <div v-for="group of categories">
       <h3>{{ $t(`service-type.${first(group)}`) }}</h3>
       <ul class="list-unstyled services-list">
-        <li v-for="(service, i) of last(group)" :id="service.uniqueId + '--item'">
+        <li class="pb-2" v-for="(service, i) of last(group)" :id="service.uniqueId + '--item'">
           <a :id="service.uniqueId" tabindex="0" @keyup.enter="doClick">
             {{ service.name || service.standardName }}
           </a>
@@ -118,6 +118,12 @@ export default {
   }
 
   .services-list {
+    li {
+      line-height: 1.25;
+      -webkit-column-break-inside: avoid;
+      page-break-inside: avoid;
+      break-inside: avoid;
+    }
     a {
       cursor: pointer;
       color: $kifilink !important;
