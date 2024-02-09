@@ -13,7 +13,9 @@
         <tbody v-for="entries in contactType.groups">
           <tr>
             <td class="w-50">
-              {{ first(entries).name }}<template v-if="first(entries).info">: {{ first(entries).info }}</template>
+              {{ first(entries).name }}
+              <template v-if="first(entries).jobTitle"><br/>{{ first(entries).jobTitle }}</template>
+              <template v-if="first(entries).responsibility"><br/>{{ first(entries).responsibility }}</template>
             </td>
             <td class="w-50">
               <ul class="list-group list-group-flush">
@@ -78,7 +80,8 @@ function libraryContactInfo (library) {
     if (person.email) {
       addToMapArray(contactInfos.get(contactType).namedGroups, name, {
         name,
-        info: ((person.jobTitle, person.responsibility) || '').toLowerCase(),
+        jobTitle: person.jobTitle,
+        responsibility: person.responsibility,
         email: person.email,
         type: 'email',
         grouptype: 'person'
@@ -88,7 +91,8 @@ function libraryContactInfo (library) {
     if (person.phone) {
       addToMapArray(contactInfos.get(contactType).namedGroups, name, {
         name,
-        info: ((person.jobTitle, person.responsibility) || '').toLowerCase(),
+        jobTitle: person.jobTitle,
+        responsibility: person.responsibility,
         number: person.phone,
         type: 'phone',
         grouptype: 'person'
