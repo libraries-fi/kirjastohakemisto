@@ -27,7 +27,13 @@
       </style>
     </noscript>
     <script defer data-domain="hakemisto.kirjastot.fi" type="text/plain" data-kifi-consent="analytics" data-src="https://plausible.io/js/script.js"></script>
-    <script src="https://cookiehub.net/c2/b5d438d6.js"></script>
+    {% if app.request.locale == 'sv' %}
+      <script src="https://cookiehub.net/c2/0540ebb9.js"></script>
+    {% elseif app.request.locale == 'en' %}
+      <script src="https://cookiehub.net/c2/e3d60465.js"></script>
+    {% else %}
+      <script src="https://cookiehub.net/c2/b5d438d6.js"></script>
+    {% endif %}
     <script src="https://gfx.kirjastot.fi/kifi/consent/csp-detect-blocked.js"></script>
     <script src="https://gfx.kirjastot.fi/kifi/consent/cookiehub.js"></script>
   </head>
