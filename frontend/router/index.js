@@ -27,7 +27,9 @@ function translateRoutes (routes) {
       let translations = pathMap.get(route.name)
 
       if (translations) {
-        route.path = translations.get(langcode)
+        let originalPath = route.path;
+        route.path = translations.get(langcode);
+        route.alias = originalPath;
       }
     }
 
