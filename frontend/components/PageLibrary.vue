@@ -249,6 +249,7 @@ export default {
     activePopups: [],
     refs: {},
     library: null,
+    consortium: null,
     faQuoteRight,
     faEnvelope,
     faLocationArrow,
@@ -270,9 +271,6 @@ export default {
       }
 
       return [...groups]
-    },
-    consortium () {
-      return this.refs.consortium[this.library.consortium]
     },
     periodInfo () {
       let filtered = []
@@ -367,8 +365,21 @@ export default {
 
       this.library = response.data
       this.refs = response.refs
+      this.consortium = this.refs.consortium[this.library.consortium];
     } catch (error) {
       this.hasError = true
+    }
+
+    // Fetch additional finna_data if the consortium is a Finna organisation
+    if (this.library.consortium && this.library.consortium > 0 && !this.refs.consortium[this.library.consortium]){
+      
+      try {
+        let response = await kirkanta.get('finna_organisation', this.library.consortium, {}, true);
+        this.consortium = response.data;
+      } catch (error) {
+        // This is an additional non-mandatory data request. No need to mark this as an error.
+      }
+
     }
   }
 }
