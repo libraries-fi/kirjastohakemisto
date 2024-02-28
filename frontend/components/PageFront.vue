@@ -39,7 +39,7 @@ export default {
     faSearch
   }),
   async created () {
-    let pos = await geolocation.getPosition()
+    let pos = this.$location.enabled ? await geolocation.getPosition() : await geolocation.ip()
     let response = await kirkanta.search('library', {
       'geo.pos': `${pos.coords.latitude},${pos.coords.longitude}`,
       limit: 10

@@ -35,6 +35,11 @@ export class GeoLocation {
       return true
     }
 
+    if (navigator.userAgent.includes('Firefox')) {
+      // Skip testing altogether for firefox because of this: https://bugzilla.mozilla.org/show_bug.cgi?id=1754372
+      return false;
+    } else {
+
     return navigator.permissions.query({ name: 'geolocation' })
       .then((permission) => {
         if (permission.state === 'granted') {
@@ -43,6 +48,7 @@ export class GeoLocation {
           throw new Error('Geolocation is disabled')
         }
       })
+    }
   }
 
   /**

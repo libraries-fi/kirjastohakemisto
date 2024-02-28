@@ -27,30 +27,21 @@
         </b-collapse>
         <div class="text-center">
           <div class="location-control text-uppercase">{{ $t('app.location') }}</div>
-          <toggle-button v-if="isFinnish()" v-model="locationDataAllowed"
-                         :labels="{checked: 'Päällä', unchecked: 'Pois'}"
-                         :color="{checked: '#358535', unchecked: '#747777', disabled: '#CCCCCC'}"
-                         :width="62"
-                         :title="locationPosition"
-          />
-          <toggle-button v-if="isSwedish()" v-model="locationDataAllowed"
-                         :labels="{checked: 'På', unchecked: 'Av'}"
-                         :color="{checked: '#358535', unchecked: '#747777', disabled: '#CCCCCC'}"
-                         :width="62"
-                         :title="locationPosition"
-          />
-          <toggle-button v-if="isEnglish()" v-model="locationDataAllowed"
-                         :labels="{checked: 'On', unchecked: 'Off'}"
-                         :color="{checked: '#358535', unchecked: '#747777', disabled: '#CCCCCC'}"
-                         :width="62"
-                         :title="locationPosition"
+          <toggle-button
+                 :labels="locationToggleLabels"
+                 :color="{checked: '#358535', unchecked: '#747777', disabled: '#CCCCCC'}"
+                 :width="62"
+                 :title="locationPosition"
+                 :value="locationDataEnabled"
+                 :sync="true"
+                 @change="toggleGeolocation"
           />
         </div>
       </div>
     </b-navbar>
     <div id="maincontent" class="container main-content pt-3 pb-5">
       <breadcrumb/>
-      <router-view></router-view>
+      <router-view :key="locationDataEnabled"></router-view>
     </div>
     <footer id="l-footer" class="bg-light">
       <kifi-footer/>
@@ -98,26 +89,18 @@ export default {
   components: { Breadcrumb, KifiFooter, LogoKirjastotFi, LogoBibliotekenFi, LogoLibrariesFi, LogoCommonLibrary },
   data: () => ({
     locationPosition: null,
+    locationDataEnabled: false,
     faExclamationTriangle
   }),
   computed: {
-    locationDataAllowed: {
-      get () {
-        // return this.$session.get('location.enabled') || false
-        return this.$location.enabled
-      },
-      async set (state) {
-        if (state) {
-          try {
-            let pos = await this.$location.tryEnable()
-            this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
-          } catch (error) {
-            console.error(error)
-            this.locationDataAllowed = false
-          }
-        } else {
-          this.$location.turnOff()
-        }
+    locationToggleLabels()
+    {
+      if (this.isFinnish()) {
+        return {checked: 'Päällä', unchecked: 'Pois'};
+      } else if (this.isSwedish()) {
+        return {checked: 'På', unchecked: 'Av'};
+      } else if (this.isEnglish()) {
+        return {checked: 'On', unchecked: 'Off'};
       }
     }
   },
@@ -141,15 +124,25 @@ export default {
       return false
     },
     toggleGeolocation (event) {
-      this.locationDataEnabled = !!event.value
+      if (event.value) {
+        this.$location.tryEnable()
+        .then(pos => {
+          this.locationPosition = `${pos.coords.latitude}, ${pos.coords.longitude}`
+          this.locationDataEnabled = true
+        })
+        .catch(error => {
+          console.error(error)
+          this.locationDataEnabled = false
+        });
+      } else {
+        this.$location.turnOff()
+        this.locationDataEnabled = false
+      }
     },
     closeStuff (event) {
       if (event.target.tagName !== 'A') {
         this.$root.$emit('bv::hide::popover')
       }
-    },
-    setGeolocationEnabled (state) {
-      this.$session.set('location.enabled', !!state)
     },
     async updatePageTitle () {
       let titleElement = document.querySelector('title')
@@ -171,6 +164,16 @@ export default {
   },
   mounted () {
     this.updatePageTitle()
+    if (this.$location.enabled){
+      // Make sure we have actually location enabled.
+      this.$location.isActive()
+      .then(() => {
+        this.locationDataEnabled = true;
+      })
+      .catch(() => {
+        this.locationDataEnabled = false;
+      });
+    }
   },
   watch: {
     async $route (to, from) {
