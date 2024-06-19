@@ -6,7 +6,7 @@ app:
   name: Kirjastohakemisto
   location: Paikannus
   searching: Haetaan tietoja
-  info: kokoaa yhteen kaikki Suomen kirjastot. Voit helposti tarkistaa oman kirjastosi aukioloajat, paikantaa lähelläsi sijaitsevat kirjastot sekä hoitaa esim. lainaustesi uusimiset Kirjastohakemistosta löytyvän verkkokirjaston linkkiosoitteen kautta.
+  info: kokoaa yhteen kaikki Suomen kirjastot. Voit helposti tarkistaa oman kirjastosi aukioloajat, paikantaa lähelläsi sijaitsevat kirjastot sekä hoitaa esim. lainaustesi uusimiset Kirjastohakemistosta löytyvän verkkokirjaston linkkiosoitteen kautta. Hakemistosta löydät myös oman kirjastosi yhteystiedot.
   skip-link: Hyppää pääsisältöön
 calendar:
   closed: Kiinni

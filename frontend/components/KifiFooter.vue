@@ -9,11 +9,11 @@
         <b-navbar-nav class="footer-nav justify-content-between d-block d-sm-flex flex-row flex-wrap w-100 px-3 px-xs-0">
 
           <li v-if="isFinnish()" class="nav-item border-bottom mb-1">
-            <a href="https://www.kirjastot.fi/feedback/kirjastohakemisto" class="nav-link">Ota yhteyttä</a>
+            <a href="https://www.kirjastot.fi/feedback/kirjastohakemisto" class="nav-link">Palaute</a>
           <li v-else-if="isSwedish()" class="nav-item border-bottom mb-1">
-            <a href="https://www.biblioteken.fi/feedback/kirjastohakemisto" class="nav-link">Ta kontakt</a>
+            <a href="https://www.biblioteken.fi/feedback/kirjastohakemisto" class="nav-link">Respons</a>
           <li v-else class="nav-item border-bottom mb-1">
-            <a href="https://www.libraries.fi/feedback/kirjastohakemisto" class="nav-link">Contact</a>
+            <a href="https://www.libraries.fi/feedback/kirjastohakemisto" class="nav-link">Feedback</a>
           </li>
 
           <li v-if="isFinnish()" class="nav-item border-bottom mb-1">
