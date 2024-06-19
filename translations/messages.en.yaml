@@ -6,7 +6,7 @@ app:
   name: Library Directory
   location: Location
   searching: Searching for information Haetaan tietoja
-  info: Library Directory brings all Finnish libraries together. You can easily check your local library's opening hours, locate the libraries near you, or renew your loans by using the link to the online library provided by the Library directory.
+  info: brings all Finnish libraries together. You can easily check your local library's opening hours, locate the libraries near you, or renew your loans by using the link to the online library provided by the Library directory. You can also find contact information for your local library.
   skip-link: Skip to main content
 calendar:
   closed: Closed
@@ -99,7 +99,7 @@ library:
 nav:
   accessibility-statement: Accessibility Statement
   consortiums: Consortiums
-  feedback: Contact
+  feedback: Feedback
   info: Info
   open-data: Open data
   widget-builder: Widget builder

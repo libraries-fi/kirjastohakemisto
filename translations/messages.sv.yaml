@@ -6,7 +6,7 @@ app:
   name: Biblioteksregistret
   location: Lokalisering
   searching: Informationen hämtas
-  info: för samman alla bibliotek i Finland. Här kan du enkelt kontrollera ditt eget biblioteks öppettider eller hitta bibliotek belägna nära dig. I Biblioteksregistret hittar du också länkadressen till ditt webbibliotek, där du t.ex. kan förnya dina lån.
+  info: för samman alla bibliotek i Finland. Här kan du enkelt kontrollera ditt eget biblioteks öppettider eller hitta bibliotek belägna nära dig. I Biblioteksregistret hittar du länkadressen till ditt webbibliotek, där du t.ex. kan förnya dina lån. I Biblioteksregistret hittar du också kontaktuppgifter till ditt eget bibliotek.
   skip-link: Hoppa till huvudinnehåll
 calendar:
   closed: Stängt
@@ -99,7 +99,7 @@ library:
 nav:
   accessibility-statement: Tillgänglighetsutlåtande
   consortiums: Nätverk
-  feedback: Ta kontakt
+  feedback: Respons
   info: Info
   open-data: Öppen data
   widget-builder: Gränssnittskomponenter
