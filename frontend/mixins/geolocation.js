@@ -35,19 +35,18 @@ export class GeoLocation {
       return true
     }
 
-    if (navigator.userAgent.includes('Firefox')) {
-      // Skip testing altogether for firefox because of this: https://bugzilla.mozilla.org/show_bug.cgi?id=1754372
-      return false;
+    if ('permissions' in navigator && 'query' in navigator.permissions) {
+      return navigator.permissions.query({ name: 'geolocation' })
+        .then((permission) => {
+          if (permission.state === 'granted') {
+            return true
+          } else {
+            throw new Error('Geolocation is disabled')
+          }
+        })
     } else {
-
-    return navigator.permissions.query({ name: 'geolocation' })
-      .then((permission) => {
-        if (permission.state === 'granted') {
-          return true
-        } else {
-          throw new Error('Geolocation is disabled')
-        }
-      })
+      // If permissions API is not available, proceed to request geolocation
+      return true
     }
   }
 
