@@ -18,6 +18,7 @@ import "./widget.switch";
 import "./widget.paged-table";
 import "./widget.load-more";
 import "./widget.content-peek";
+import "./widget.period-desc-changer";
 import "./widgets";
 
 import "./init.ie-warning";
@@ -38,6 +39,7 @@ $("[data-load-more]").kifiLoadMore();
 $("[data-gallery]").kifiGallery();
 $("[data-content-peek]").kifiContentPeek();
 $(".details").kifiDetails();
+$(".schedules-weekly").kifiPeriodDescChanger();
 
 const popovers = $("[data-toggle=\"popover\"]").popover({
   placement: "bottom",

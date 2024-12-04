@@ -130,4 +130,11 @@ $-thead-height: 2.61rem;
 
 .schedules-period {
   font-size: small;
+
+  .period-description {
+    display: none;
+    &.active {
+      display: block;
+    }
+  }
 }
