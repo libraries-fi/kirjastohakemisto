@@ -16,17 +16,16 @@
       </p>
       <p>Voit myös lähettää palautteesi sähköpostitse osoitteeseen <a href="mailto:toimitus@kirjastot.fi">toimitus@kirjastot.fi</a>.</p>
       <h2>Valvontaviranomainen</h2>
-      <p>Jos huomaat sivustolla saavutettavuusongelmia, anna ensin palautetta meille eli sivuston ylläpitäjälle. Vastauksessa voi mennä 14 päivää.
-        Jos et ole tyytyväinen saamaasi vastaukseen tai et saa vastausta lainkaan kahden viikon aikana,
-        <a href="https://www.saavutettavuusvaatimukset.fi/oikeutesi/ilmoita-ongelmasta-saavutettavuudessa/">voit tehdä ilmoituksen</a> Etelä-Suomen aluehallintovirastoon.
-        Etelä-Suomen aluehallintoviraston sivulla kerrotaan tarkasti, miten ilmoituksen voi tehdä ja miten asia käsitellään.
-      </p>
+      <p>Jos huomaat sivustolla saavutettavuusongelmia, anna ensin palautetta sivuston ylläpitäjälle. Vastauksessa voi mennä 14 päivää.
+      Jos et ole tyytyväinen saamaasi vastaukseen tai et saa vastausta lainkaan kahden viikon aikana, voit antaa palautteen Liikenne- ja viestintäviraston
+      digitaalisen esteettömyyden ja saavutettavuuden valvontaan. Liikenne- ja viestintäviraston digitaalisen esteettömyyden ja saavutettavuuden valvonnan
+      saavutettavuusvaatimukset.fi-sivustolla kerrotaan, miten valituksen voi tehdä ja miten asia käsitellään.</p>
       <h3>Valvontaviranomaisen yhteystiedot:</h3>
-      <p>Etelä-Suomen aluehallintovirasto</br>
-        Saavutettavuuden valvonnan yksikkö</br>
-        www.saavutettavuusvaatimukset.fi</br>
-        saavutettavuus(at)avi.fi</br>
-        puhelinnumero: 0295 016 000 (vaihde)
+      <p>Liikenne- ja viestintävirasto Traficom<br>
+        Digitaalisen esteettömyyden ja saavutettavuuden valvontayksikkö<br>
+        www.saavutettavuusvaatimukset.fi<br>
+        saavutettavuus@traficom.fi<br>
+        puhelinnumero vaihde 029 534 5000
       </p>
     </div>
 
@@ -45,17 +44,17 @@
       </p>
       <p>Du kan också skicka respons till e-postadressen <a href="mailto:redaktionen@biblioteken.fi">redaktionen@biblioteken.fi</a>.</p>
       <h2>Tillsynsmyndigheten</h2>
-      <p>Kontakta först oss, webbplatsens upprätthållare om du vill påtala brister i tillgängligheten på vår webbplats. 
-        Det kan ta 14 dagar innan du får ett svar. Om du inte är nöjd med det svar du har fått eller inte får något svar alls inom två veckor
-        <a href="https://www.xn--tillgnglighetskrav-ptb.fi/dina-rattigheter/anmal-bristande-tillganglighet/">kan du lämna in en anmälan om bristande tillgänglighet </a>
-        till Regionförvaltningsverket i Södra Finland. På regionförvaltningsverkets webbplats finns det beskrivet hur du kan lämna in en anmälan och hur ärendet behandlas.
+      <p>Om du noterar tillgänglighetsproblem på webbplatsen, lämna först respons till webbplatsens administratör. Svaret kan dröja 14 dagar.
+        Om du inte är nöjd med svaret eller om du inte har fått något svar efter två veckor, kan du lämna respons till Transport- och kommunikationsverket Traficoms enheten
+        för tillsyn över digital tillgänglighet. På Transport- och kommunikationsverket Traficoms webbplats tillgänglighetskrav.fi finns information om hur du lämnar in ett
+        klagomål och hur ärendet handläggs.
       </p>
       <h3>Tillsynsmyndighetens kontaktuppgifter:</h3>
-      <p>Regionförvaltningsverket i Södra Finland</br>
-        Enheten för tillgänglighetstillsyn</br>
-        www.tillgänglighetskrav.fi</br>
-        webbtillganglighet@rfv.fi</br>
-        telefonnummer växeln 0295 016 000
+      <p>Transport- och kommunikationsverket Traficom<br>
+        Tillsyn över digital tillgänglighet<br>
+        www.tillgänglighetskrav.fi<br>
+        webbtillganglighet@traficom.fi<br>
+        telefonnummer till växeln 029 534 5000
       </p>
     </div>
 
@@ -74,17 +73,17 @@
       </p>
       <p>You can also send your feedback by e-mail to <a href="mailto:toimitus@kirjastot.fi">toimitus@kirjastot.fi</a>.</p>
       <h2>Supervisory authority</h2>
-      <p>If you notice any accessibility issues on the website, please leave your feedback first with us, the administrators of the website. 
-        The answer can take up to 14 days. If you are not satisfied with the answer you have received, or do not receive a reply at all within two weeks, 
-        you may file a complaint with the Regional State Administrative Agency for Southern Finland. The agency website provides detailed information 
-        (in Finnish and Swedish only) on how to file a complaint and how the issue will be handled.
+      <p>If you notice accessibility issues on the website, first give feedback to the website administrator. Receiving a response may take 14 days.
+        If you are not satisfied with the response or you receive no response within two weeks, you can provide feedback to the Finnish Transport and
+        Communications Agency Traficom Digital Accessibility Supervision Unit. Traficom’s accessibility requirements website (saavutettavuusvaatimukset.fi)
+        explains how you can lodge a complaint and how the matter will be processed.
       </p>
       <h3>Contact information of the supervisory authority:</h3>
-      <p>Southern Finland Regional State Administrative Agency</br>
-        Accessibility Control Unit</br>
-        www.saavutettavuusvaatimukset.fi</br>
-        saavutettavuus(at)avi.fi</br>
-        Telephone (switchboard): +358 295 016 000
+      <p>Finnish Transport and Communications Agency Traficom<br>
+        Digital Accessibility Supervision<br>
+        www.saavutettavuusvaatimukset.fi<br>
+        saavutettavuus@traficom.fi<br>
+        Telephone +358 29 534 5000 (exchange)
       </p>
     </div>
 
