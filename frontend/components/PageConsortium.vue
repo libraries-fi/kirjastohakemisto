@@ -109,6 +109,7 @@ export default {
        * Each boundary of a municipality is an array of polygons (often just 1 but sometimes more)
        */
       const regions = Object.values(pBoundaries.data).reduce((acc, b) => {
+        if (b === null) return acc
         acc.push(...b)
         return acc
       }, [])
